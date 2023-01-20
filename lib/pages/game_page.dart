@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+double playerCardHeight = 95;
+double playerCardWidth = 55;
+double opponentCardHeight = 55;
+double opponentCardWidth = 32;
+
+double playerIconDisplayHeight = 50;
+double playerIconDisplayWidth = 50;
+
+double phoneHeight(var context) => MediaQuery.of(context).size.height;
+double phoneWidth(var context) => MediaQuery.of(context).size.width;
+
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
 
@@ -27,13 +38,8 @@ class GamePage extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.white, width: 5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 75,
-                          width: 50,
-                          color: Colors.black,
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: DummyCard()),
                     ),
                   )
                 ],
@@ -94,9 +100,72 @@ class OpponentSide extends StatelessWidget {
     return Flexible(
       flex: 20,
       child: Container(
-          decoration: BoxDecoration(
-        color: Colors.orange,
-      )),
+        decoration: BoxDecoration(
+          color: Colors.orange,
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                      DummyCard(
+                        isPlayer: false,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PlayerIconDisplay(
+                  icon: Icons.bakery_dining,
+                  bgColor: Colors.green.shade700,
+                ),
+                PlayerIconDisplay(
+                  icon: Icons.fire_extinguisher,
+                  bgColor: Colors.red.shade700,
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -111,10 +180,21 @@ class PlayerSide extends StatelessWidget {
     return Flexible(
       flex: 20,
       child: Container(
-          decoration: BoxDecoration(
-        color: Colors.lightGreen,
-        border: Border(top: BorderSide(color: Colors.white, width: 5)),
-      )),
+        decoration: BoxDecoration(
+          color: Colors.lightGreen,
+          border: Border(top: BorderSide(color: Colors.white, width: 5)),
+        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(phoneWidth(context) / 8, 0,
+                phoneWidth(context) / 8, phoneHeight(context) / 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [DummyCard(), DummyCard(), DummyCard()],
+            ),
+          )
+        ]),
+      ),
     );
   }
 }
@@ -138,7 +218,7 @@ class PlayerHandArea extends StatelessWidget {
                 Container(
                   color: Colors.green.shade300,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 6.0),
+                    padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +233,7 @@ class PlayerHandArea extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 300,
+                  width: 260,
                   height: 80,
                   color: Colors.black,
                 ),
@@ -181,18 +261,68 @@ class PlayerHandArea extends StatelessWidget {
 }
 
 class DummyCard extends StatelessWidget {
-  const DummyCard({
-    Key? key,
-  }) : super(key: key);
+  final bool isPlayer;
+  const DummyCard({Key? key, this.isPlayer = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
-        height: 100,
-        width: 60,
+        height: isPlayer ? playerCardHeight : opponentCardHeight,
+        width: isPlayer ? playerCardWidth : opponentCardWidth,
         color: Colors.black,
+      ),
+    );
+  }
+}
+
+class PlayerIconDisplay extends StatelessWidget {
+  final IconData icon;
+  final Color bgColor;
+  final int points;
+  const PlayerIconDisplay(
+      {Key? key, required this.icon, required this.bgColor, this.points = 0})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Container(
+            height: playerIconDisplayHeight,
+            width: playerIconDisplayWidth,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: bgColor,
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Icon(
+              icon,
+              color: Colors.white,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black,
+                  border: Border.all(color: Colors.white, width: 2)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  points.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
