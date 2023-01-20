@@ -1,8 +1,23 @@
+import 'package:elementals/pages/main_page.dart';
+import 'package:elementals/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
+
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const MainPage();
+        },
+        routes: routes),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,7 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router,
       debugShowCheckedModeBanner: false,
       title: 'Elementals',
       theme: ThemeData(
@@ -24,21 +40,6 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Elementals'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text(title)),
       ),
     );
   }
