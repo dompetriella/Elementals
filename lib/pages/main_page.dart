@@ -1,22 +1,10 @@
 import 'package:elementals/providers/game.dart';
+import 'package:elementals/providers/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../models/enums.dart';
-
-List<Color> getElementalGradient(ElementalType elementalType) {
-  switch (elementalType) {
-    case ElementalType.fire:
-      return [Colors.red, Colors.black];
-    case ElementalType.air:
-      return [Colors.yellow.shade300, Colors.black];
-    case ElementalType.water:
-      return [Colors.blue, Colors.black];
-    case ElementalType.earth:
-      return [Colors.green, Colors.black];
-  }
-}
 
 var animationDuration = 400;
 
@@ -29,10 +17,10 @@ class MainPage extends ConsumerWidget {
       body: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                colors:
-                    getElementalGradient(ref.watch(playerElementProvider)))),
+            gradient: LinearGradient(begin: Alignment.bottomLeft, colors: [
+          Theme.of(context).colorScheme.primary,
+          Theme.of(context).colorScheme.onPrimary
+        ])),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -91,8 +79,8 @@ class MainPage extends ConsumerWidget {
                               boxShadow: [
                                 BoxShadow(
                                     offset: Offset(-5, 5),
-                                    color: getElementalGradient(
-                                        ref.watch(playerElementProvider))[0])
+                                    color:
+                                        Theme.of(context).colorScheme.primary)
                               ],
                               border:
                                   Border.all(color: Colors.black, width: 2)),
@@ -123,8 +111,10 @@ class ElementSelectButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var chosenElement = ref.watch(playerElementProvider);
     return GestureDetector(
-      onTap: () =>
-          ref.watch(playerElementProvider.notifier).state = elementalType,
+      onTap: () {
+        ref.watch(playerElementProvider.notifier).state = elementalType;
+        updateThemeToElement(ref);
+      },
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
         width: 150,
@@ -135,7 +125,10 @@ class ElementSelectButton extends ConsumerWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: chosenElement == elementalType
-                    ? getElementalGradient(elementalType)
+                    ? [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary
+                      ]
                     : [Colors.transparent, Colors.transparent]),
             boxShadow: [
               chosenElement != elementalType
