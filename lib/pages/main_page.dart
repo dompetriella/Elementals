@@ -47,7 +47,7 @@ class MainPage extends ConsumerWidget {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                    color: Colors.grey.shade200),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 32.0, horizontal: 8.0),
