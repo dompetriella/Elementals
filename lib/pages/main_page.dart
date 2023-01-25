@@ -34,7 +34,7 @@ class MainPage extends ConsumerWidget {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey.shade200),
+                    color: Colors.grey.shade200.withOpacity(.25)),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 32.0, horizontal: 8.0),
@@ -43,7 +43,7 @@ class MainPage extends ConsumerWidget {
                     children: [
                       Text(
                         "Choose an Element",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(fontSize: 24, color: Colors.white70),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),

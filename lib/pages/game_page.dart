@@ -42,6 +42,7 @@ class GamePage extends StatelessWidget {
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
                           border: Border.all(color: Colors.white, width: 5)),
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -235,12 +236,12 @@ class PlayerHandArea extends StatelessWidget {
       ]),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
                 Container(
-                  color: theme.secondary,
+                  color: theme.secondary.withOpacity(0.5),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
                     child: Row(
@@ -263,32 +264,65 @@ class PlayerHandArea extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [theme.primary, Colors.black]),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.white, width: 2)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'End Turn',
-                        style: TextStyle(fontSize: 24, color: theme.onPrimary),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                PlayerTurnActionButton(
+                  theme: theme,
+                  text: 'Ability',
+                ),
+                PlayerTurnActionButton(
+                  theme: theme,
+                  text: 'Burn',
+                ),
+                PlayerTurnActionButton(
+                  theme: theme,
+                  text: 'End Turn',
+                ),
+              ],
             ),
           ]),
+    );
+  }
+}
+
+class PlayerTurnActionButton extends StatelessWidget {
+  final String text;
+  const PlayerTurnActionButton(
+      {Key? key, required this.theme, required this.text})
+      : super(key: key);
+
+  final ColorScheme theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 100,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [theme.primary, Colors.black]),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+              child: Center(
+                child: Text(
+                  text.toUpperCase(),
+                  style: TextStyle(fontSize: 16, color: theme.onPrimary),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
