@@ -22,9 +22,9 @@ Player _$PlayerFromJson(Map<String, dynamic> json) {
 mixin _$Player {
   String get id => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
-  List<ElementCard> get deck => throw _privateConstructorUsedError;
-  List<ElementCard> get hand => throw _privateConstructorUsedError;
-  List<ElementCard> get tableCards => throw _privateConstructorUsedError;
+  List<ElementCardData> get deck => throw _privateConstructorUsedError;
+  List<ElementCardData> get hand => throw _privateConstructorUsedError;
+  List<ElementCardData> get tableCards => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,9 +40,9 @@ abstract class $PlayerCopyWith<$Res> {
   $Res call(
       {String id,
       ElementalType elementalType,
-      List<ElementCard> deck,
-      List<ElementCard> hand,
-      List<ElementCard> tableCards,
+      List<ElementCardData> deck,
+      List<ElementCardData> hand,
+      List<ElementCardData> tableCards,
       String name});
 }
 
@@ -78,15 +78,15 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
       deck: null == deck
           ? _value.deck
           : deck // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       hand: null == hand
           ? _value.hand
           : hand // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       tableCards: null == tableCards
           ? _value.tableCards
           : tableCards // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -104,9 +104,9 @@ abstract class _$$_PlayerCopyWith<$Res> implements $PlayerCopyWith<$Res> {
   $Res call(
       {String id,
       ElementalType elementalType,
-      List<ElementCard> deck,
-      List<ElementCard> hand,
-      List<ElementCard> tableCards,
+      List<ElementCardData> deck,
+      List<ElementCardData> hand,
+      List<ElementCardData> tableCards,
       String name});
 }
 
@@ -139,15 +139,15 @@ class __$$_PlayerCopyWithImpl<$Res>
       deck: null == deck
           ? _value._deck
           : deck // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       hand: null == hand
           ? _value._hand
           : hand // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       tableCards: null == tableCards
           ? _value._tableCards
           : tableCards // ignore: cast_nullable_to_non_nullable
-              as List<ElementCard>,
+              as List<ElementCardData>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -162,9 +162,9 @@ class _$_Player implements _Player {
   const _$_Player(
       {required this.id,
       required this.elementalType,
-      final List<ElementCard> deck = const [],
-      final List<ElementCard> hand = const [],
-      final List<ElementCard> tableCards = const [],
+      final List<ElementCardData> deck = const [],
+      final List<ElementCardData> hand = const [],
+      final List<ElementCardData> tableCards = const [],
       this.name = 'CardPerson'})
       : _deck = deck,
         _hand = hand,
@@ -177,28 +177,28 @@ class _$_Player implements _Player {
   final String id;
   @override
   final ElementalType elementalType;
-  final List<ElementCard> _deck;
+  final List<ElementCardData> _deck;
   @override
   @JsonKey()
-  List<ElementCard> get deck {
+  List<ElementCardData> get deck {
     if (_deck is EqualUnmodifiableListView) return _deck;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_deck);
   }
 
-  final List<ElementCard> _hand;
+  final List<ElementCardData> _hand;
   @override
   @JsonKey()
-  List<ElementCard> get hand {
+  List<ElementCardData> get hand {
     if (_hand is EqualUnmodifiableListView) return _hand;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_hand);
   }
 
-  final List<ElementCard> _tableCards;
+  final List<ElementCardData> _tableCards;
   @override
   @JsonKey()
-  List<ElementCard> get tableCards {
+  List<ElementCardData> get tableCards {
     if (_tableCards is EqualUnmodifiableListView) return _tableCards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tableCards);
@@ -257,9 +257,9 @@ abstract class _Player implements Player {
   const factory _Player(
       {required final String id,
       required final ElementalType elementalType,
-      final List<ElementCard> deck,
-      final List<ElementCard> hand,
-      final List<ElementCard> tableCards,
+      final List<ElementCardData> deck,
+      final List<ElementCardData> hand,
+      final List<ElementCardData> tableCards,
       final String name}) = _$_Player;
 
   factory _Player.fromJson(Map<String, dynamic> json) = _$_Player.fromJson;
@@ -269,11 +269,11 @@ abstract class _Player implements Player {
   @override
   ElementalType get elementalType;
   @override
-  List<ElementCard> get deck;
+  List<ElementCardData> get deck;
   @override
-  List<ElementCard> get hand;
+  List<ElementCardData> get hand;
   @override
-  List<ElementCard> get tableCards;
+  List<ElementCardData> get tableCards;
   @override
   String get name;
   @override

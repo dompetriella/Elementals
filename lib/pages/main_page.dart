@@ -17,10 +17,9 @@ class MainPage extends ConsumerWidget {
       body: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
         decoration: BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.bottomLeft, colors: [
-          Theme.of(context).colorScheme.primary,
-          Theme.of(context).colorScheme.onPrimary
-        ])),
+            gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                colors: [Theme.of(context).colorScheme.primary, Colors.black])),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -125,10 +124,7 @@ class ElementSelectButton extends ConsumerWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: chosenElement == elementalType
-                    ? [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.onPrimary
-                      ]
+                    ? [Theme.of(context).colorScheme.primary, Colors.black]
                     : [Colors.transparent, Colors.transparent]),
             boxShadow: [
               chosenElement != elementalType

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'element_card.dart';
+part of 'element_card_data.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ElementCard _$ElementCardFromJson(Map<String, dynamic> json) {
-  return _ElementCard.fromJson(json);
+ElementCardData _$ElementCardDataFromJson(Map<String, dynamic> json) {
+  return _ElementCardData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ElementCard {
+mixin _$ElementCardData {
   String get id => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
@@ -28,15 +28,15 @@ mixin _$ElementCard {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ElementCardCopyWith<ElementCard> get copyWith =>
+  $ElementCardDataCopyWith<ElementCardData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ElementCardCopyWith<$Res> {
-  factory $ElementCardCopyWith(
-          ElementCard value, $Res Function(ElementCard) then) =
-      _$ElementCardCopyWithImpl<$Res, ElementCard>;
+abstract class $ElementCardDataCopyWith<$Res> {
+  factory $ElementCardDataCopyWith(
+          ElementCardData value, $Res Function(ElementCardData) then) =
+      _$ElementCardDataCopyWithImpl<$Res, ElementCardData>;
   @useResult
   $Res call(
       {String id,
@@ -47,9 +47,9 @@ abstract class $ElementCardCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ElementCardCopyWithImpl<$Res, $Val extends ElementCard>
-    implements $ElementCardCopyWith<$Res> {
-  _$ElementCardCopyWithImpl(this._value, this._then);
+class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
+    implements $ElementCardDataCopyWith<$Res> {
+  _$ElementCardDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -91,11 +91,11 @@ class _$ElementCardCopyWithImpl<$Res, $Val extends ElementCard>
 }
 
 /// @nodoc
-abstract class _$$_ElementCardCopyWith<$Res>
-    implements $ElementCardCopyWith<$Res> {
-  factory _$$_ElementCardCopyWith(
-          _$_ElementCard value, $Res Function(_$_ElementCard) then) =
-      __$$_ElementCardCopyWithImpl<$Res>;
+abstract class _$$_ElementCardDataCopyWith<$Res>
+    implements $ElementCardDataCopyWith<$Res> {
+  factory _$$_ElementCardDataCopyWith(
+          _$_ElementCardData value, $Res Function(_$_ElementCardData) then) =
+      __$$_ElementCardDataCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_ElementCardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ElementCardCopyWithImpl<$Res>
-    extends _$ElementCardCopyWithImpl<$Res, _$_ElementCard>
-    implements _$$_ElementCardCopyWith<$Res> {
-  __$$_ElementCardCopyWithImpl(
-      _$_ElementCard _value, $Res Function(_$_ElementCard) _then)
+class __$$_ElementCardDataCopyWithImpl<$Res>
+    extends _$ElementCardDataCopyWithImpl<$Res, _$_ElementCardData>
+    implements _$$_ElementCardDataCopyWith<$Res> {
+  __$$_ElementCardDataCopyWithImpl(
+      _$_ElementCardData _value, $Res Function(_$_ElementCardData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_ElementCardCopyWithImpl<$Res>
     Object? isFaceUp = null,
     Object? isSelected = null,
   }) {
-    return _then(_$_ElementCard(
+    return _then(_$_ElementCardData(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -150,16 +150,16 @@ class __$$_ElementCardCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ElementCard implements _ElementCard {
-  const _$_ElementCard(
+class _$_ElementCardData implements _ElementCardData {
+  const _$_ElementCardData(
       {required this.id,
       required this.elementalType,
       required this.value,
       this.isFaceUp = false,
       this.isSelected = false});
 
-  factory _$_ElementCard.fromJson(Map<String, dynamic> json) =>
-      _$$_ElementCardFromJson(json);
+  factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
+      _$$_ElementCardDataFromJson(json);
 
   @override
   final String id;
@@ -176,14 +176,14 @@ class _$_ElementCard implements _ElementCard {
 
   @override
   String toString() {
-    return 'ElementCard(id: $id, elementalType: $elementalType, value: $value, isFaceUp: $isFaceUp, isSelected: $isSelected)';
+    return 'ElementCardData(id: $id, elementalType: $elementalType, value: $value, isFaceUp: $isFaceUp, isSelected: $isSelected)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ElementCard &&
+            other is _$_ElementCardData &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
@@ -202,27 +202,27 @@ class _$_ElementCard implements _ElementCard {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ElementCardCopyWith<_$_ElementCard> get copyWith =>
-      __$$_ElementCardCopyWithImpl<_$_ElementCard>(this, _$identity);
+  _$$_ElementCardDataCopyWith<_$_ElementCardData> get copyWith =>
+      __$$_ElementCardDataCopyWithImpl<_$_ElementCardData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ElementCardToJson(
+    return _$$_ElementCardDataToJson(
       this,
     );
   }
 }
 
-abstract class _ElementCard implements ElementCard {
-  const factory _ElementCard(
+abstract class _ElementCardData implements ElementCardData {
+  const factory _ElementCardData(
       {required final String id,
       required final ElementalType elementalType,
       required final int value,
       final bool isFaceUp,
-      final bool isSelected}) = _$_ElementCard;
+      final bool isSelected}) = _$_ElementCardData;
 
-  factory _ElementCard.fromJson(Map<String, dynamic> json) =
-      _$_ElementCard.fromJson;
+  factory _ElementCardData.fromJson(Map<String, dynamic> json) =
+      _$_ElementCardData.fromJson;
 
   @override
   String get id;
@@ -236,6 +236,6 @@ abstract class _ElementCard implements ElementCard {
   bool get isSelected;
   @override
   @JsonKey(ignore: true)
-  _$$_ElementCardCopyWith<_$_ElementCard> get copyWith =>
+  _$$_ElementCardDataCopyWith<_$_ElementCardData> get copyWith =>
       throw _privateConstructorUsedError;
 }

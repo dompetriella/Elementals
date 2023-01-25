@@ -1,3 +1,4 @@
+import 'package:elementals/models/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -63,18 +64,23 @@ class SettingsButton extends StatelessWidget {
     return Positioned(
       top: 0,
       bottom: 0,
-      left: 0,
+      left: -5,
       child: Center(
         child: GestureDetector(
           onTap: () => context.go('/'),
           child: Container(
-            height: 80,
+            height: 70,
             width: 40,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.horizontal(
-                    left: Radius.zero, right: Radius.circular(10)),
-                boxShadow: [BoxShadow(color: Colors.white, spreadRadius: 2)],
-                color: Colors.blue),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white, width: 2),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black,
+                      Theme.of(context).colorScheme.primary
+                    ])),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
@@ -101,7 +107,7 @@ class OpponentSide extends StatelessWidget {
       flex: 20,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.orange,
+          color: Colors.purple,
         ),
         child: Stack(
           children: [
@@ -181,7 +187,13 @@ class PlayerSide extends StatelessWidget {
       flex: 20,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.lightGreen,
+          gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ]),
           border: Border(top: BorderSide(color: Colors.white, width: 5)),
         ),
         child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -206,19 +218,26 @@ class PlayerHandArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      color: Colors.green,
+      decoration: BoxDecoration(color: theme.primary, boxShadow: [
+        BoxShadow(
+            offset: Offset(0, -2),
+            color: Colors.grey.shade900,
+            blurRadius: 10,
+            spreadRadius: 2)
+      ]),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Column(
               children: [
                 Container(
-                  color: Colors.green.shade300,
+                  color: theme.secondary,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
+                    padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -235,24 +254,33 @@ class PlayerHandArea extends StatelessWidget {
                 Container(
                   width: 260,
                   height: 80,
-                  color: Colors.black,
+                  color: Colors.grey.shade900,
                 ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.green.shade800,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white, width: 2)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'End Turn',
-                    style: TextStyle(fontSize: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [theme.primary, Colors.black]),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'End Turn',
+                        style: TextStyle(fontSize: 24, color: theme.onPrimary),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ]),
@@ -271,7 +299,9 @@ class DummyCard extends StatelessWidget {
       child: Container(
         height: isPlayer ? playerCardHeight : opponentCardHeight,
         width: isPlayer ? playerCardWidth : opponentCardWidth,
-        color: Colors.black,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(2)),
       ),
     );
   }

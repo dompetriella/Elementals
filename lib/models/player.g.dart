@@ -10,15 +10,15 @@ _$_Player _$$_PlayerFromJson(Map<String, dynamic> json) => _$_Player(
       id: json['id'] as String,
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
       deck: (json['deck'] as List<dynamic>?)
-              ?.map((e) => ElementCard.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       hand: (json['hand'] as List<dynamic>?)
-              ?.map((e) => ElementCard.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       tableCards: (json['tableCards'] as List<dynamic>?)
-              ?.map((e) => ElementCard.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       name: json['name'] as String? ?? 'CardPerson',

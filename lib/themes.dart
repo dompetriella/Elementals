@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 Color firePrimaryColor = HexColor('#A31C1C');
-Color fireSecondaryColor = HexColor('C94921');
+Color fireSecondaryColor = HexColor('#C97221');
 
-Color airPrimaryColor = HexColor('#FFFB17');
+Color airPrimaryColor = HexColor('#CAC858');
 Color airSecondaryColor = HexColor('#FEFDBE');
 
 Color waterPrimaryColor = HexColor('#47559C');
@@ -17,7 +17,7 @@ var fireTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: firePrimaryColor,
-        onPrimary: Colors.black,
+        onPrimary: Colors.white,
         secondary: fireSecondaryColor,
         onSecondary: Colors.black,
         error: Colors.red,
@@ -31,7 +31,7 @@ var airTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: airPrimaryColor,
-        onPrimary: Colors.black,
+        onPrimary: Colors.white,
         secondary: airSecondaryColor,
         onSecondary: Colors.black,
         error: Colors.red,
@@ -45,7 +45,7 @@ var waterTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: waterPrimaryColor,
-        onPrimary: Colors.black,
+        onPrimary: Colors.white,
         secondary: waterSecondaryColor,
         onSecondary: Colors.black,
         error: Colors.red,
@@ -59,7 +59,7 @@ var earthTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: earthPrimaryColor,
-        onPrimary: Colors.black,
+        onPrimary: Colors.white,
         secondary: earthSecondaryColor,
         onSecondary: Colors.black,
         error: Colors.red,

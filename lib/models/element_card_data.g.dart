@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'element_card.dart';
+part of 'element_card_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ElementCard _$$_ElementCardFromJson(Map<String, dynamic> json) =>
-    _$_ElementCard(
+_$_ElementCardData _$$_ElementCardDataFromJson(Map<String, dynamic> json) =>
+    _$_ElementCardData(
       id: json['id'] as String,
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
       value: json['value'] as int,
@@ -15,7 +15,7 @@ _$_ElementCard _$$_ElementCardFromJson(Map<String, dynamic> json) =>
       isSelected: json['isSelected'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_ElementCardToJson(_$_ElementCard instance) =>
+Map<String, dynamic> _$$_ElementCardDataToJson(_$_ElementCardData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
