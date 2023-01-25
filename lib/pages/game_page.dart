@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:elementals/models/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../providers/game.dart';
 
 double playerCardHeight = 95;
 double playerCardWidth = 55;
@@ -288,20 +293,44 @@ class PlayerHandArea extends StatelessWidget {
   }
 }
 
-class DummyCard extends StatelessWidget {
+class DummyCard extends ConsumerWidget {
   final bool isPlayer;
   const DummyCard({Key? key, this.isPlayer = true}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
         height: isPlayer ? playerCardHeight : opponentCardHeight,
         width: isPlayer ? playerCardWidth : opponentCardWidth,
         decoration: BoxDecoration(
-            color: Colors.grey.shade900,
+            color: isPlayer ? Colors.transparent : Colors.grey.shade900,
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(-1, 2),
+                  blurRadius: 3,
+                  spreadRadius: 1,
+                  color: Colors.grey.shade800)
+            ],
+            image: isPlayer
+                ? DecorationImage(
+                    image: AssetImage(
+                        "assets/game_assets/${ref.watch(playerElementProvider).frontImagePath}.png"),
+                  )
+                : null,
             borderRadius: BorderRadius.circular(2)),
+        child: Center(
+          child: isPlayer
+              ? Text(
+                  (Random().nextInt(7) + 1).toString(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold),
+                )
+              : null,
+        ),
       ),
     );
   }
