@@ -10,9 +10,7 @@ class ElementCardData with _$ElementCardData {
   const factory ElementCardData(
       {required String id,
       required ElementalType elementalType,
-      required int value,
-      @Default(false) bool isFaceUp,
-      @Default(false) bool isSelected}) = _ElementCardData;
+      required int value}) = _ElementCardData;
 
   factory ElementCardData.fromJson(Map<String, Object?> json) =>
       _$ElementCardDataFromJson(json);

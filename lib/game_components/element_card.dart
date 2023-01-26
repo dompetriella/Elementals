@@ -1,3 +1,4 @@
+import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +9,15 @@ double opponentCardWidth = 32;
 
 class ElementCard extends StatelessWidget {
   final bool isPlayer;
-  final bool cardFaceUp;
-  final ElementalType elementalType;
+  final bool isSelected;
+  final bool isFaceUp;
+  final ElementCardData elementCardData;
   const ElementCard(
       {super.key,
-      required this.elementalType,
-      this.cardFaceUp = true,
-      this.isPlayer = true});
+      required this.elementCardData,
+      this.isPlayer = true,
+      this.isFaceUp = true,
+      this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
