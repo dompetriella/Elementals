@@ -2,10 +2,10 @@ import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:flutter/material.dart';
 
-double playerCardHeight = 95;
-double playerCardWidth = 55;
-double opponentCardHeight = 55;
-double opponentCardWidth = 32;
+double playerCardHeight = 90;
+double playerCardWidth = playerCardHeight * .58;
+double opponentCardHeight = 65;
+double opponentCardWidth = opponentCardHeight * .58;
 
 class ElementCard extends StatelessWidget {
   final bool isPlayer;

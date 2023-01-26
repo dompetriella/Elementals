@@ -21,10 +21,9 @@ ElementCardData _$ElementCardDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ElementCardData {
   String get id => throw _privateConstructorUsedError;
+  bool get isPlayer => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
-  bool get isFaceUp => throw _privateConstructorUsedError;
-  bool get isSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,12 +37,7 @@ abstract class $ElementCardDataCopyWith<$Res> {
           ElementCardData value, $Res Function(ElementCardData) then) =
       _$ElementCardDataCopyWithImpl<$Res, ElementCardData>;
   @useResult
-  $Res call(
-      {String id,
-      ElementalType elementalType,
-      int value,
-      bool isFaceUp,
-      bool isSelected});
+  $Res call({String id, bool isPlayer, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -60,16 +54,19 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
   @override
   $Res call({
     Object? id = null,
+    Object? isPlayer = null,
     Object? elementalType = null,
     Object? value = null,
-    Object? isFaceUp = null,
-    Object? isSelected = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      isPlayer: null == isPlayer
+          ? _value.isPlayer
+          : isPlayer // ignore: cast_nullable_to_non_nullable
+              as bool,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -78,14 +75,6 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
-      isFaceUp: null == isFaceUp
-          ? _value.isFaceUp
-          : isFaceUp // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSelected: null == isSelected
-          ? _value.isSelected
-          : isSelected // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -98,12 +87,7 @@ abstract class _$$_ElementCardDataCopyWith<$Res>
       __$$_ElementCardDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      ElementalType elementalType,
-      int value,
-      bool isFaceUp,
-      bool isSelected});
+  $Res call({String id, bool isPlayer, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -118,16 +102,19 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? isPlayer = null,
     Object? elementalType = null,
     Object? value = null,
-    Object? isFaceUp = null,
-    Object? isSelected = null,
   }) {
     return _then(_$_ElementCardData(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      isPlayer: null == isPlayer
+          ? _value.isPlayer
+          : isPlayer // ignore: cast_nullable_to_non_nullable
+              as bool,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -136,14 +123,6 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
-      isFaceUp: null == isFaceUp
-          ? _value.isFaceUp
-          : isFaceUp // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSelected: null == isSelected
-          ? _value.isSelected
-          : isSelected // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -153,10 +132,9 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
 class _$_ElementCardData implements _ElementCardData {
   const _$_ElementCardData(
       {required this.id,
+      required this.isPlayer,
       required this.elementalType,
-      required this.value,
-      this.isFaceUp = false,
-      this.isSelected = false});
+      required this.value});
 
   factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
       _$$_ElementCardDataFromJson(json);
@@ -164,19 +142,15 @@ class _$_ElementCardData implements _ElementCardData {
   @override
   final String id;
   @override
+  final bool isPlayer;
+  @override
   final ElementalType elementalType;
   @override
   final int value;
-  @override
-  @JsonKey()
-  final bool isFaceUp;
-  @override
-  @JsonKey()
-  final bool isSelected;
 
   @override
   String toString() {
-    return 'ElementCardData(id: $id, elementalType: $elementalType, value: $value, isFaceUp: $isFaceUp, isSelected: $isSelected)';
+    return 'ElementCardData(id: $id, isPlayer: $isPlayer, elementalType: $elementalType, value: $value)';
   }
 
   @override
@@ -185,19 +159,17 @@ class _$_ElementCardData implements _ElementCardData {
         (other.runtimeType == runtimeType &&
             other is _$_ElementCardData &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.isPlayer, isPlayer) ||
+                other.isPlayer == isPlayer) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
-            (identical(other.value, value) || other.value == value) &&
-            (identical(other.isFaceUp, isFaceUp) ||
-                other.isFaceUp == isFaceUp) &&
-            (identical(other.isSelected, isSelected) ||
-                other.isSelected == isSelected));
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, elementalType, value, isFaceUp, isSelected);
+      Object.hash(runtimeType, id, isPlayer, elementalType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -216,10 +188,9 @@ class _$_ElementCardData implements _ElementCardData {
 abstract class _ElementCardData implements ElementCardData {
   const factory _ElementCardData(
       {required final String id,
+      required final bool isPlayer,
       required final ElementalType elementalType,
-      required final int value,
-      final bool isFaceUp,
-      final bool isSelected}) = _$_ElementCardData;
+      required final int value}) = _$_ElementCardData;
 
   factory _ElementCardData.fromJson(Map<String, dynamic> json) =
       _$_ElementCardData.fromJson;
@@ -227,13 +198,11 @@ abstract class _ElementCardData implements ElementCardData {
   @override
   String get id;
   @override
+  bool get isPlayer;
+  @override
   ElementalType get elementalType;
   @override
   int get value;
-  @override
-  bool get isFaceUp;
-  @override
-  bool get isSelected;
   @override
   @JsonKey(ignore: true)
   _$$_ElementCardDataCopyWith<_$_ElementCardData> get copyWith =>

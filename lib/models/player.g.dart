@@ -35,7 +35,7 @@ Map<String, dynamic> _$$_PlayerToJson(_$_Player instance) => <String, dynamic>{
 
 const _$ElementalTypeEnumMap = {
   ElementalType.fire: 'fire',
-  ElementalType.water: 'water',
   ElementalType.air: 'air',
+  ElementalType.water: 'water',
   ElementalType.earth: 'earth',
 };

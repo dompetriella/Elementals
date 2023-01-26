@@ -1,22 +1,24 @@
 import 'dart:math';
 
 import 'package:elementals/models/enums.dart';
+import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hexcolor/hexcolor.dart';
 
-import '../providers/game.dart';
-
-double playerCardHeight = 95;
-double playerCardWidth = 55;
-double opponentCardHeight = 55;
-double opponentCardWidth = 32;
-
-double playerIconDisplayHeight = 50;
-double playerIconDisplayWidth = 50;
+import '../providers/gameProvider.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
+
+double playerCardHeight = 90;
+double playerCardWidth = playerCardHeight * .58;
+double opponentCardHeight = 65;
+double opponentCardWidth = opponentCardHeight * .58;
+
+double playerIconDisplayHeight = 40;
+double playerIconDisplayWidth = 40;
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -102,79 +104,62 @@ class SettingsButton extends StatelessWidget {
   }
 }
 
-class OpponentSide extends StatelessWidget {
+class OpponentSide extends ConsumerWidget {
   const OpponentSide({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var element = ref.watch(opponentElementProvider);
     return Flexible(
       flex: 20,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.purple,
-        ),
-        child: Stack(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              HexColor(element.primaryColor),
+              HexColor(element.secondaryColor)
+            ])),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                      DummyCard(
-                        isPlayer: false,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 PlayerIconDisplay(
                   icon: Icons.bakery_dining,
-                  bgColor: Colors.green.shade700,
+                  bgColor: ref.watch(themeProvider).colorScheme.primary,
                 ),
                 PlayerIconDisplay(
                   icon: Icons.fire_extinguisher,
-                  bgColor: Colors.red.shade700,
+                  bgColor:
+                      HexColor(ref.watch(opponentElementProvider).primaryColor),
                 ),
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DummyCard(
+                  isPlayer: false,
+                ),
+                DummyCard(
+                  isPlayer: false,
+                ),
+                DummyCard(
+                  isPlayer: false,
+                ),
+                DummyCard(
+                  isPlayer: false,
+                ),
+                DummyCard(
+                  isPlayer: false,
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -202,16 +187,18 @@ class PlayerSide extends StatelessWidget {
               ]),
           border: Border(top: BorderSide(color: Colors.white, width: 5)),
         ),
-        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(phoneWidth(context) / 8, 0,
-                phoneWidth(context) / 8, phoneHeight(context) / 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [DummyCard(), DummyCard(), DummyCard()],
-            ),
-          )
-        ]),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 48, right: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [PlayerDiscardPile()],
+                ),
+              )
+            ]),
       ),
     );
   }
@@ -241,9 +228,12 @@ class PlayerHandArea extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  color: theme.secondary.withOpacity(0.5),
+                  decoration: BoxDecoration(
+                      color: theme.secondary.withOpacity(0.5),
+                      borderRadius:
+                          BorderRadius.vertical(bottom: Radius.circular(10))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -267,10 +257,6 @@ class PlayerHandArea extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                PlayerTurnActionButton(
-                  theme: theme,
-                  text: 'Ability',
-                ),
                 PlayerTurnActionButton(
                   theme: theme,
                   text: 'Burn',
@@ -302,21 +288,27 @@ class PlayerTurnActionButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            width: 100,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [theme.primary, Colors.black]),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2)),
+                border: Border.all(color: Colors.white, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 3,
+                      spreadRadius: 1,
+                      offset: Offset(0, 3),
+                      color: Colors.grey.shade800)
+                ]),
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               child: Center(
                 child: Text(
                   text.toUpperCase(),
-                  style: TextStyle(fontSize: 16, color: theme.onPrimary),
+                  style: TextStyle(fontSize: 24, color: Colors.white),
                 ),
               ),
             ),
@@ -352,14 +344,17 @@ class DummyCard extends ConsumerWidget {
                     image: AssetImage(
                         "assets/game_assets/${ref.watch(playerElementProvider).frontImagePath}.png"),
                   )
-                : null,
+                : DecorationImage(
+                    image: AssetImage(
+                        "assets/game_assets/${ref.watch(opponentElementProvider).backImagePath}.png"),
+                  ),
             borderRadius: BorderRadius.circular(2)),
         child: Center(
           child: isPlayer
               ? Text(
                   (Random().nextInt(7) + 1).toString(),
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Colors.white,
                       fontSize: 32,
                       fontWeight: FontWeight.bold),
                 )
@@ -382,41 +377,50 @@ class PlayerIconDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            height: playerIconDisplayHeight,
-            width: playerIconDisplayWidth,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: bgColor,
-                border: Border.all(color: Colors.white, width: 2)),
-            child: Icon(
-              icon,
-              color: Colors.white,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                  border: Border.all(color: Colors.white, width: 2)),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  points.toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24),
-                ),
-              ),
-            ),
-          )
-        ],
+      child: Container(
+        height: playerIconDisplayHeight,
+        width: playerIconDisplayWidth,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.shade900,
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 2))
+            ],
+            color: bgColor,
+            border: Border.all(color: Colors.white, width: 2)),
+        child: Icon(
+          icon,
+          color: Colors.white,
+        ),
       ),
+    );
+  }
+}
+
+class PlayerDiscardPile extends StatelessWidget {
+  const PlayerDiscardPile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            '10 / 20',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onPrimary),
+          ),
+        )),
+        DummyCard(),
+      ],
     );
   }
 }

@@ -31,7 +31,7 @@ var airTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: airPrimaryColor,
-        onPrimary: Colors.white,
+        onPrimary: Colors.black,
         secondary: airSecondaryColor,
         onSecondary: Colors.black,
         error: Colors.red,

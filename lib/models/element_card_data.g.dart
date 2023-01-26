@@ -9,24 +9,22 @@ part of 'element_card_data.dart';
 _$_ElementCardData _$$_ElementCardDataFromJson(Map<String, dynamic> json) =>
     _$_ElementCardData(
       id: json['id'] as String,
+      isPlayer: json['isPlayer'] as bool,
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
       value: json['value'] as int,
-      isFaceUp: json['isFaceUp'] as bool? ?? false,
-      isSelected: json['isSelected'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_ElementCardDataToJson(_$_ElementCardData instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'isPlayer': instance.isPlayer,
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
       'value': instance.value,
-      'isFaceUp': instance.isFaceUp,
-      'isSelected': instance.isSelected,
     };
 
 const _$ElementalTypeEnumMap = {
   ElementalType.fire: 'fire',
-  ElementalType.water: 'water',
   ElementalType.air: 'air',
+  ElementalType.water: 'water',
   ElementalType.earth: 'earth',
 };

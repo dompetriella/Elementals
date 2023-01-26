@@ -1,5 +1,5 @@
 import 'package:elementals/pages/main_page.dart';
-import 'package:elementals/providers/theme.dart';
+import 'package:elementals/providers/themeProvider.dart';
 import 'package:elementals/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
