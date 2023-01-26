@@ -9,7 +9,6 @@ part of 'element_card_data.dart';
 _$_ElementCardData _$$_ElementCardDataFromJson(Map<String, dynamic> json) =>
     _$_ElementCardData(
       id: json['id'] as String,
-      isPlayer: json['isPlayer'] as bool,
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
       value: json['value'] as int,
     );
@@ -17,7 +16,6 @@ _$_ElementCardData _$$_ElementCardDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_ElementCardDataToJson(_$_ElementCardData instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'isPlayer': instance.isPlayer,
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
       'value': instance.value,
     };

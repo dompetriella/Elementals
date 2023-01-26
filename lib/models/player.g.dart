@@ -17,7 +17,7 @@ _$_Player _$$_PlayerFromJson(Map<String, dynamic> json) => _$_Player(
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      tableCards: (json['tableCards'] as List<dynamic>?)
+      discardPile: (json['discardPile'] as List<dynamic>?)
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$_PlayerToJson(_$_Player instance) => <String, dynamic>{
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
       'deck': instance.deck,
       'hand': instance.hand,
-      'tableCards': instance.tableCards,
+      'discardPile': instance.discardPile,
       'name': instance.name,
     };
 

@@ -1,5 +1,5 @@
 import 'package:elementals/models/enums.dart';
-import 'package:elementals/providers/gameProvider.dart';
+import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +9,7 @@ final themeProvider = StateProvider<ThemeData>((ref) {
 });
 
 updateThemeToElement(WidgetRef ref) {
-  switch (ref.watch(playerElementProvider)) {
+  switch (ref.watch(playerProvider).elementalType) {
     case ElementalType.fire:
       ref.watch(themeProvider.notifier).state = fireTheme;
       break;

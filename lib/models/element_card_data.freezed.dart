@@ -21,7 +21,6 @@ ElementCardData _$ElementCardDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ElementCardData {
   String get id => throw _privateConstructorUsedError;
-  bool get isPlayer => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
@@ -37,7 +36,7 @@ abstract class $ElementCardDataCopyWith<$Res> {
           ElementCardData value, $Res Function(ElementCardData) then) =
       _$ElementCardDataCopyWithImpl<$Res, ElementCardData>;
   @useResult
-  $Res call({String id, bool isPlayer, ElementalType elementalType, int value});
+  $Res call({String id, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -54,7 +53,6 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
   @override
   $Res call({
     Object? id = null,
-    Object? isPlayer = null,
     Object? elementalType = null,
     Object? value = null,
   }) {
@@ -63,10 +61,6 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isPlayer: null == isPlayer
-          ? _value.isPlayer
-          : isPlayer // ignore: cast_nullable_to_non_nullable
-              as bool,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -87,7 +81,7 @@ abstract class _$$_ElementCardDataCopyWith<$Res>
       __$$_ElementCardDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, bool isPlayer, ElementalType elementalType, int value});
+  $Res call({String id, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -102,7 +96,6 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? isPlayer = null,
     Object? elementalType = null,
     Object? value = null,
   }) {
@@ -111,10 +104,6 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isPlayer: null == isPlayer
-          ? _value.isPlayer
-          : isPlayer // ignore: cast_nullable_to_non_nullable
-              as bool,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -131,10 +120,7 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ElementCardData implements _ElementCardData {
   const _$_ElementCardData(
-      {required this.id,
-      required this.isPlayer,
-      required this.elementalType,
-      required this.value});
+      {required this.id, required this.elementalType, required this.value});
 
   factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
       _$$_ElementCardDataFromJson(json);
@@ -142,15 +128,13 @@ class _$_ElementCardData implements _ElementCardData {
   @override
   final String id;
   @override
-  final bool isPlayer;
-  @override
   final ElementalType elementalType;
   @override
   final int value;
 
   @override
   String toString() {
-    return 'ElementCardData(id: $id, isPlayer: $isPlayer, elementalType: $elementalType, value: $value)';
+    return 'ElementCardData(id: $id, elementalType: $elementalType, value: $value)';
   }
 
   @override
@@ -159,8 +143,6 @@ class _$_ElementCardData implements _ElementCardData {
         (other.runtimeType == runtimeType &&
             other is _$_ElementCardData &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.isPlayer, isPlayer) ||
-                other.isPlayer == isPlayer) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
             (identical(other.value, value) || other.value == value));
@@ -168,8 +150,7 @@ class _$_ElementCardData implements _ElementCardData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, isPlayer, elementalType, value);
+  int get hashCode => Object.hash(runtimeType, id, elementalType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +169,6 @@ class _$_ElementCardData implements _ElementCardData {
 abstract class _ElementCardData implements ElementCardData {
   const factory _ElementCardData(
       {required final String id,
-      required final bool isPlayer,
       required final ElementalType elementalType,
       required final int value}) = _$_ElementCardData;
 
@@ -197,8 +177,6 @@ abstract class _ElementCardData implements ElementCardData {
 
   @override
   String get id;
-  @override
-  bool get isPlayer;
   @override
   ElementalType get elementalType;
   @override

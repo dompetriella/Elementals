@@ -1,6 +1,5 @@
 import 'dart:math';
-
-import 'package:elementals/providers/gameProvider.dart';
+import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,8 +71,11 @@ class MainPage extends ConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           context.go('/game_page');
-                          ref.watch(opponentElementProvider.notifier).state =
-                              ElementalType.values[Random().nextInt(3)];
+                          ref
+                              .watch(opponentProvider.notifier)
+                              .changePlayerElement(
+                                  ElementalType.values[Random().nextInt(3)]);
+                          ;
                         },
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: animationDuration),
@@ -114,10 +116,10 @@ class ElementSelectButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var chosenElement = ref.watch(playerElementProvider);
+    var chosenElement = ref.watch(playerProvider).elementalType;
     return GestureDetector(
       onTap: () {
-        ref.watch(playerElementProvider.notifier).state = elementalType;
+        ref.watch(playerProvider.notifier).changePlayerElement(elementalType);
         updateThemeToElement(ref);
       },
       child: AnimatedContainer(

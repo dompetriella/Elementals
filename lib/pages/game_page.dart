@@ -1,13 +1,12 @@
 import 'dart:math';
 
 import 'package:elementals/models/enums.dart';
+import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../providers/gameProvider.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
@@ -111,7 +110,7 @@ class OpponentSide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var element = ref.watch(opponentElementProvider);
+    var element = ref.watch(opponentProvider).elementalType;
     return Flexible(
       flex: 20,
       child: Container(
@@ -135,8 +134,7 @@ class OpponentSide extends ConsumerWidget {
                 ),
                 PlayerIconDisplay(
                   icon: Icons.fire_extinguisher,
-                  bgColor:
-                      HexColor(ref.watch(opponentElementProvider).primaryColor),
+                  bgColor: HexColor(element.primaryColor),
                 ),
               ],
             ),
@@ -247,10 +245,13 @@ class PlayerHandArea extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: 260,
-                  height: 80,
-                  color: Colors.grey.shade900,
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: phoneWidth(context) / 7),
+                  child: Container(
+                    height: 80,
+                    color: Colors.grey.shade900,
+                  ),
                 ),
               ],
             ),
@@ -342,11 +343,11 @@ class DummyCard extends ConsumerWidget {
             image: isPlayer
                 ? DecorationImage(
                     image: AssetImage(
-                        "assets/game_assets/${ref.watch(playerElementProvider).frontImagePath}.png"),
+                        "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png"),
                   )
                 : DecorationImage(
                     image: AssetImage(
-                        "assets/game_assets/${ref.watch(opponentElementProvider).backImagePath}.png"),
+                        "assets/game_assets/${ref.watch(opponentProvider).elementalType.backImagePath}.png"),
                   ),
             borderRadius: BorderRadius.circular(2)),
         child: Center(

@@ -13,7 +13,7 @@ class Player with _$Player {
     required ElementalType elementalType,
     @Default([]) List<ElementCardData> deck,
     @Default([]) List<ElementCardData> hand,
-    @Default([]) List<ElementCardData> tableCards,
+    @Default([]) List<ElementCardData> discardPile,
     @Default('CardPerson') String name,
   }) = _Player;
 

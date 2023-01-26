@@ -9,7 +9,6 @@ part 'element_card_data.g.dart';
 class ElementCardData with _$ElementCardData {
   const factory ElementCardData(
       {required String id,
-      required bool isPlayer,
       required ElementalType elementalType,
       required int value}) = _ElementCardData;
 
