@@ -1,12 +1,17 @@
 import 'dart:math';
-
+import 'package:elementals/game_components/element_card.dart';
+import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
+import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../game_components/placeholder_card.dart';
+import '../providers/gameProvider.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
@@ -41,14 +46,7 @@ class GamePage extends StatelessWidget {
                   ),
                   SettingsButton(),
                   Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          border: Border.all(color: Colors.white, width: 5)),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DummyCard()),
-                    ),
+                    child: PlayZoneCard(),
                   )
                 ],
               ),
@@ -57,6 +55,30 @@ class GamePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// I can give this local state with hooks to swap these two
+class PlayZoneCard extends ConsumerWidget {
+  const PlayZoneCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var game = ref.watch(gameProvider.notifier).state;
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(color: Colors.white, width: 5)),
+      child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: game.playZone.length > 0
+              ? Stack(
+                  children: game.playZone,
+                )
+              : PlaceholderCard()),
     );
   }
 }
@@ -139,25 +161,8 @@ class OpponentSide extends ConsumerWidget {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DummyCard(
-                  isPlayer: false,
-                ),
-                DummyCard(
-                  isPlayer: false,
-                ),
-                DummyCard(
-                  isPlayer: false,
-                ),
-                DummyCard(
-                  isPlayer: false,
-                ),
-                DummyCard(
-                  isPlayer: false,
-                ),
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: ref.watch(opponentProvider).hand),
           ],
         ),
       ),
@@ -165,13 +170,14 @@ class OpponentSide extends ConsumerWidget {
   }
 }
 
-class PlayerSide extends StatelessWidget {
+class PlayerSide extends ConsumerWidget {
   const PlayerSide({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var player = ref.watch(playerProvider.notifier).state;
     return Flexible(
       flex: 20,
       child: Container(
@@ -192,9 +198,8 @@ class PlayerSide extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 48, right: 24),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [PlayerDiscardPile()],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [PlayerDiscardPile()]),
               )
             ]),
       ),
@@ -202,13 +207,13 @@ class PlayerSide extends StatelessWidget {
   }
 }
 
-class PlayerHandArea extends StatelessWidget {
+class PlayerHandArea extends ConsumerWidget {
   const PlayerHandArea({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var theme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
@@ -235,13 +240,15 @@ class PlayerHandArea extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        DummyCard(),
-                        DummyCard(),
-                        DummyCard(),
-                        DummyCard(),
-                        DummyCard(),
-                      ],
+                      children: ref.watch(playerProvider).hand.length < 1
+                          ? [
+                              PlaceholderCard(),
+                              PlaceholderCard(),
+                              PlaceholderCard(),
+                              PlaceholderCard(),
+                              PlaceholderCard(),
+                            ]
+                          : ref.watch(playerProvider).hand,
                     ),
                   ),
                 ),
@@ -320,51 +327,51 @@ class PlayerTurnActionButton extends StatelessWidget {
   }
 }
 
-class DummyCard extends ConsumerWidget {
-  final bool isPlayer;
-  const DummyCard({Key? key, this.isPlayer = true}) : super(key: key);
+// class DummyCard extends ConsumerWidget {
+//   final bool isPlayer;
+//   const DummyCard({Key? key, this.isPlayer = true}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2.0),
-      child: Container(
-        height: isPlayer ? playerCardHeight : opponentCardHeight,
-        width: isPlayer ? playerCardWidth : opponentCardWidth,
-        decoration: BoxDecoration(
-            color: isPlayer ? Colors.transparent : Colors.grey.shade900,
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(-1, 2),
-                  blurRadius: 3,
-                  spreadRadius: 1,
-                  color: Colors.grey.shade800)
-            ],
-            image: isPlayer
-                ? DecorationImage(
-                    image: AssetImage(
-                        "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png"),
-                  )
-                : DecorationImage(
-                    image: AssetImage(
-                        "assets/game_assets/${ref.watch(opponentProvider).elementalType.backImagePath}.png"),
-                  ),
-            borderRadius: BorderRadius.circular(2)),
-        child: Center(
-          child: isPlayer
-              ? Text(
-                  (Random().nextInt(7) + 1).toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold),
-                )
-              : null,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 2.0),
+//       child: Container(
+//         height: isPlayer ? playerCardHeight : opponentCardHeight,
+//         width: isPlayer ? playerCardWidth : opponentCardWidth,
+//         decoration: BoxDecoration(
+//             color: isPlayer ? Colors.transparent : Colors.grey.shade900,
+//             boxShadow: [
+//               BoxShadow(
+//                   offset: Offset(-1, 2),
+//                   blurRadius: 3,
+//                   spreadRadius: 1,
+//                   color: Colors.grey.shade800)
+//             ],
+//             image: isPlayer
+//                 ? DecorationImage(
+//                     image: AssetImage(
+//                         "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png"),
+//                   )
+//                 : DecorationImage(
+//                     image: AssetImage(
+//                         "assets/game_assets/${ref.watch(opponentProvider).elementalType.backImagePath}.png"),
+//                   ),
+//             borderRadius: BorderRadius.circular(2)),
+//         child: Center(
+//           child: isPlayer
+//               ? Text(
+//                   (Random().nextInt(7) + 1).toString(),
+//                   style: TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 32,
+//                       fontWeight: FontWeight.bold),
+//                 )
+//               : null,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class PlayerIconDisplay extends StatelessWidget {
   final IconData icon;
@@ -401,13 +408,14 @@ class PlayerIconDisplay extends StatelessWidget {
   }
 }
 
-class PlayerDiscardPile extends StatelessWidget {
+class PlayerDiscardPile extends ConsumerWidget {
   const PlayerDiscardPile({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var player = ref.watch(playerProvider.notifier).state;
     return Column(
       children: [
         Center(
@@ -420,7 +428,9 @@ class PlayerDiscardPile extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary),
           ),
         )),
-        DummyCard(),
+        player.discardPile.length < 1
+            ? PlaceholderCard()
+            : Stack(children: player.discardPile)
       ],
     );
   }

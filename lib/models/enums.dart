@@ -14,5 +14,3 @@ enum ElementalType {
   const ElementalType(this.primaryColor, this.secondaryColor,
       this.backImagePath, this.frontImagePath);
 }
-
-// enum ElementalType {fire, air, water, earth};

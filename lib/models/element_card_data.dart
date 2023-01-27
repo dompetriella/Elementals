@@ -11,7 +11,8 @@ class ElementCardData with _$ElementCardData {
       {required String id,
       required String ownerId,
       required ElementalType elementalType,
-      required int value}) = _ElementCardData;
+      required int value,
+      @Default(false) bool canBeSelected}) = _ElementCardData;
 
   factory ElementCardData.fromJson(Map<String, Object?> json) =>
       _$ElementCardDataFromJson(json);

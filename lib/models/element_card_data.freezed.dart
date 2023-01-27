@@ -24,6 +24,7 @@ mixin _$ElementCardData {
   String get ownerId => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
+  bool get canBeSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +39,11 @@ abstract class $ElementCardDataCopyWith<$Res> {
       _$ElementCardDataCopyWithImpl<$Res, ElementCardData>;
   @useResult
   $Res call(
-      {String id, String ownerId, ElementalType elementalType, int value});
+      {String id,
+      String ownerId,
+      ElementalType elementalType,
+      int value,
+      bool canBeSelected});
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
     Object? ownerId = null,
     Object? elementalType = null,
     Object? value = null,
+    Object? canBeSelected = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -76,6 +82,10 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      canBeSelected: null == canBeSelected
+          ? _value.canBeSelected
+          : canBeSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -89,7 +99,11 @@ abstract class _$$_ElementCardDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id, String ownerId, ElementalType elementalType, int value});
+      {String id,
+      String ownerId,
+      ElementalType elementalType,
+      int value,
+      bool canBeSelected});
 }
 
 /// @nodoc
@@ -107,6 +121,7 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
     Object? ownerId = null,
     Object? elementalType = null,
     Object? value = null,
+    Object? canBeSelected = null,
   }) {
     return _then(_$_ElementCardData(
       id: null == id
@@ -125,6 +140,10 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      canBeSelected: null == canBeSelected
+          ? _value.canBeSelected
+          : canBeSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -136,7 +155,8 @@ class _$_ElementCardData implements _ElementCardData {
       {required this.id,
       required this.ownerId,
       required this.elementalType,
-      required this.value});
+      required this.value,
+      this.canBeSelected = false});
 
   factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
       _$$_ElementCardDataFromJson(json);
@@ -149,10 +169,13 @@ class _$_ElementCardData implements _ElementCardData {
   final ElementalType elementalType;
   @override
   final int value;
+  @override
+  @JsonKey()
+  final bool canBeSelected;
 
   @override
   String toString() {
-    return 'ElementCardData(id: $id, ownerId: $ownerId, elementalType: $elementalType, value: $value)';
+    return 'ElementCardData(id: $id, ownerId: $ownerId, elementalType: $elementalType, value: $value, canBeSelected: $canBeSelected)';
   }
 
   @override
@@ -164,13 +187,15 @@ class _$_ElementCardData implements _ElementCardData {
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.canBeSelected, canBeSelected) ||
+                other.canBeSelected == canBeSelected));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, ownerId, elementalType, value);
+  int get hashCode => Object.hash(
+      runtimeType, id, ownerId, elementalType, value, canBeSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +216,8 @@ abstract class _ElementCardData implements ElementCardData {
       {required final String id,
       required final String ownerId,
       required final ElementalType elementalType,
-      required final int value}) = _$_ElementCardData;
+      required final int value,
+      final bool canBeSelected}) = _$_ElementCardData;
 
   factory _ElementCardData.fromJson(Map<String, dynamic> json) =
       _$_ElementCardData.fromJson;
@@ -204,6 +230,8 @@ abstract class _ElementCardData implements ElementCardData {
   ElementalType get elementalType;
   @override
   int get value;
+  @override
+  bool get canBeSelected;
   @override
   @JsonKey(ignore: true)
   _$$_ElementCardDataCopyWith<_$_ElementCardData> get copyWith =>

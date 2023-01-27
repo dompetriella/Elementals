@@ -2,19 +2,23 @@ import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:flutter/material.dart';
 
+double proportionPercent = .58;
+
 double playerCardHeight = 90;
-double playerCardWidth = playerCardHeight * .58;
+double playerCardWidth = playerCardHeight * proportionPercent;
 double opponentCardHeight = 65;
-double opponentCardWidth = opponentCardHeight * .58;
+double opponentCardWidth = opponentCardHeight * proportionPercent;
 
 class ElementCard extends StatelessWidget {
   final bool isPlayer;
   final bool isSelected;
   final bool isFaceUp;
+  final bool isStarter;
   final ElementCardData elementCardData;
   const ElementCard(
       {super.key,
       required this.elementCardData,
+      this.isStarter = false,
       this.isPlayer = true,
       this.isFaceUp = true,
       this.isSelected = false});
