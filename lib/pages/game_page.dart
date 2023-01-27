@@ -231,7 +231,7 @@ class PlayerHandArea extends StatelessWidget {
                       borderRadius:
                           BorderRadius.vertical(bottom: Radius.circular(10))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
