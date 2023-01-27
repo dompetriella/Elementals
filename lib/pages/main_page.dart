@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'package:elementals/game_logic/startup.dart';
 import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -71,11 +73,7 @@ class MainPage extends ConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           context.go('/game_page');
-                          ref
-                              .watch(opponentProvider.notifier)
-                              .changePlayerElement(
-                                  ElementalType.values[Random().nextInt(3)]);
-                          ;
+                          setInitalPlayerProperties(ref);
                         },
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: animationDuration),
