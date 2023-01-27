@@ -11,4 +11,11 @@ final gameDataProvider = StateNotifierProvider<GameNotifier, GameData>((ref) {
 
 class GameNotifier extends StateNotifier<GameData> {
   GameNotifier() : super(GameData());
+
+  createPlayerDeck() {
+    List<ElementCardData> playerDeck = [];
+    for (int n = 0; n < 2; n++) {
+      for (int i = 1; i < 8; i++) {}
+    }
+  }
 }

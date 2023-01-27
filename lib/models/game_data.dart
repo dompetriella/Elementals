@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../game_components/element_card.dart';
 import 'element_card_data.dart';
+import 'enums.dart';
 
 part 'game_data.freezed.dart';
 part 'game_data.g.dart';
@@ -13,10 +14,12 @@ class GameData with _$GameData {
     @Default(0) int currentTurns,
     @Default([]) List<String> playerIds,
     @Default('0') String playerOneId,
+    @Default(ElementalType.fire) ElementalType playerOneElement,
     @Default([]) List<ElementCardData> playerOneHand,
     @Default([]) List<ElementCardData> playerOneDeck,
     @Default([]) List<ElementCardData> playerOneDiscard,
     @Default('0') String playerTwoId,
+    @Default(ElementalType.fire) ElementalType playerTwoElement,
     @Default([]) List<ElementCardData> playerTwoHand,
     @Default([]) List<ElementCardData> playerTwoDeck,
     @Default([]) List<ElementCardData> playerTwoDiscard,

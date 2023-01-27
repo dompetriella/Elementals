@@ -1,8 +1,3 @@
-import 'dart:math';
-import 'package:elementals/game_components/element_card.dart';
-import 'package:elementals/models/element_card_data.dart';
-import 'package:elementals/models/enums.dart';
-import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/playerProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';

@@ -25,11 +25,13 @@ mixin _$GameData {
   int get currentTurns => throw _privateConstructorUsedError;
   List<String> get playerIds => throw _privateConstructorUsedError;
   String get playerOneId => throw _privateConstructorUsedError;
+  ElementalType get playerOneElement => throw _privateConstructorUsedError;
   List<ElementCardData> get playerOneHand => throw _privateConstructorUsedError;
   List<ElementCardData> get playerOneDeck => throw _privateConstructorUsedError;
   List<ElementCardData> get playerOneDiscard =>
       throw _privateConstructorUsedError;
   String get playerTwoId => throw _privateConstructorUsedError;
+  ElementalType get playerTwoElement => throw _privateConstructorUsedError;
   List<ElementCardData> get playerTwoHand => throw _privateConstructorUsedError;
   List<ElementCardData> get playerTwoDeck => throw _privateConstructorUsedError;
   List<ElementCardData> get playerTwoDiscard =>
@@ -52,10 +54,12 @@ abstract class $GameDataCopyWith<$Res> {
       int currentTurns,
       List<String> playerIds,
       String playerOneId,
+      ElementalType playerOneElement,
       List<ElementCardData> playerOneHand,
       List<ElementCardData> playerOneDeck,
       List<ElementCardData> playerOneDiscard,
       String playerTwoId,
+      ElementalType playerTwoElement,
       List<ElementCardData> playerTwoHand,
       List<ElementCardData> playerTwoDeck,
       List<ElementCardData> playerTwoDiscard});
@@ -79,10 +83,12 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
     Object? currentTurns = null,
     Object? playerIds = null,
     Object? playerOneId = null,
+    Object? playerOneElement = null,
     Object? playerOneHand = null,
     Object? playerOneDeck = null,
     Object? playerOneDiscard = null,
     Object? playerTwoId = null,
+    Object? playerTwoElement = null,
     Object? playerTwoHand = null,
     Object? playerTwoDeck = null,
     Object? playerTwoDiscard = null,
@@ -108,6 +114,10 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
           ? _value.playerOneId
           : playerOneId // ignore: cast_nullable_to_non_nullable
               as String,
+      playerOneElement: null == playerOneElement
+          ? _value.playerOneElement
+          : playerOneElement // ignore: cast_nullable_to_non_nullable
+              as ElementalType,
       playerOneHand: null == playerOneHand
           ? _value.playerOneHand
           : playerOneHand // ignore: cast_nullable_to_non_nullable
@@ -124,6 +134,10 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
           ? _value.playerTwoId
           : playerTwoId // ignore: cast_nullable_to_non_nullable
               as String,
+      playerTwoElement: null == playerTwoElement
+          ? _value.playerTwoElement
+          : playerTwoElement // ignore: cast_nullable_to_non_nullable
+              as ElementalType,
       playerTwoHand: null == playerTwoHand
           ? _value.playerTwoHand
           : playerTwoHand // ignore: cast_nullable_to_non_nullable
@@ -153,10 +167,12 @@ abstract class _$$_GameDataCopyWith<$Res> implements $GameDataCopyWith<$Res> {
       int currentTurns,
       List<String> playerIds,
       String playerOneId,
+      ElementalType playerOneElement,
       List<ElementCardData> playerOneHand,
       List<ElementCardData> playerOneDeck,
       List<ElementCardData> playerOneDiscard,
       String playerTwoId,
+      ElementalType playerTwoElement,
       List<ElementCardData> playerTwoHand,
       List<ElementCardData> playerTwoDeck,
       List<ElementCardData> playerTwoDiscard});
@@ -178,10 +194,12 @@ class __$$_GameDataCopyWithImpl<$Res>
     Object? currentTurns = null,
     Object? playerIds = null,
     Object? playerOneId = null,
+    Object? playerOneElement = null,
     Object? playerOneHand = null,
     Object? playerOneDeck = null,
     Object? playerOneDiscard = null,
     Object? playerTwoId = null,
+    Object? playerTwoElement = null,
     Object? playerTwoHand = null,
     Object? playerTwoDeck = null,
     Object? playerTwoDiscard = null,
@@ -207,6 +225,10 @@ class __$$_GameDataCopyWithImpl<$Res>
           ? _value.playerOneId
           : playerOneId // ignore: cast_nullable_to_non_nullable
               as String,
+      playerOneElement: null == playerOneElement
+          ? _value.playerOneElement
+          : playerOneElement // ignore: cast_nullable_to_non_nullable
+              as ElementalType,
       playerOneHand: null == playerOneHand
           ? _value._playerOneHand
           : playerOneHand // ignore: cast_nullable_to_non_nullable
@@ -223,6 +245,10 @@ class __$$_GameDataCopyWithImpl<$Res>
           ? _value.playerTwoId
           : playerTwoId // ignore: cast_nullable_to_non_nullable
               as String,
+      playerTwoElement: null == playerTwoElement
+          ? _value.playerTwoElement
+          : playerTwoElement // ignore: cast_nullable_to_non_nullable
+              as ElementalType,
       playerTwoHand: null == playerTwoHand
           ? _value._playerTwoHand
           : playerTwoHand // ignore: cast_nullable_to_non_nullable
@@ -248,10 +274,12 @@ class _$_GameData implements _GameData {
       this.currentTurns = 0,
       final List<String> playerIds = const [],
       this.playerOneId = '0',
+      this.playerOneElement = ElementalType.fire,
       final List<ElementCardData> playerOneHand = const [],
       final List<ElementCardData> playerOneDeck = const [],
       final List<ElementCardData> playerOneDiscard = const [],
       this.playerTwoId = '0',
+      this.playerTwoElement = ElementalType.fire,
       final List<ElementCardData> playerTwoHand = const [],
       final List<ElementCardData> playerTwoDeck = const [],
       final List<ElementCardData> playerTwoDiscard = const []})
@@ -294,6 +322,9 @@ class _$_GameData implements _GameData {
   @override
   @JsonKey()
   final String playerOneId;
+  @override
+  @JsonKey()
+  final ElementalType playerOneElement;
   final List<ElementCardData> _playerOneHand;
   @override
   @JsonKey()
@@ -325,6 +356,9 @@ class _$_GameData implements _GameData {
   @override
   @JsonKey()
   final String playerTwoId;
+  @override
+  @JsonKey()
+  final ElementalType playerTwoElement;
   final List<ElementCardData> _playerTwoHand;
   @override
   @JsonKey()
@@ -355,7 +389,7 @@ class _$_GameData implements _GameData {
 
   @override
   String toString() {
-    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, currentTurns: $currentTurns, playerIds: $playerIds, playerOneId: $playerOneId, playerOneHand: $playerOneHand, playerOneDeck: $playerOneDeck, playerOneDiscard: $playerOneDiscard, playerTwoId: $playerTwoId, playerTwoHand: $playerTwoHand, playerTwoDeck: $playerTwoDeck, playerTwoDiscard: $playerTwoDiscard)';
+    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, currentTurns: $currentTurns, playerIds: $playerIds, playerOneId: $playerOneId, playerOneElement: $playerOneElement, playerOneHand: $playerOneHand, playerOneDeck: $playerOneDeck, playerOneDiscard: $playerOneDiscard, playerTwoId: $playerTwoId, playerTwoElement: $playerTwoElement, playerTwoHand: $playerTwoHand, playerTwoDeck: $playerTwoDeck, playerTwoDiscard: $playerTwoDiscard)';
   }
 
   @override
@@ -372,6 +406,8 @@ class _$_GameData implements _GameData {
                 .equals(other._playerIds, _playerIds) &&
             (identical(other.playerOneId, playerOneId) ||
                 other.playerOneId == playerOneId) &&
+            (identical(other.playerOneElement, playerOneElement) ||
+                other.playerOneElement == playerOneElement) &&
             const DeepCollectionEquality()
                 .equals(other._playerOneHand, _playerOneHand) &&
             const DeepCollectionEquality()
@@ -380,6 +416,8 @@ class _$_GameData implements _GameData {
                 .equals(other._playerOneDiscard, _playerOneDiscard) &&
             (identical(other.playerTwoId, playerTwoId) ||
                 other.playerTwoId == playerTwoId) &&
+            (identical(other.playerTwoElement, playerTwoElement) ||
+                other.playerTwoElement == playerTwoElement) &&
             const DeepCollectionEquality()
                 .equals(other._playerTwoHand, _playerTwoHand) &&
             const DeepCollectionEquality()
@@ -397,10 +435,12 @@ class _$_GameData implements _GameData {
       currentTurns,
       const DeepCollectionEquality().hash(_playerIds),
       playerOneId,
+      playerOneElement,
       const DeepCollectionEquality().hash(_playerOneHand),
       const DeepCollectionEquality().hash(_playerOneDeck),
       const DeepCollectionEquality().hash(_playerOneDiscard),
       playerTwoId,
+      playerTwoElement,
       const DeepCollectionEquality().hash(_playerTwoHand),
       const DeepCollectionEquality().hash(_playerTwoDeck),
       const DeepCollectionEquality().hash(_playerTwoDiscard));
@@ -426,10 +466,12 @@ abstract class _GameData implements GameData {
       final int currentTurns,
       final List<String> playerIds,
       final String playerOneId,
+      final ElementalType playerOneElement,
       final List<ElementCardData> playerOneHand,
       final List<ElementCardData> playerOneDeck,
       final List<ElementCardData> playerOneDiscard,
       final String playerTwoId,
+      final ElementalType playerTwoElement,
       final List<ElementCardData> playerTwoHand,
       final List<ElementCardData> playerTwoDeck,
       final List<ElementCardData> playerTwoDiscard}) = _$_GameData;
@@ -447,6 +489,8 @@ abstract class _GameData implements GameData {
   @override
   String get playerOneId;
   @override
+  ElementalType get playerOneElement;
+  @override
   List<ElementCardData> get playerOneHand;
   @override
   List<ElementCardData> get playerOneDeck;
@@ -454,6 +498,8 @@ abstract class _GameData implements GameData {
   List<ElementCardData> get playerOneDiscard;
   @override
   String get playerTwoId;
+  @override
+  ElementalType get playerTwoElement;
   @override
   List<ElementCardData> get playerTwoHand;
   @override
