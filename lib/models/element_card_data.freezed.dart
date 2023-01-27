@@ -21,6 +21,7 @@ ElementCardData _$ElementCardDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ElementCardData {
   String get id => throw _privateConstructorUsedError;
+  String get ownerId => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
@@ -36,7 +37,8 @@ abstract class $ElementCardDataCopyWith<$Res> {
           ElementCardData value, $Res Function(ElementCardData) then) =
       _$ElementCardDataCopyWithImpl<$Res, ElementCardData>;
   @useResult
-  $Res call({String id, ElementalType elementalType, int value});
+  $Res call(
+      {String id, String ownerId, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
   @override
   $Res call({
     Object? id = null,
+    Object? ownerId = null,
     Object? elementalType = null,
     Object? value = null,
   }) {
@@ -60,6 +63,10 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
       elementalType: null == elementalType
           ? _value.elementalType
@@ -81,7 +88,8 @@ abstract class _$$_ElementCardDataCopyWith<$Res>
       __$$_ElementCardDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, ElementalType elementalType, int value});
+  $Res call(
+      {String id, String ownerId, ElementalType elementalType, int value});
 }
 
 /// @nodoc
@@ -96,6 +104,7 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? ownerId = null,
     Object? elementalType = null,
     Object? value = null,
   }) {
@@ -103,6 +112,10 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
       elementalType: null == elementalType
           ? _value.elementalType
@@ -120,7 +133,10 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ElementCardData implements _ElementCardData {
   const _$_ElementCardData(
-      {required this.id, required this.elementalType, required this.value});
+      {required this.id,
+      required this.ownerId,
+      required this.elementalType,
+      required this.value});
 
   factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
       _$$_ElementCardDataFromJson(json);
@@ -128,13 +144,15 @@ class _$_ElementCardData implements _ElementCardData {
   @override
   final String id;
   @override
+  final String ownerId;
+  @override
   final ElementalType elementalType;
   @override
   final int value;
 
   @override
   String toString() {
-    return 'ElementCardData(id: $id, elementalType: $elementalType, value: $value)';
+    return 'ElementCardData(id: $id, ownerId: $ownerId, elementalType: $elementalType, value: $value)';
   }
 
   @override
@@ -143,6 +161,7 @@ class _$_ElementCardData implements _ElementCardData {
         (other.runtimeType == runtimeType &&
             other is _$_ElementCardData &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
             (identical(other.value, value) || other.value == value));
@@ -150,7 +169,8 @@ class _$_ElementCardData implements _ElementCardData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, elementalType, value);
+  int get hashCode =>
+      Object.hash(runtimeType, id, ownerId, elementalType, value);
 
   @JsonKey(ignore: true)
   @override
@@ -169,6 +189,7 @@ class _$_ElementCardData implements _ElementCardData {
 abstract class _ElementCardData implements ElementCardData {
   const factory _ElementCardData(
       {required final String id,
+      required final String ownerId,
       required final ElementalType elementalType,
       required final int value}) = _$_ElementCardData;
 
@@ -177,6 +198,8 @@ abstract class _ElementCardData implements ElementCardData {
 
   @override
   String get id;
+  @override
+  String get ownerId;
   @override
   ElementalType get elementalType;
   @override
