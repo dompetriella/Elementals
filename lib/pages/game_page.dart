@@ -21,8 +21,8 @@ double playerCardWidth = playerCardHeight * .58;
 double opponentCardHeight = 65;
 double opponentCardWidth = opponentCardHeight * .58;
 
-double playerIconDisplayHeight = 40;
-double playerIconDisplayWidth = 40;
+double playerIconDisplayHeight = 60;
+double playerIconDisplayWidth = 60;
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -59,7 +59,7 @@ class GamePage extends StatelessWidget {
   }
 }
 
-// I can give this local state with hooks to swap these two
+// I can give this local state with hooks to swap placeholder
 class PlayZoneCard extends ConsumerWidget {
   const PlayZoneCard({
     super.key,
@@ -252,19 +252,20 @@ class PlayerHandArea extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: phoneWidth(context) / 7),
-                  child: Container(
-                    height: 80,
-                    color: Colors.grey.shade900,
-                  ),
+                Container(
+                  width: playerCardWidth * 5.5,
+                  height: 80,
+                  color: Colors.grey.shade900,
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                PlayerTurnActionButton(
+                  theme: theme,
+                  text: 'Skill',
+                ),
                 PlayerTurnActionButton(
                   theme: theme,
                   text: 'Burn',
@@ -316,7 +317,7 @@ class PlayerTurnActionButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   text.toUpperCase(),
-                  style: TextStyle(fontSize: 24, color: Colors.white),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),
@@ -418,16 +419,20 @@ class PlayerDiscardPile extends ConsumerWidget {
     var player = ref.watch(playerProvider.notifier).state;
     return Column(
       children: [
-        Center(
-            child: Padding(
+        Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            '10 / 20',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onPrimary),
+          child: SizedBox(
+            width: playerCardWidth,
+            child: Center(
+              child: Text(
+                '0 / 20',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
           ),
-        )),
+        ),
         player.discardPile.length < 1
             ? PlaceholderCard()
             : Stack(children: player.discardPile)
