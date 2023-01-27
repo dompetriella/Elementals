@@ -9,6 +9,7 @@ part of 'player.dart';
 _$_Player _$$_PlayerFromJson(Map<String, dynamic> json) => _$_Player(
       id: json['id'] as String,
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
+      totalCards: json['totalCards'] as int? ?? 0,
       deck: (json['deck'] as List<dynamic>?)
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -27,6 +28,7 @@ _$_Player _$$_PlayerFromJson(Map<String, dynamic> json) => _$_Player(
 Map<String, dynamic> _$$_PlayerToJson(_$_Player instance) => <String, dynamic>{
       'id': instance.id,
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
+      'totalCards': instance.totalCards,
       'deck': instance.deck,
       'hand': instance.hand,
       'discardPile': instance.discardPile,

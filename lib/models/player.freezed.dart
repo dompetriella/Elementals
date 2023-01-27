@@ -22,6 +22,7 @@ Player _$PlayerFromJson(Map<String, dynamic> json) {
 mixin _$Player {
   String get id => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
+  int get totalCards => throw _privateConstructorUsedError;
   List<ElementCardData> get deck => throw _privateConstructorUsedError;
   List<ElementCardData> get hand => throw _privateConstructorUsedError;
   List<ElementCardData> get discardPile => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $PlayerCopyWith<$Res> {
   $Res call(
       {String id,
       ElementalType elementalType,
+      int totalCards,
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
@@ -61,6 +63,7 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
   $Res call({
     Object? id = null,
     Object? elementalType = null,
+    Object? totalCards = null,
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
@@ -75,6 +78,10 @@ class _$PlayerCopyWithImpl<$Res, $Val extends Player>
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
               as ElementalType,
+      totalCards: null == totalCards
+          ? _value.totalCards
+          : totalCards // ignore: cast_nullable_to_non_nullable
+              as int,
       deck: null == deck
           ? _value.deck
           : deck // ignore: cast_nullable_to_non_nullable
@@ -104,6 +111,7 @@ abstract class _$$_PlayerCopyWith<$Res> implements $PlayerCopyWith<$Res> {
   $Res call(
       {String id,
       ElementalType elementalType,
+      int totalCards,
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
@@ -122,6 +130,7 @@ class __$$_PlayerCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? elementalType = null,
+    Object? totalCards = null,
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
@@ -136,6 +145,10 @@ class __$$_PlayerCopyWithImpl<$Res>
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
               as ElementalType,
+      totalCards: null == totalCards
+          ? _value.totalCards
+          : totalCards // ignore: cast_nullable_to_non_nullable
+              as int,
       deck: null == deck
           ? _value._deck
           : deck // ignore: cast_nullable_to_non_nullable
@@ -162,6 +175,7 @@ class _$_Player implements _Player {
   const _$_Player(
       {required this.id,
       required this.elementalType,
+      this.totalCards = 0,
       final List<ElementCardData> deck = const [],
       final List<ElementCardData> hand = const [],
       final List<ElementCardData> discardPile = const [],
@@ -177,6 +191,9 @@ class _$_Player implements _Player {
   final String id;
   @override
   final ElementalType elementalType;
+  @override
+  @JsonKey()
+  final int totalCards;
   final List<ElementCardData> _deck;
   @override
   @JsonKey()
@@ -210,7 +227,7 @@ class _$_Player implements _Player {
 
   @override
   String toString() {
-    return 'Player(id: $id, elementalType: $elementalType, deck: $deck, hand: $hand, discardPile: $discardPile, name: $name)';
+    return 'Player(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, name: $name)';
   }
 
   @override
@@ -221,6 +238,8 @@ class _$_Player implements _Player {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
+            (identical(other.totalCards, totalCards) ||
+                other.totalCards == totalCards) &&
             const DeepCollectionEquality().equals(other._deck, _deck) &&
             const DeepCollectionEquality().equals(other._hand, _hand) &&
             const DeepCollectionEquality()
@@ -234,6 +253,7 @@ class _$_Player implements _Player {
       runtimeType,
       id,
       elementalType,
+      totalCards,
       const DeepCollectionEquality().hash(_deck),
       const DeepCollectionEquality().hash(_hand),
       const DeepCollectionEquality().hash(_discardPile),
@@ -257,6 +277,7 @@ abstract class _Player implements Player {
   const factory _Player(
       {required final String id,
       required final ElementalType elementalType,
+      final int totalCards,
       final List<ElementCardData> deck,
       final List<ElementCardData> hand,
       final List<ElementCardData> discardPile,
@@ -268,6 +289,8 @@ abstract class _Player implements Player {
   String get id;
   @override
   ElementalType get elementalType;
+  @override
+  int get totalCards;
   @override
   List<ElementCardData> get deck;
   @override

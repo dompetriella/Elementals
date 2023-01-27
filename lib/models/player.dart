@@ -11,6 +11,7 @@ class Player with _$Player {
   const factory Player({
     required String id,
     required ElementalType elementalType,
+    @Default(0) int totalCards,
     @Default([]) List<ElementCardData> deck,
     @Default([]) List<ElementCardData> hand,
     @Default([]) List<ElementCardData> discardPile,
