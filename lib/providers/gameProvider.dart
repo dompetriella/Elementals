@@ -2,6 +2,10 @@ import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/providers/playerProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final currentPlayerTurnProvider = StateProvider<String>((ref) {
+  return '0';
+});
+
 final playZoneProvider =
     StateNotifierProvider<PlayZoneNotifier, List<ElementCardData>>((ref) {
   return PlayZoneNotifier();
