@@ -1,4 +1,4 @@
-import 'package:elementals/pages/main_page.dart';
+import 'package:elementals/pages/MainPage/main_page.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:elementals/routes.dart';
 import 'package:flutter/material.dart';

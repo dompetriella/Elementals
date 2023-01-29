@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../game_components/placeholder_card.dart';
+import '../../game_components/placeholder_card.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;

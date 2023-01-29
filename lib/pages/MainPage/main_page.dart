@@ -8,7 +8,7 @@ import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../models/enums.dart';
+import '../../models/enums.dart';
 
 var animationDuration = 400;
 
