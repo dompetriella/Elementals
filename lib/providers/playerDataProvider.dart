@@ -26,6 +26,12 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(elementalType: elementalType);
   }
 
+  updateCardTotal(WidgetRef ref, Players playerNumber) {
+    state = ref.watch(gameDataProvider).players[playerNumber.index];
+    state = state.copyWith(totalCards: state.deck.length);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
   drawCard(WidgetRef ref, Players playerNumber) {
     state = ref.watch(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard = state.deck.first;

@@ -422,7 +422,7 @@ class PlayerDiscardPile extends ConsumerWidget {
             width: playerCardWidth,
             child: Center(
               child: Text(
-                '0 / 20',
+                '${player.discardPile.length} / ${player.totalCards}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onPrimary),

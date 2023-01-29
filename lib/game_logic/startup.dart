@@ -27,5 +27,6 @@ setInitalGameProperties(WidgetRef ref) {
         deck: createPlayerDeck(playerTwoGuid, randomElement))
   ]);
 
+  ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
   ref.watch(playerProvider.notifier).drawCards(ref, Players.p1);
 }
