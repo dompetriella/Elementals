@@ -30,7 +30,11 @@ class ElementCard extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
       child: GestureDetector(
-        onTap: () => selectedState.value = !selectedState.value,
+        onTap: () {
+          ref
+              .watch(playerProvider.notifier)
+              .playCard(elementCardData.id, ref, Players.p1);
+        },
         child: Container(
           height: playerCardHeight,
           width: playerCardWidth,

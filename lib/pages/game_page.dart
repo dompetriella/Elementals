@@ -63,19 +63,17 @@ class PlayZoneCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var game = ref.watch(gameDataProvider.notifier).state;
     return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2),
-          border: Border.all(color: Colors.white, width: 5)),
-      child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: game.playZone.length > 0
-              ? Stack(
-                  children: convertDataToCards(game.playZone),
-                )
-              : PlaceholderCard()),
-    );
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2),
+            border: Border.all(color: Colors.white, width: 5)),
+        child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ref.watch(gameDataProvider).playZone.isEmpty
+                ? PlaceholderCard()
+                : Stack(
+                    children: convertDataToCards(
+                        ref.watch(gameDataProvider).playZone))));
   }
 }
 
@@ -174,7 +172,6 @@ class PlayerSide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var player = ref.watch(gameDataProvider.notifier).state.players[0];
     return Flexible(
       flex: 20,
       child: Container(
@@ -413,7 +410,6 @@ class PlayerDiscardPile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var player = ref.watch(playerProvider.notifier).state;
     return Column(
       children: [
         Padding(
@@ -422,7 +418,7 @@ class PlayerDiscardPile extends ConsumerWidget {
             width: playerCardWidth,
             child: Center(
               child: Text(
-                '${player.discardPile.length} / ${player.totalCards}',
+                '${ref.watch(playerProvider).discardPile.length} / ${ref.watch(playerProvider).totalCards}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onPrimary),
@@ -430,9 +426,11 @@ class PlayerDiscardPile extends ConsumerWidget {
             ),
           ),
         ),
-        player.discardPile.length < 1
+        ref.watch(playerProvider).discardPile.isEmpty
             ? PlaceholderCard()
-            : Stack(children: convertDataToCards(player.discardPile))
+            : Stack(
+                children:
+                    convertDataToCards(ref.watch(playerProvider).discardPile))
       ],
     );
   }

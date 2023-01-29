@@ -49,6 +49,21 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     }
   }
 
+  playCard(String cardId, WidgetRef ref, Players playerNumber) {
+    state = ref.watch(gameDataProvider).players[playerNumber.index];
+    ElementCardData newCard =
+        state.hand.where((element) => element.id == cardId).first;
+    ref.watch(gameDataProvider.notifier).state = ref
+        .watch(gameDataProvider)
+        .copyWith(playZone: [...ref.watch(gameDataProvider).playZone, newCard]);
+    var handCopy = state.hand.toList();
+    handCopy.removeWhere((element) => element.id == cardId);
+
+    state = state.copyWith(hand: handCopy);
+
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
   updatePlayerDataToGameData(WidgetRef ref, Players playerNumber) {
     List<PlayerData> players = ref.watch(gameDataProvider).players.toList();
     switch (playerNumber) {
