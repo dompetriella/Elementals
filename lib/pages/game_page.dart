@@ -1,4 +1,6 @@
-import 'package:elementals/providers/playerProvider.dart';
+import 'package:elementals/game_logic/logic.dart';
+import 'package:elementals/providers/gameDataProvider.dart';
+import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../game_components/placeholder_card.dart';
-import '../providers/gameProvider.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
@@ -62,7 +63,7 @@ class PlayZoneCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var game = ref.watch(gameProvider.notifier).state;
+    var game = ref.watch(gameDataProvider.notifier).state;
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2),
@@ -71,7 +72,7 @@ class PlayZoneCard extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: game.playZone.length > 0
               ? Stack(
-                  children: game.playZone,
+                  children: convertDataToCards(game.playZone),
                 )
               : PlaceholderCard()),
     );
@@ -127,7 +128,7 @@ class OpponentSide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var element = ref.watch(opponentProvider).elementalType;
+    var element = ref.watch(gameDataProvider).players[1].elementalType;
     return Flexible(
       flex: 20,
       child: Container(
@@ -157,7 +158,8 @@ class OpponentSide extends ConsumerWidget {
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: ref.watch(opponentProvider).hand),
+                children:
+                    convertDataToCards(ref.watch(playerTwoProvider).hand)),
           ],
         ),
       ),
@@ -172,7 +174,7 @@ class PlayerSide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var player = ref.watch(playerProvider.notifier).state;
+    var player = ref.watch(gameDataProvider.notifier).state.players[0];
     return Flexible(
       flex: 20,
       child: Container(
@@ -243,12 +245,12 @@ class PlayerHandArea extends ConsumerWidget {
                               PlaceholderCard(),
                               PlaceholderCard(),
                             ]
-                          : ref.watch(playerProvider).hand,
+                          : convertDataToCards(ref.watch(playerProvider).hand),
                     ),
                   ),
                 ),
                 Container(
-                  width: playerCardWidth * 5.5,
+                  width: playerCardWidth * 5.4,
                   height: 80,
                   color: Colors.grey.shade900,
                 ),
@@ -430,7 +432,7 @@ class PlayerDiscardPile extends ConsumerWidget {
         ),
         player.discardPile.length < 1
             ? PlaceholderCard()
-            : Stack(children: player.discardPile)
+            : Stack(children: convertDataToCards(player.discardPile))
       ],
     );
   }

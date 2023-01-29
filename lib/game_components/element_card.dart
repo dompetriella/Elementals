@@ -31,6 +31,14 @@ class ElementCard extends StatelessWidget {
         height: isPlayer ? playerCardHeight : opponentCardHeight,
         width: isPlayer ? playerCardWidth : opponentCardWidth,
         color: Colors.black,
+        child: Center(
+            child: Text(
+          elementCardData.value.toString(),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 32,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }

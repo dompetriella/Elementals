@@ -1,5 +1,5 @@
 import 'package:elementals/models/enums.dart';
-import 'package:elementals/providers/playerProvider.dart';
+import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:elementals/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

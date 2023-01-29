@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:elementals/game_logic/startup.dart';
-import 'package:elementals/providers/playerProvider.dart';
+import 'package:elementals/providers/gameDataProvider.dart';
+import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -73,7 +74,7 @@ class MainPage extends ConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           context.go('/game_page');
-                          setInitalPlayerProperties(ref);
+                          setInitalGameProperties(ref);
                         },
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: animationDuration),

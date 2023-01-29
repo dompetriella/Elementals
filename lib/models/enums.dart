@@ -14,3 +14,5 @@ enum ElementalType {
   const ElementalType(this.primaryColor, this.secondaryColor,
       this.backImagePath, this.frontImagePath);
 }
+
+enum Players { p1, p2 }
