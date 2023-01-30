@@ -250,6 +250,25 @@ class PlayerHandArea extends ConsumerWidget {
                   width: playerCardWidth * 5.4,
                   height: 80,
                   color: Colors.grey.shade900,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              'In Deck: ${ref.watch(playerProvider).deck.length}',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -264,9 +283,13 @@ class PlayerHandArea extends ConsumerWidget {
                   theme: theme,
                   text: 'Burn',
                 ),
-                PlayerTurnActionButton(
-                  theme: theme,
-                  text: 'End Turn',
+                GestureDetector(
+                  onTap: () =>
+                      ref.watch(gameDataProvider.notifier).discardPlayZone(ref),
+                  child: PlayerTurnActionButton(
+                    theme: theme,
+                    text: 'End Turn',
+                  ),
                 ),
               ],
             ),

@@ -137,7 +137,10 @@ class __$$_GameDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GameData implements _GameData {
   const _$_GameData(
-      {final List<ElementCardData> playZone = const [],
+      {final List<ElementCardData> playZone = const [
+        ElementCardData(
+            id: '0', ownerId: '0', elementalType: ElementalType.fire, value: 4)
+      ],
       this.totalTurns = 0,
       this.currentTurns = 0,
       final List<PlayerData> players = const []})

@@ -12,7 +12,7 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
       elementalType:
           $enumDecodeNullable(_$ElementalTypeEnumMap, json['elementalType']) ??
               ElementalType.fire,
-      totalCards: json['totalCards'] as int? ?? 0,
+      totalCards: json['totalCards'] as int? ?? 20,
       deck: (json['deck'] as List<dynamic>?)
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??

@@ -180,7 +180,7 @@ class _$_PlayerData implements _PlayerData {
   const _$_PlayerData(
       {this.id = '0',
       this.elementalType = ElementalType.fire,
-      this.totalCards = 0,
+      this.totalCards = 20,
       final List<ElementCardData> deck = const [],
       final List<ElementCardData> hand = const [],
       final List<ElementCardData> discardPile = const [],
