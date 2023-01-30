@@ -64,6 +64,14 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
+  discardHand(WidgetRef ref, Players playerNumber) {
+    List<ElementCardData> playerHand = state.hand;
+    state = state.copyWith(hand: []);
+    state = state.copyWith(discardPile: [...state.discardPile, ...playerHand]);
+
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
   updatePlayerDataToGameData(WidgetRef ref, Players playerNumber) {
     List<PlayerData> players = ref.watch(gameDataProvider).players.toList();
     switch (playerNumber) {
