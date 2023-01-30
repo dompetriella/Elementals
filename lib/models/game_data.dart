@@ -1,6 +1,5 @@
 import 'package:elementals/models/player_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../game_components/element_card.dart';
 import 'element_card_data.dart';
 import 'enums.dart';
 

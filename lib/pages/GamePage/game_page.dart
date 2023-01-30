@@ -1,5 +1,6 @@
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
+import 'package:elementals/providers/globalProvider.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:elementals/providers/themeProvider.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../game_components/placeholder_card.dart';
+import '../../models/element_card_data.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
-
-double playerCardHeight = 90;
-double playerCardWidth = playerCardHeight * .58;
-double opponentCardHeight = 65;
-double opponentCardWidth = opponentCardHeight * .58;
-
-double playerIconDisplayHeight = 60;
-double playerIconDisplayWidth = 60;
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -42,7 +36,7 @@ class GamePage extends StatelessWidget {
                   ),
                   SettingsButton(),
                   Center(
-                    child: PlayZoneCard(),
+                    child: PlayZone(),
                   )
                 ],
               ),
@@ -55,9 +49,8 @@ class GamePage extends StatelessWidget {
   }
 }
 
-// I can give this local state with hooks to swap placeholder
-class PlayZoneCard extends ConsumerWidget {
-  const PlayZoneCard({
+class PlayZone extends ConsumerWidget {
+  const PlayZone({
     super.key,
   });
 
@@ -190,10 +183,23 @@ class PlayerSide extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 48, right: 24),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [PlayerDiscardPile()]),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PlayerCardPile(
+                        cardPile: ref.watch(playerProvider).deck,
+                      ),
+                      Stack(
+                        children: [
+                          PlayerCardPile(
+                            cardPile: ref.watch(playerProvider).discardPile,
+                            isDiscard: true,
+                          ),
+                        ],
+                      )
+                    ]),
               )
             ]),
       ),
@@ -232,43 +238,35 @@ class PlayerHandArea extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8, 2, 8, 10),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: ref.watch(playerProvider).hand.length < 1
-                          ? [
-                              PlaceholderCard(),
-                              PlaceholderCard(),
-                              PlaceholderCard(),
-                              PlaceholderCard(),
-                              PlaceholderCard(),
-                            ]
-                          : convertDataToCards(ref.watch(playerProvider).hand),
-                    ),
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [
+                              Row(
+                                children: [
+                                  PlaceholderCard(),
+                                  PlaceholderCard(),
+                                  PlaceholderCard(),
+                                  PlaceholderCard(),
+                                  PlaceholderCard(),
+                                ],
+                              ),
+                              Row(
+                                  children: convertDataToCards(
+                                      ref.watch(playerProvider).hand,
+                                      hasShadow: true))
+                            ],
+                          ),
+                        ]),
                   ),
                 ),
                 Container(
-                  width: playerCardWidth * 5.4,
+                  width: ref.read(cardHeightP1) *
+                      ref.read(cardWidthProportion) *
+                      5.4,
                   height: 80,
                   color: Colors.grey.shade900,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              'In Deck: ${ref.watch(playerProvider).deck.length}',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),
@@ -345,53 +343,7 @@ class PlayerTurnActionButton extends StatelessWidget {
   }
 }
 
-// class DummyCard extends ConsumerWidget {
-//   final bool isPlayer;
-//   const DummyCard({Key? key, this.isPlayer = true}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-//       child: Container(
-//         height: isPlayer ? playerCardHeight : opponentCardHeight,
-//         width: isPlayer ? playerCardWidth : opponentCardWidth,
-//         decoration: BoxDecoration(
-//             color: isPlayer ? Colors.transparent : Colors.grey.shade900,
-//             boxShadow: [
-//               BoxShadow(
-//                   offset: Offset(-1, 2),
-//                   blurRadius: 3,
-//                   spreadRadius: 1,
-//                   color: Colors.grey.shade800)
-//             ],
-//             image: isPlayer
-//                 ? DecorationImage(
-//                     image: AssetImage(
-//                         "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png"),
-//                   )
-//                 : DecorationImage(
-//                     image: AssetImage(
-//                         "assets/game_assets/${ref.watch(opponentProvider).elementalType.backImagePath}.png"),
-//                   ),
-//             borderRadius: BorderRadius.circular(2)),
-//         child: Center(
-//           child: isPlayer
-//               ? Text(
-//                   (Random().nextInt(7) + 1).toString(),
-//                   style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 32,
-//                       fontWeight: FontWeight.bold),
-//                 )
-//               : null,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class PlayerIconDisplay extends StatelessWidget {
+class PlayerIconDisplay extends ConsumerWidget {
   final IconData icon;
   final Color bgColor;
   final int points;
@@ -400,12 +352,12 @@ class PlayerIconDisplay extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: playerIconDisplayHeight,
-        width: playerIconDisplayWidth,
+        height: ref.read(playerIconDisplaySize),
+        width: ref.read(playerIconDisplaySize),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
@@ -426,34 +378,48 @@ class PlayerIconDisplay extends StatelessWidget {
   }
 }
 
-class PlayerDiscardPile extends ConsumerWidget {
-  const PlayerDiscardPile({
-    super.key,
-  });
+class PlayerCardPile extends ConsumerWidget {
+  final List<ElementCardData> cardPile;
+  final bool isDiscard;
+  const PlayerCardPile(
+      {super.key, required this.cardPile, this.isDiscard = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: playerCardWidth,
-            child: Center(
-              child: Text(
-                '${ref.watch(playerProvider).discardPile.length} / ${ref.watch(playerProvider).totalCards}',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onPrimary),
-              ),
+        SizedBox(
+          width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
+          child: Center(
+            child: Text(
+              '${cardPile.length}',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
         ),
-        ref.watch(playerProvider).discardPile.isEmpty
-            ? PlaceholderCard()
-            : Stack(
-                children:
-                    convertDataToCards(ref.watch(playerProvider).discardPile))
+        cardPile.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: PlaceholderCard(),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Stack(
+                  children: [
+                    Stack(children: convertDataToCards(cardPile)),
+                    if (isDiscard)
+                      Container(
+                        height: ref.read(cardHeightP1),
+                        width: ref.read(cardHeightP1) *
+                                ref.read(cardWidthProportion) +
+                            3,
+                        color: Colors.grey.shade600.withOpacity(.35),
+                      )
+                  ],
+                ),
+              ),
       ],
     );
   }

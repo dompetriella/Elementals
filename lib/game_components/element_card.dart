@@ -1,5 +1,6 @@
 import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
+import 'package:elementals/providers/globalProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,20 +8,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/playerDataProvider.dart';
 
-double proportionPercent = .58;
-
-double playerCardHeight = 90;
-double playerCardWidth = playerCardHeight * proportionPercent;
-double opponentCardHeight = 65;
-double opponentCardWidth = opponentCardHeight * proportionPercent;
-
 class ElementCard extends HookConsumerWidget {
   final bool isSelected;
   final bool isFaceUp;
+  final bool hasShadow;
   final ElementCardData elementCardData;
   const ElementCard(
       {super.key,
       required this.elementCardData,
+      this.hasShadow = false,
       this.isFaceUp = true,
       this.isSelected = false});
 
@@ -36,16 +32,19 @@ class ElementCard extends HookConsumerWidget {
               .playCard(elementCardData.id, ref, Players.p1);
         },
         child: Container(
-          height: playerCardHeight,
-          width: playerCardWidth,
+          height: ref.read(cardHeightP1),
+          width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
           decoration: BoxDecoration(
               color: Colors.transparent,
+              border: Border.all(color: Colors.grey, width: 0.5),
               boxShadow: [
-                BoxShadow(
-                    offset: Offset(-1, 2),
-                    blurRadius: 3,
-                    spreadRadius: 1,
-                    color: Colors.grey.shade800)
+                hasShadow
+                    ? BoxShadow(
+                        offset: Offset(-1, 2),
+                        blurRadius: 3,
+                        spreadRadius: 1,
+                        color: Colors.grey.shade800)
+                    : BoxShadow(color: Colors.transparent)
               ],
               image: DecorationImage(
                 image: AssetImage(
@@ -56,9 +55,7 @@ class ElementCard extends HookConsumerWidget {
               child: Text(
             elementCardData.value.toString(),
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: 32,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
           )),
         ),
       ),

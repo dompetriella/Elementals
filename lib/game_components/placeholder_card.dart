@@ -2,28 +2,23 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../providers/globalProvider.dart';
 
 double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
 
-double playerCardHeight = 90;
-double playerCardWidth = playerCardHeight * .58;
-double opponentCardHeight = 65;
-double opponentCardWidth = opponentCardHeight * .58;
-
-double playerIconDisplayHeight = 40;
-double playerIconDisplayWidth = 40;
-
-class PlaceholderCard extends StatelessWidget {
+class PlaceholderCard extends ConsumerWidget {
   const PlaceholderCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
-        height: playerCardHeight,
-        width: playerCardWidth,
+        height: ref.read(cardHeightP1),
+        width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
         color: Colors.black.withOpacity(.1),
       ),
     );

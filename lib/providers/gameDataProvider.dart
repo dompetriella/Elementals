@@ -4,6 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/element_card_data.dart';
 import '../models/game_data.dart';
 
+final cardsInHandProvider = Provider<int>((ref) {
+  return 5;
+});
+
 final gameDataProvider = StateNotifierProvider<GameNotifier, GameData>((ref) {
   return GameNotifier();
 });
