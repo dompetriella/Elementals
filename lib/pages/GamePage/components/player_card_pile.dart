@@ -36,7 +36,9 @@ class PlayerCardPile extends ConsumerWidget {
                 padding: const EdgeInsets.all(4.0),
                 child: Stack(
                   children: [
-                    Stack(children: convertDataToCards(cardPile)),
+                    Stack(
+                        children: convertDataToCards(cardPile,
+                            isFaceUp: isDiscard ? true : false)),
                     if (isDiscard)
                       Container(
                         height: ref.read(cardHeightP1),

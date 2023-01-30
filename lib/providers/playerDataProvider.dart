@@ -1,4 +1,5 @@
 import 'package:elementals/providers/gameDataProvider.dart';
+import 'package:elementals/providers/globalProvider.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,7 +34,6 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   drawCard(WidgetRef ref, Players playerNumber) {
-    state = ref.watch(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard = state.deck.first;
     state = state.copyWith(hand: [...state.hand, newCard]);
     List<ElementCardData> deckCopy = state.deck.toList();
@@ -47,6 +47,24 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     for (var i = 0; i < amount; i++) {
       drawCard(ref, playerNumber);
     }
+  }
+
+  fillPlayerHand(WidgetRef ref, Players playerNumber) {
+    for (var i = 0; i < ref.read(cardsInHand); i++) {
+      if (state.deck.isNotEmpty) {
+        drawCard(ref, playerNumber);
+      } else {
+        state = state.copyWith(deck: state.discardPile);
+        var deckCopy = state.deck.toList();
+        deckCopy.shuffle();
+        state = state.copyWith(deck: deckCopy);
+        state = state.copyWith(discardPile: []);
+        updatePlayerDataToGameData(ref, playerNumber);
+        drawCard(ref, playerNumber);
+      }
+    }
+
+    updatePlayerDataToGameData(ref, playerNumber);
   }
 
   playCard(String cardId, WidgetRef ref, Players playerNumber) {

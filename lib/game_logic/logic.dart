@@ -8,11 +8,12 @@ import '../models/element_card_data.dart';
 import '../models/enums.dart';
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
-    {bool hasShadow = false}) {
+    {bool hasShadow = false, bool isFaceUp = true}) {
   return cardData
       .map((e) => ElementCard(
             elementCardData: e,
             hasShadow: hasShadow,
+            isFaceUp: isFaceUp,
           ))
       .toList();
 }

@@ -47,16 +47,23 @@ class ElementCard extends HookConsumerWidget {
                     : BoxShadow(color: Colors.transparent)
               ],
               image: DecorationImage(
-                image: AssetImage(
-                    "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png"),
+                image: isFaceUp
+                    ? AssetImage(
+                        "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png")
+                    : AssetImage(
+                        "assets/game_assets/${ref.watch(playerProvider).elementalType.backImagePath}.png"),
               ),
               borderRadius: BorderRadius.circular(2)),
           child: Center(
-              child: Text(
-            elementCardData.value.toString(),
-            style: TextStyle(
-                color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
-          )),
+              child: isFaceUp
+                  ? Text(
+                      elementCardData.value.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text('')),
         ),
       ),
     );

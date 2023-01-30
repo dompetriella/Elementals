@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../game_components/placeholder_card.dart';
 import '../../../game_logic/logic.dart';
+import '../../../models/enums.dart';
 import '../../../providers/gameDataProvider.dart';
 import '../../../providers/globalProvider.dart';
 import '../../../providers/playerDataProvider.dart';
@@ -74,17 +75,26 @@ class PlayerHandArea extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                PlayerTurnActionButton(
-                  theme: theme,
-                  text: 'Skill',
+                GestureDetector(
+                  onTap: () => ref
+                      .watch(playerProvider.notifier)
+                      .fillPlayerHand(ref, Players.p1),
+                  child: PlayerTurnActionButton(
+                    theme: theme,
+                    text: 'Skill',
+                  ),
                 ),
                 PlayerTurnActionButton(
                   theme: theme,
                   text: 'Burn',
                 ),
                 GestureDetector(
-                  onTap: () =>
-                      ref.watch(gameDataProvider.notifier).discardPlayZone(ref),
+                  onTap: () {
+                    ref.watch(gameDataProvider.notifier).discardPlayZone(ref);
+                    ref
+                        .watch(playerProvider.notifier)
+                        .discardHand(ref, Players.p1);
+                  },
                   child: PlayerTurnActionButton(
                     theme: theme,
                     text: 'End Turn',

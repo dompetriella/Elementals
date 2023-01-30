@@ -28,25 +28,19 @@ class PlayerSide extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PlayerCardPile(
-                        cardPile: ref.watch(playerProvider).deck,
-                      ),
-                      Stack(
-                        children: [
-                          PlayerCardPile(
-                            cardPile: ref.watch(playerProvider).discardPile,
-                            isDiscard: true,
-                          ),
-                        ],
-                      )
-                    ]),
-              )
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                PlayerCardPile(
+                  cardPile: ref.watch(playerProvider).deck,
+                ),
+                Stack(
+                  children: [
+                    PlayerCardPile(
+                      cardPile: ref.watch(playerProvider).discardPile,
+                      isDiscard: true,
+                    ),
+                  ],
+                )
+              ])
             ]),
       ),
     );
