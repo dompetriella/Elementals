@@ -40,7 +40,8 @@ class ElementCard extends HookConsumerWidget {
                 .watch(playerProvider.notifier)
                 .state
                 .copyWith(selectedCard: elementCardData.id);
-            notifyDynamicInfo(ref, ref.watch(playerProvider).selectedCard);
+            notifyDynamicInfo(
+                ref, 'Card Id: ${ref.watch(playerProvider).selectedCard}');
           }
         },
         onDoubleTap: () {
