@@ -10,12 +10,13 @@ import '../models/element_card_data.dart';
 import '../models/enums.dart';
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
-    {bool hasShadow = false, bool isFaceUp = true}) {
+    {bool hasShadow = false, bool isFaceUp = true, bool isShrunk = false}) {
   return cardData
       .map((e) => ElementCard(
             elementCardData: e,
             hasShadow: hasShadow,
             isFaceUp: isFaceUp,
+            isShrunk: isShrunk,
           ))
       .toList();
 }

@@ -48,6 +48,7 @@ class PlayerHandArea extends ConsumerWidget {
                           Stack(
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   PlaceholderCard(),
                                   PlaceholderCard(),
@@ -57,9 +58,10 @@ class PlayerHandArea extends ConsumerWidget {
                                 ],
                               ),
                               Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: convertDataToCards(
-                                      ref.watch(playerProvider).hand,
-                                      hasShadow: true))
+                                    ref.watch(playerProvider).hand,
+                                  ))
                             ],
                           ),
                         ]),

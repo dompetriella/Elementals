@@ -39,14 +39,6 @@ class PlayerCardPile extends ConsumerWidget {
                     Stack(
                         children: convertDataToCards(cardPile,
                             isFaceUp: isDiscard ? true : false)),
-                    if (isDiscard)
-                      Container(
-                        height: ref.read(cardHeightP1),
-                        width: ref.read(cardHeightP1) *
-                                ref.read(cardWidthProportion) +
-                            3,
-                        color: Colors.grey.shade600.withOpacity(.35),
-                      )
                   ],
                 ),
               ),

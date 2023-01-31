@@ -45,8 +45,8 @@ class OpponentSide extends ConsumerWidget {
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:
-                    convertDataToCards(ref.watch(playerTwoProvider).hand)),
+                children: convertDataToCards(ref.watch(playerTwoProvider).hand,
+                    isShrunk: true, isFaceUp: false)),
           ],
         ),
       ),

@@ -10,15 +10,17 @@ double phoneHeight(var context) => MediaQuery.of(context).size.height;
 double phoneWidth(var context) => MediaQuery.of(context).size.width;
 
 class PlaceholderCard extends ConsumerWidget {
-  const PlaceholderCard({super.key});
+  final bool isShrunk;
+  const PlaceholderCard({super.key, this.isShrunk = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+      padding: EdgeInsets.symmetric(horizontal: ref.read(cardSpacing) / 2),
       child: Container(
-        height: ref.read(cardHeightP1),
-        width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
+        height: ref.read(cardHeightP1) + ref.read(cardSpacing),
+        width: ref.read(cardHeightP1) * ref.read(cardWidthProportion) +
+            ref.read(cardSpacing),
         color: Colors.black.withOpacity(.1),
       ),
     );

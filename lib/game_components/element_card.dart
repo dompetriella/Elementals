@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../game_logic/logic.dart';
+import '../models/player_data.dart';
 import '../providers/playerDataProvider.dart';
 
 double cardRaiseHeight = -20;
@@ -16,25 +17,31 @@ class ElementCard extends HookConsumerWidget {
   final bool isSelectable;
   final bool isFaceUp;
   final bool hasShadow;
+  final bool isShrunk;
   final ElementCardData elementCardData;
   const ElementCard(
       {super.key,
       required this.elementCardData,
       this.hasShadow = false,
       this.isFaceUp = true,
+      this.isShrunk = false,
       this.isSelectable = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
+      padding: EdgeInsets.symmetric(horizontal: ref.read(cardSpacing)),
       child: GestureDetector(
         onTap: () {
+          if (elementCardData.canBeSelected &&
+              elementCardData.ownerId == ref.watch(playerProvider).id)
+          // if the card is selected, play it
           if (ref.watch(playerProvider).selectedCard == elementCardData.id) {
             ref
                 .watch(playerProvider.notifier)
                 .playCard(elementCardData.id, ref, Players.p1);
             clearCardTransforms(ref);
+            // select the card
           } else {
             ref.watch(playerProvider.notifier).state = ref
                 .watch(playerProvider.notifier)
@@ -45,9 +52,12 @@ class ElementCard extends HookConsumerWidget {
           }
         },
         onDoubleTap: () {
-          ref
-              .watch(playerProvider.notifier)
-              .playCard(elementCardData.id, ref, Players.p1);
+          if (elementCardData.canBeSelected &&
+              elementCardData.ownerId == ref.watch(playerProvider).id)
+            // play the card
+            ref
+                .watch(playerProvider.notifier)
+                .playCard(elementCardData.id, ref, Players.p1);
           clearCardTransforms(ref);
         },
         child: Transform.translate(
@@ -57,8 +67,10 @@ class ElementCard extends HookConsumerWidget {
                   ? cardRaiseHeight
                   : 0),
           child: Container(
-            height: ref.read(cardHeightP1),
-            width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
+            height: isShrunk ? ref.read(cardHeightP2) : ref.read(cardHeightP1),
+            width:
+                (isShrunk ? ref.read(cardHeightP2) : ref.read(cardHeightP1)) *
+                    ref.read(cardWidthProportion),
             decoration: BoxDecoration(
                 color: Colors.transparent,
                 border: Border.all(color: Colors.grey, width: 0.5),
@@ -72,11 +84,9 @@ class ElementCard extends HookConsumerWidget {
                       : BoxShadow(color: Colors.transparent)
                 ],
                 image: DecorationImage(
-                  image: isFaceUp
-                      ? AssetImage(
-                          "assets/game_assets/${ref.watch(playerProvider).elementalType.frontImagePath}.png")
-                      : AssetImage(
-                          "assets/game_assets/${ref.watch(playerProvider).elementalType.backImagePath}.png"),
+                  image: AssetImage(
+                    getCardImage(elementCardData, isFaceUp),
+                  ),
                 ),
                 borderRadius: BorderRadius.circular(2)),
             child: Center(
@@ -93,5 +103,16 @@ class ElementCard extends HookConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+String getCardImage(ElementCardData elementCardData, bool isFaceUp) {
+  switch (isFaceUp) {
+    case true:
+      return 'assets/game_assets/${elementCardData.elementalType.frontImagePath}.png';
+    case false:
+      return 'assets/game_assets/${elementCardData.elementalType.backImagePath}.png';
+    default:
+      return 'assets/game_assets/${elementCardData.elementalType.frontImagePath}.png';
   }
 }

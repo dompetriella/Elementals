@@ -19,3 +19,7 @@ final cardHeightP2 = Provider<double>((ref) {
 final playerIconDisplaySize = Provider<double>((ref) {
   return 60;
 });
+
+final cardSpacing = Provider<double>((ref) {
+  return 5;
+});

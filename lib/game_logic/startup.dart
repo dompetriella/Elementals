@@ -29,4 +29,7 @@ setInitalGameProperties(WidgetRef ref) {
 
   ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
   ref.watch(playerProvider.notifier).drawCards(ref, Players.p1);
+
+  ref.watch(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
+  ref.watch(playerTwoProvider.notifier).drawCards(ref, Players.p2);
 }

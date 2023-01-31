@@ -32,6 +32,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   drawCard(WidgetRef ref, Players playerNumber) {
     ElementCardData newCard = state.deck.first;
+    newCard = newCard.copyWith(canBeSelected: true);
     state = state.copyWith(hand: [...state.hand, newCard]);
     List<ElementCardData> deckCopy = state.deck.toList();
     deckCopy.removeAt(0);
@@ -68,6 +69,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = ref.watch(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard =
         state.hand.where((element) => element.id == cardId).first;
+    newCard = newCard.copyWith(canBeSelected: false);
     ref.watch(gameDataProvider.notifier).state = ref
         .watch(gameDataProvider)
         .copyWith(playZone: [...ref.watch(gameDataProvider).playZone, newCard]);
@@ -81,6 +83,8 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   discardHand(WidgetRef ref, Players playerNumber) {
     List<ElementCardData> playerHand = state.hand;
+    playerHand =
+        playerHand.map((e) => e.copyWith(canBeSelected: false)).toList();
     state = state.copyWith(hand: []);
     state = state.copyWith(discardPile: [...state.discardPile, ...playerHand]);
 
