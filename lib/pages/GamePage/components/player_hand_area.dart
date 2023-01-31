@@ -1,3 +1,4 @@
+import 'package:elementals/game_logic/game_loop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +8,7 @@ import '../../../models/enums.dart';
 import '../../../providers/gameDataProvider.dart';
 import '../../../providers/globalProvider.dart';
 import '../../../providers/playerDataProvider.dart';
+import 'dynamic_info_channel.dart';
 import 'player_turn_action_button.dart';
 
 class PlayerHandArea extends ConsumerWidget {
@@ -63,13 +65,7 @@ class PlayerHandArea extends ConsumerWidget {
                         ]),
                   ),
                 ),
-                Container(
-                  width: ref.read(cardHeightP1) *
-                      ref.read(cardWidthProportion) *
-                      5.4,
-                  height: 80,
-                  color: Colors.grey.shade900,
-                ),
+                DynamicInfoChannel(),
               ],
             ),
             Row(
@@ -90,10 +86,7 @@ class PlayerHandArea extends ConsumerWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    ref.watch(gameDataProvider.notifier).discardPlayZone(ref);
-                    ref
-                        .watch(playerProvider.notifier)
-                        .discardHand(ref, Players.p1);
+                    endPlayerTurn(ref);
                   },
                   child: PlayerTurnActionButton(
                     theme: theme,

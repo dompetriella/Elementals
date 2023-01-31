@@ -1,10 +1,7 @@
+import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/globalProvider.dart';
-import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../game_components/element_card.dart';
-import '../game_logic/logic.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
 import '../models/player_data.dart';
@@ -87,6 +84,11 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(hand: []);
     state = state.copyWith(discardPile: [...state.discardPile, ...playerHand]);
 
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  selectCard(WidgetRef ref, Players playerNumber, String cardId) {
+    state = state.copyWith(selectedCard: cardId);
     updatePlayerDataToGameData(ref, playerNumber);
   }
 

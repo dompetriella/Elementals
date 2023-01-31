@@ -1,7 +1,9 @@
 import 'package:elementals/game_components/element_card.dart';
+import 'package:elementals/providers/dynamicInfoProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter_guid/flutter_guid.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../game_components/placeholder_card.dart';
 import '../models/element_card_data.dart';
@@ -34,4 +36,8 @@ List<ElementCardData> createPlayerDeck(
   }
   playerDeck.shuffle();
   return playerDeck;
+}
+
+notifyDynamicInfo(WidgetRef ref, String message) {
+  ref.watch(dynamicInfoProvider.notifier).state = message;
 }

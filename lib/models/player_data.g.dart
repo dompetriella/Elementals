@@ -25,6 +25,7 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      selectedCard: json['selectedCard'] as String? ?? '',
       name: json['name'] as String? ?? 'CardPerson',
     );
 
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
       'deck': instance.deck,
       'hand': instance.hand,
       'discardPile': instance.discardPile,
+      'selectedCard': instance.selectedCard,
       'name': instance.name,
     };
 

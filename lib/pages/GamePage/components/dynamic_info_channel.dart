@@ -1,0 +1,27 @@
+import 'package:elementals/providers/dynamicInfoProvider.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../providers/globalProvider.dart';
+
+class DynamicInfoChannel extends ConsumerWidget {
+  const DynamicInfoChannel({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      width: ref.read(cardHeightP1) * ref.read(cardWidthProportion) * 5.4,
+      height: 80,
+      color: Colors.grey.shade900,
+      child: Center(
+        child: Text(
+          ref.watch(dynamicInfoProvider),
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
+      ),
+    );
+  }
+}

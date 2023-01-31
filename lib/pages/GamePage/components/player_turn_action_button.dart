@@ -36,7 +36,10 @@ class PlayerTurnActionButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   text.toUpperCase(),
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),

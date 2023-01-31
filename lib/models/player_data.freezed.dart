@@ -26,6 +26,7 @@ mixin _$PlayerData {
   List<ElementCardData> get deck => throw _privateConstructorUsedError;
   List<ElementCardData> get hand => throw _privateConstructorUsedError;
   List<ElementCardData> get discardPile => throw _privateConstructorUsedError;
+  String get selectedCard => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $PlayerDataCopyWith<$Res> {
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
+      String selectedCard,
       String name});
 }
 
@@ -69,6 +71,7 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
+    Object? selectedCard = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
@@ -96,6 +99,10 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
           ? _value.discardPile
           : discardPile // ignore: cast_nullable_to_non_nullable
               as List<ElementCardData>,
+      selectedCard: null == selectedCard
+          ? _value.selectedCard
+          : selectedCard // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -119,6 +126,7 @@ abstract class _$$_PlayerDataCopyWith<$Res>
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
+      String selectedCard,
       String name});
 }
 
@@ -139,6 +147,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
+    Object? selectedCard = null,
     Object? name = null,
   }) {
     return _then(_$_PlayerData(
@@ -166,6 +175,10 @@ class __$$_PlayerDataCopyWithImpl<$Res>
           ? _value._discardPile
           : discardPile // ignore: cast_nullable_to_non_nullable
               as List<ElementCardData>,
+      selectedCard: null == selectedCard
+          ? _value.selectedCard
+          : selectedCard // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -184,6 +197,7 @@ class _$_PlayerData implements _PlayerData {
       final List<ElementCardData> deck = const [],
       final List<ElementCardData> hand = const [],
       final List<ElementCardData> discardPile = const [],
+      this.selectedCard = '',
       this.name = 'CardPerson'})
       : _deck = deck,
         _hand = hand,
@@ -230,11 +244,14 @@ class _$_PlayerData implements _PlayerData {
 
   @override
   @JsonKey()
+  final String selectedCard;
+  @override
+  @JsonKey()
   final String name;
 
   @override
   String toString() {
-    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, name: $name)';
+    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, selectedCard: $selectedCard, name: $name)';
   }
 
   @override
@@ -251,6 +268,8 @@ class _$_PlayerData implements _PlayerData {
             const DeepCollectionEquality().equals(other._hand, _hand) &&
             const DeepCollectionEquality()
                 .equals(other._discardPile, _discardPile) &&
+            (identical(other.selectedCard, selectedCard) ||
+                other.selectedCard == selectedCard) &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -264,6 +283,7 @@ class _$_PlayerData implements _PlayerData {
       const DeepCollectionEquality().hash(_deck),
       const DeepCollectionEquality().hash(_hand),
       const DeepCollectionEquality().hash(_discardPile),
+      selectedCard,
       name);
 
   @JsonKey(ignore: true)
@@ -288,6 +308,7 @@ abstract class _PlayerData implements PlayerData {
       final List<ElementCardData> deck,
       final List<ElementCardData> hand,
       final List<ElementCardData> discardPile,
+      final String selectedCard,
       final String name}) = _$_PlayerData;
 
   factory _PlayerData.fromJson(Map<String, dynamic> json) =
@@ -305,6 +326,8 @@ abstract class _PlayerData implements PlayerData {
   List<ElementCardData> get hand;
   @override
   List<ElementCardData> get discardPile;
+  @override
+  String get selectedCard;
   @override
   String get name;
   @override
