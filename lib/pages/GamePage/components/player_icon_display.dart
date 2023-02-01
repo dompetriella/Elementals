@@ -16,10 +16,10 @@ class PlayerIconDisplay extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: ref.read(playerIconDisplaySize),
-        width: ref.read(playerIconDisplaySize),
+        height: playerIconDisplaySize,
+        width: playerIconDisplaySize,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(50),
             boxShadow: [
               BoxShadow(
                   color: Colors.grey.shade900,
@@ -27,7 +27,10 @@ class PlayerIconDisplay extends ConsumerWidget {
                   blurRadius: 5,
                   offset: Offset(0, 2))
             ],
-            color: bgColor,
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [Colors.black, bgColor]),
             border: Border.all(color: Colors.white, width: 2)),
         child: Icon(
           icon,

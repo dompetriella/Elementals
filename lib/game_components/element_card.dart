@@ -30,7 +30,7 @@ class ElementCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ref.read(cardSpacing)),
+      padding: EdgeInsets.symmetric(horizontal: cardSpacing),
       child: GestureDetector(
         onTap: () {
           if (elementCardData.canBeSelected &&
@@ -67,13 +67,13 @@ class ElementCard extends HookConsumerWidget {
                   ? cardRaiseHeight
                   : 0),
           child: Container(
-            height: isShrunk ? ref.read(cardHeightP2) : ref.read(cardHeightP1),
+            height: isShrunk ? cardHeightP2 : cardHeightP1,
             width:
-                (isShrunk ? ref.read(cardHeightP2) : ref.read(cardHeightP1)) *
-                    ref.read(cardWidthProportion),
+                (isShrunk ? cardHeightP2 : cardHeightP1) * cardWidthProportion,
             decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(color: Colors.grey, width: 0.5),
+                color: elementCardData.id == '0'
+                    ? Colors.grey.shade800.withOpacity(.5)
+                    : Colors.transparent,
                 boxShadow: [
                   hasShadow
                       ? BoxShadow(
@@ -83,11 +83,13 @@ class ElementCard extends HookConsumerWidget {
                           color: Colors.grey.shade800)
                       : BoxShadow(color: Colors.transparent)
                 ],
-                image: DecorationImage(
-                  image: AssetImage(
-                    getCardImage(elementCardData, isFaceUp),
-                  ),
-                ),
+                image: elementCardData.id != '0'
+                    ? DecorationImage(
+                        image: AssetImage(
+                          getCardImage(elementCardData, isFaceUp),
+                        ),
+                      )
+                    : null,
                 borderRadius: BorderRadius.circular(2)),
             child: Center(
                 child: isFaceUp
@@ -95,7 +97,7 @@ class ElementCard extends HookConsumerWidget {
                         elementCardData.value.toString(),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: isShrunk ? 24 : 32,
                             fontWeight: FontWeight.bold),
                       )
                     : Text('')),
@@ -113,6 +115,6 @@ String getCardImage(ElementCardData elementCardData, bool isFaceUp) {
     case false:
       return 'assets/game_assets/${elementCardData.elementalType.backImagePath}.png';
     default:
-      return 'assets/game_assets/${elementCardData.elementalType.frontImagePath}.png';
+      return '';
   }
 }

@@ -15,21 +15,33 @@ setInitalGameProperties(WidgetRef ref) {
   String playerTwoGuid = Guid.generate().toString();
   ElementalType randomElement = ElementalType.values[Random().nextInt(3)];
 
-  ref.watch(gameDataProvider.notifier).state = GameData(players: [
-    PlayerData(
-        id: playerOneGuid,
-        elementalType: ref.watch(playerProvider).elementalType,
-        deck: createPlayerDeck(
-            playerOneGuid, ref.watch(playerProvider).elementalType)),
-    PlayerData(
-        id: playerTwoGuid,
-        elementalType: randomElement,
-        deck: createPlayerDeck(playerTwoGuid, randomElement))
-  ]);
+  ref.watch(playerProvider.notifier).state = PlayerData(
+      id: playerOneGuid,
+      name: 'Player One',
+      elementalType: ref.watch(playerProvider).elementalType,
+      deck: createPlayerDeck(
+          playerOneGuid, ref.watch(playerProvider).elementalType));
+
+  ref.watch(playerTwoProvider.notifier).state = PlayerData(
+      id: playerTwoGuid,
+      name: 'Player Two',
+      elementalType: randomElement,
+      deck: createPlayerDeck(playerTwoGuid, randomElement));
+
+  ref.watch(gameDataProvider.notifier).state = ref
+      .watch(gameDataProvider.notifier)
+      .state
+      .copyWith(
+          players: [ref.watch(playerProvider), ref.watch(playerTwoProvider)]);
 
   ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
   ref.watch(playerProvider.notifier).drawCards(ref, Players.p1);
 
   ref.watch(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
   ref.watch(playerTwoProvider.notifier).drawCards(ref, Players.p2);
+
+  ref.watch(gameDataProvider.notifier).state = ref
+      .watch(gameDataProvider)
+      .copyWith(currentPlayer: ref.watch(playerProvider));
+  notifyDynamicInfo(ref, "Player One's Turn");
 }

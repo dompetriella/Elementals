@@ -26,7 +26,7 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       selectedCard: json['selectedCard'] as String? ?? '',
-      name: json['name'] as String? ?? 'CardPerson',
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>

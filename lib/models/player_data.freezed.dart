@@ -198,7 +198,7 @@ class _$_PlayerData implements _PlayerData {
       final List<ElementCardData> hand = const [],
       final List<ElementCardData> discardPile = const [],
       this.selectedCard = '',
-      this.name = 'CardPerson'})
+      this.name = ''})
       : _deck = deck,
         _hand = hand,
         _discardPile = discardPile;

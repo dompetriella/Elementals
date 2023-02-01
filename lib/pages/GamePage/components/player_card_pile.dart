@@ -17,31 +17,33 @@ class PlayerCardPile extends ConsumerWidget {
     return Column(
       children: [
         SizedBox(
-          width: ref.read(cardHeightP1) * ref.read(cardWidthProportion),
+          width: cardHeightP1 * cardWidthProportion,
           child: Center(
             child: Text(
               '${cardPile.length}',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 18,
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
         ),
-        cardPile.isEmpty
-            ? Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: PlaceholderCard(),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Stack(
-                  children: [
-                    Stack(
-                        children: convertDataToCards(cardPile,
-                            isFaceUp: isDiscard ? true : false)),
-                  ],
-                ),
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          child: Stack(
+            children: [
+              Stack(
+                  children: cardPile.isEmpty
+                      ? [PlaceholderCard()]
+                      : [
+                          PlaceholderCard(),
+                          ...convertDataToCards(cardPile,
+                              isFaceUp: isDiscard ? true : false,
+                              isShrunk: true)
+                        ]),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -8,6 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../game_components/placeholder_card.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
+import '../providers/playerDataProvider.dart';
+
+int numberOfCopiesInDeck = 4;
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
     {bool hasShadow = false, bool isFaceUp = true, bool isShrunk = false}) {
@@ -21,12 +24,10 @@ List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
       .toList();
 }
 
-int copiesOfEachNumber = 3;
-
 List<ElementCardData> createPlayerDeck(
     String ownerId, ElementalType ownerElementalType) {
   List<ElementCardData> playerDeck = [];
-  for (int n = 0; n < copiesOfEachNumber; n++) {
+  for (int n = 0; n < numberOfCopiesInDeck; n++) {
     for (int i = 1; i < 8; i++) {
       playerDeck.add(ElementCardData(
           id: Guid.generate().toString(),
@@ -37,6 +38,14 @@ List<ElementCardData> createPlayerDeck(
   }
   playerDeck.shuffle();
   return playerDeck;
+}
+
+fillPlayersHands(WidgetRef ref) {
+  ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
+  ref.watch(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
+
+  ref.watch(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
+  ref.watch(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
 }
 
 notifyDynamicInfo(WidgetRef ref, String message) {

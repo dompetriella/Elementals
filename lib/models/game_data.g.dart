@@ -23,6 +23,9 @@ _$_GameData _$$_GameDataFromJson(Map<String, dynamic> json) => _$_GameData(
               ?.map((e) => PlayerData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      currentPlayer: json['currentPlayer'] == null
+          ? const PlayerData()
+          : PlayerData.fromJson(json['currentPlayer'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_GameDataToJson(_$_GameData instance) =>
@@ -31,4 +34,5 @@ Map<String, dynamic> _$$_GameDataToJson(_$_GameData instance) =>
       'totalTurns': instance.totalTurns,
       'currentTurns': instance.currentTurns,
       'players': instance.players,
+      'currentPlayer': instance.currentPlayer,
     };

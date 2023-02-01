@@ -16,6 +16,7 @@ class PlayerTurnActionButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
+            constraints: BoxConstraints(maxHeight: 50),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -28,7 +29,7 @@ class PlayerTurnActionButton extends StatelessWidget {
                       blurRadius: 3,
                       spreadRadius: 1,
                       offset: Offset(0, 3),
-                      color: Colors.grey.shade800)
+                      color: Colors.black.withOpacity(0.25))
                 ]),
             child: Padding(
               padding:
@@ -37,7 +38,7 @@ class PlayerTurnActionButton extends StatelessWidget {
                 child: Text(
                   text.toUpperCase(),
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       color: Colors.white,
                       fontWeight: FontWeight.w600),
                 ),

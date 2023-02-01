@@ -30,9 +30,10 @@ class PlayerHandArea extends ConsumerWidget {
       ]),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   decoration: BoxDecoration(
@@ -50,11 +51,18 @@ class PlayerHandArea extends ConsumerWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  PlaceholderCard(),
-                                  PlaceholderCard(),
-                                  PlaceholderCard(),
-                                  PlaceholderCard(),
-                                  PlaceholderCard(),
+                                  PlaceholderCard(
+                                    isShrunk: false,
+                                  ),
+                                  PlaceholderCard(
+                                    isShrunk: false,
+                                  ),
+                                  PlaceholderCard(
+                                    isShrunk: false,
+                                  ),
+                                  PlaceholderCard(
+                                    isShrunk: false,
+                                  ),
                                 ],
                               ),
                               Row(
@@ -70,32 +78,37 @@ class PlayerHandArea extends ConsumerWidget {
                 DynamicInfoChannel(),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () => ref
-                      .watch(playerProvider.notifier)
-                      .fillPlayerHand(ref, Players.p1),
-                  child: PlayerTurnActionButton(
-                    theme: theme,
-                    text: 'Skill',
-                  ),
+            Expanded(
+              child: Container(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () => ref
+                          .watch(playerProvider.notifier)
+                          .fillPlayerHand(ref, Players.p1),
+                      child: PlayerTurnActionButton(
+                        theme: theme,
+                        text: 'Draw',
+                      ),
+                    ),
+                    PlayerTurnActionButton(
+                      theme: theme,
+                      text: 'Burn',
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        continueGameLoop(ref);
+                      },
+                      child: PlayerTurnActionButton(
+                        theme: theme,
+                        text: 'End Turn',
+                      ),
+                    ),
+                  ],
                 ),
-                PlayerTurnActionButton(
-                  theme: theme,
-                  text: 'Burn',
-                ),
-                GestureDetector(
-                  onTap: () {
-                    endPlayerTurn(ref);
-                  },
-                  child: PlayerTurnActionButton(
-                    theme: theme,
-                    text: 'End Turn',
-                  ),
-                ),
-              ],
+              ),
             ),
           ]),
     );

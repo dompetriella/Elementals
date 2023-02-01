@@ -1,25 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final cardsInHand = Provider<int>((ref) {
-  return 5;
-});
+const int cardsInHand = 4;
 
-final cardWidthProportion = Provider<double>((ref) {
-  return .58;
-});
+const double cardHeightP1 = 90;
 
-final cardHeightP1 = Provider<double>((ref) {
-  return 90;
-});
+const double cardWidthProportion = 0.58;
 
-final cardHeightP2 = Provider<double>((ref) {
-  return 60;
-});
+const double cardHeightP2 = cardHeightP1 * 0.70;
 
-final playerIconDisplaySize = Provider<double>((ref) {
-  return 60;
-});
+const double playerIconDisplaySize = 60;
 
-final cardSpacing = Provider<double>((ref) {
-  return 5;
-});
+const double cardSpacing = 5;

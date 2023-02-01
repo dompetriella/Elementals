@@ -41,14 +41,14 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
-  drawCards(WidgetRef ref, Players playerNumber, {amount = 5}) {
+  drawCards(WidgetRef ref, Players playerNumber, {amount = 4}) {
     for (var i = 0; i < amount; i++) {
       drawCard(ref, playerNumber);
     }
   }
 
   fillPlayerHand(WidgetRef ref, Players playerNumber) {
-    for (var i = 0; i < ref.read(cardsInHand); i++) {
+    for (var i = 0; i < cardsInHand; i++) {
       if (state.deck.isNotEmpty) {
         drawCard(ref, playerNumber);
       } else {

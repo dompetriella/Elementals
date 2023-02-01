@@ -1,6 +1,7 @@
 import 'package:elementals/models/player_data.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../game_logic/logic.dart';
 import '../models/element_card_data.dart';
 import '../models/game_data.dart';
 
@@ -39,5 +40,13 @@ class GameNotifier extends StateNotifier<GameData> {
     state = state.copyWith(playZone: [lastCardPlayed]);
 
     state = state.copyWith(players: [playerOne, playerTwo]);
+  }
+
+  switchActivePlayer(WidgetRef ref) {
+    if (state.players[0].id == state.currentPlayer.id) {
+      state = state.copyWith(currentPlayer: state.players[1]);
+    } else {
+      state = state.copyWith(currentPlayer: state.players[0]);
+    }
   }
 }

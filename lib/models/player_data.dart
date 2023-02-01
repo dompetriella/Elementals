@@ -15,7 +15,7 @@ class PlayerData with _$PlayerData {
     @Default([]) List<ElementCardData> hand,
     @Default([]) List<ElementCardData> discardPile,
     @Default('') String selectedCard,
-    @Default('CardPerson') String name,
+    @Default('') String name,
   }) = _PlayerData;
 
   factory PlayerData.fromJson(Map<String, Object?> json) =>
