@@ -10,15 +10,8 @@ import 'dart:io';
 
 import '../models/enums.dart';
 
-bool isCardPlayable(int playableValue, ElementCardData checkedCard) {
-  if (checkedCard.value == playableValue) return true;
-  if (checkedCard.value == playableValue + 1) return true;
-  if (checkedCard.value == playableValue - 1) return true;
-  return false;
-}
-
 cpuTurn(WidgetRef ref) async {
-  await Future.delayed(Duration(milliseconds: 1000));
+  await Future.delayed(Duration(milliseconds: 3000));
   while (ref.watch(playerTwoProvider).hand.length > 0) {
     int newPlayValue = ref.watch(gameDataProvider).playZone.last.value;
 

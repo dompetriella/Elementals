@@ -13,36 +13,24 @@ class PlayerSide extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Flexible(
       flex: 20,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.secondary,
-              ]),
-          border: Border(top: BorderSide(color: Colors.white, width: 5)),
-        ),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                PlayerCardPile(
-                  cardPile: ref.watch(playerProvider).deck,
-                ),
-                Stack(
-                  children: [
-                    PlayerCardPile(
-                      cardPile: ref.watch(playerProvider).discardPile,
-                      isDiscard: true,
-                    ),
-                  ],
-                )
-              ])
-            ]),
-      ),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              PlayerCardPile(
+                cardPile: ref.watch(playerProvider).deck,
+              ),
+              Stack(
+                children: [
+                  PlayerCardPile(
+                    cardPile: ref.watch(playerProvider).discardPile,
+                    isDiscard: true,
+                  ),
+                ],
+              )
+            ])
+          ]),
     );
   }
 }

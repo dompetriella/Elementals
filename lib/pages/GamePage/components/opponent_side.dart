@@ -18,37 +18,59 @@ class OpponentSide extends ConsumerWidget {
     var element = ref.watch(gameDataProvider).players[1].elementalType;
     return Flexible(
       flex: 20,
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              HexColor(element.primaryColor),
-              HexColor(element.secondaryColor)
-            ])),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                PlayerIconDisplay(
-                  icon: Icons.bakery_dining,
-                  bgColor: ref.watch(themeProvider).colorScheme.primary,
-                ),
-                PlayerIconDisplay(
-                  icon: Icons.fire_extinguisher,
-                  bgColor: HexColor(element.primaryColor),
-                ),
-              ],
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: convertDataToCards(ref.watch(playerTwoProvider).hand,
-                    isShrunk: true, isFaceUp: false)),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  PlayerIconDisplay(
+                    icon: Icons.bakery_dining,
+                    bgColor: ref.watch(themeProvider).colorScheme.primary,
+                  ),
+                  Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '20',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '20',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  PlayerIconDisplay(
+                    icon: Icons.fire_extinguisher,
+                    bgColor: HexColor(element.primaryColor),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: convertDataToCards(ref.watch(playerTwoProvider).hand,
+                  isShrunk: true, isFaceUp: false)),
+        ],
       ),
     );
   }

@@ -84,14 +84,9 @@ class PlayerHandArea extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                      onTap: () => ref
-                          .watch(playerProvider.notifier)
-                          .fillPlayerHand(ref, Players.p1),
-                      child: PlayerTurnActionButton(
-                        theme: theme,
-                        text: 'Draw',
-                      ),
+                    PlayerTurnActionButton(
+                      theme: theme,
+                      text: 'Skill',
                     ),
                     PlayerTurnActionButton(
                       theme: theme,

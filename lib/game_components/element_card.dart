@@ -1,6 +1,7 @@
 import 'package:elementals/game_logic/animation_logic.dart';
 import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
+import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/globalProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,32 +34,10 @@ class ElementCard extends HookConsumerWidget {
       padding: EdgeInsets.symmetric(horizontal: cardSpacing),
       child: GestureDetector(
         onTap: () {
-          if (elementCardData.canBeSelected &&
-              elementCardData.ownerId == ref.watch(playerProvider).id)
-          // if the card is selected, play it
-          if (ref.watch(playerProvider).selectedCard == elementCardData.id) {
-            ref
-                .watch(playerProvider.notifier)
-                .playCard(elementCardData.id, ref, Players.p1);
-            clearCardTransforms(ref);
-            // select the card
-          } else {
-            ref.watch(playerProvider.notifier).state = ref
-                .watch(playerProvider.notifier)
-                .state
-                .copyWith(selectedCard: elementCardData.id);
-            notifyDynamicInfo(
-                ref, 'Card Id: ${ref.watch(playerProvider).selectedCard}');
-          }
+          selectCardToPlay(elementCardData, ref);
         },
         onDoubleTap: () {
-          if (elementCardData.canBeSelected &&
-              elementCardData.ownerId == ref.watch(playerProvider).id)
-            // play the card
-            ref
-                .watch(playerProvider.notifier)
-                .playCard(elementCardData.id, ref, Players.p1);
-          clearCardTransforms(ref);
+          immediatelyPlayCard(elementCardData, ref);
         },
         child: Transform.translate(
           offset: Offset(
