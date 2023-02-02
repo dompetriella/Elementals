@@ -1,5 +1,6 @@
 import 'package:elementals/game_components/element_card.dart';
 import 'package:elementals/providers/dynamicInfoProvider.dart';
+import 'package:elementals/providers/globalProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -112,12 +113,24 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
   }
 }
 
-int determinePlayedCardPoints(
+int calculatePlayedCardPoints(
     ElementalType elementalType, int playZoneValue, int playedCardValue) {
-  return 1;
+  switch (elementalType) {
+    case ElementalType.fire:
+      if (determineValueDifference(playZoneValue, playedCardValue) ==
+              ValueDifference.increase &&
+          playedCardValue == highestCardValue) {
+        return fireMax;
+      }
+      return 1;
+    default:
+      return 1;
+  }
 }
 
 ValueDifference determineValueDifference(
     int playZoneValue, int playedCardValue) {
+  if (playedCardValue > playZoneValue) return ValueDifference.increase;
+  if (playedCardValue < playZoneValue) return ValueDifference.decrease;
   return ValueDifference.noChange;
 }

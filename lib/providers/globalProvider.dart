@@ -1,5 +1,7 @@
 const int cardsInHand = 4;
 
+const int highestCardValue = 7;
+
 const double cardHeightP1 = 90;
 
 const double cardWidthProportion = 0.58;
