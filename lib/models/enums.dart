@@ -17,3 +17,5 @@ enum ElementalType {
 }
 
 enum Players { p1, p2 }
+
+enum ValueDifference { increase, decrease, noChange }

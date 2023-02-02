@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../game_components/placeholder_card.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
+import '../models/player_data.dart';
 import '../providers/gameDataProvider.dart';
 import '../providers/playerDataProvider.dart';
 import 'animation_logic.dart';
@@ -109,4 +110,14 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
       notifyDynamicInfo(ref, 'Card is unplayable');
     }
   }
+}
+
+int determinePlayedCardPoints(
+    ElementalType elementalType, int playZoneValue, int playedCardValue) {
+  return 1;
+}
+
+ValueDifference determineValueDifference(
+    int playZoneValue, int playedCardValue) {
+  return ValueDifference.noChange;
 }
