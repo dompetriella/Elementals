@@ -45,7 +45,7 @@ class GamePage extends StatelessWidget {
                   SettingsButton(),
                   Center(
                     child: PlayZone(),
-                  )
+                  ),
                 ],
               ),
             ),

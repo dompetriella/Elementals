@@ -86,6 +86,9 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
     updatePlayerDataToGameData(ref, playerNumber);
     updateOverallScore(ref);
+    if (ref.watch(gameDataProvider).overallScore >= winningScore) {
+      ref.watch(gameDataProvider.notifier).state.copyWith(gameOver: true);
+    }
   }
 
   discardHand(WidgetRef ref, Players playerNumber) {

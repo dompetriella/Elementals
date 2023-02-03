@@ -59,6 +59,6 @@ class GameNotifier extends StateNotifier<GameData> {
         elementalType: ElementalType.fire,
         value: 4,
       ),
-    ], currentWinner: PlayerData(), overallScore: 0);
+    ], currentWinner: PlayerData(), overallScore: 0, gameOver: false);
   }
 }

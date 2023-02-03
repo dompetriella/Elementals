@@ -28,6 +28,7 @@ _$_GameData _$$_GameDataFromJson(Map<String, dynamic> json) => _$_GameData(
           : PlayerData.fromJson(json['currentPlayer'] as Map<String, dynamic>),
       overallScore: json['overallScore'] as int? ?? 0,
       currentWinner: json['currentWinner'] ?? const PlayerData(),
+      gameOver: json['gameOver'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_GameDataToJson(_$_GameData instance) =>
@@ -39,4 +40,5 @@ Map<String, dynamic> _$$_GameDataToJson(_$_GameData instance) =>
       'currentPlayer': instance.currentPlayer,
       'overallScore': instance.overallScore,
       'currentWinner': instance.currentWinner,
+      'gameOver': instance.gameOver,
     };
