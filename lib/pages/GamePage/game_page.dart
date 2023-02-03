@@ -1,10 +1,5 @@
 import 'package:elementals/globals.dart';
-import 'package:elementals/providers/gameDataProvider.dart';
-import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hexcolor/hexcolor.dart';
-import '../../models/player_data.dart';
 import 'components/backgroundAreas.dart';
 import 'components/opponent_side.dart';
 import 'components/play_zone.dart';
