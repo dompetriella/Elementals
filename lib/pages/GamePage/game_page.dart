@@ -1,6 +1,6 @@
 import 'package:elementals/globals.dart';
 import 'package:flutter/material.dart';
-import 'components/backgroundAreas.dart';
+import 'components/background_areas.dart';
 import 'components/opponent_side.dart';
 import 'components/play_zone.dart';
 import 'components/player_hand_area.dart';

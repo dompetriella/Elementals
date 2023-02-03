@@ -14,7 +14,7 @@ double phoneWidth(var context) => MediaQuery.of(context).size.width;
 double calculateFieldHeight(var context, WidgetRef ref, PlayerData player) {
   // not sure what that 15 is doing there, need to figure that out
   double totalGameFieldHeight =
-      phoneHeight(context) * (gameField / (playerField + gameField)) - 15;
+      phoneHeight(context) * (gameField / (playerField + gameField));
   double heightUnit = totalGameFieldHeight / (winningScore * 2);
   return calculateOvertakeSize(player, ref) * heightUnit;
 }
