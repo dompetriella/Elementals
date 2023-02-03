@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:ui';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +16,14 @@ double phoneWidth(var context) => MediaQuery.of(context).size.width;
 
 double calculateFieldHeight(var context, WidgetRef ref, PlayerData player) {
   // get game area size, mediaquery.padding is safe area for mobile
+  double adjustedSafeScreenSize = kIsWeb
+      ? MediaQuery.of(context).size.height
+      : MediaQueryData.fromWindow(window).size.height -
+          (MediaQueryData.fromWindow(window).padding.top +
+              MediaQueryData.fromWindow(window).padding.bottom);
   double totalGameFieldHeight =
-      phoneHeight(context) * (gameField / (playerField + gameField)) -
-          MediaQuery.of(context).padding.top;
+      adjustedSafeScreenSize * (gameField / (playerField + gameField));
+
   double heightUnit = totalGameFieldHeight / (winningScore * 2);
   return calculateOvertakeSize(player, ref) * heightUnit;
 }
@@ -57,15 +66,13 @@ class PlayerBackground extends ConsumerWidget {
       curve: curve,
       height: calculateFieldHeight(context, ref, ref.watch(playerProvider)),
       decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.white, width: 2)),
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                HexColor(
-                    ref.watch(playerProvider).elementalType.secondaryColor),
-                HexColor(ref.watch(playerProvider).elementalType.primaryColor),
-              ])),
+            HexColor(ref.watch(playerProvider).elementalType.secondaryColor),
+            HexColor(ref.watch(playerProvider).elementalType.primaryColor),
+          ])),
     );
   }
 }

@@ -14,7 +14,7 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.transparent,
         body: Column(
           children: [
             Flexible(
