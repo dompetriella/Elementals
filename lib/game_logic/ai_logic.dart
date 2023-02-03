@@ -28,11 +28,9 @@ cpuTurn(WidgetRef ref) async {
     }
     if (playableCards.isNotEmpty) {
       // FIREWATCH - IE the CPU won't throw the game player 1s with fire
-      if (ref.watch(playerProvider).elementalType != ElementalType.fire &&
-          playableCards.first != 1)
-        ref
-            .watch(playerTwoProvider.notifier)
-            .playCard(playableCards.first, ref, Players.p2);
+      ref
+          .watch(playerTwoProvider.notifier)
+          .playCard(playableCards.first, ref, Players.p2);
     } else {
       break;
     }
