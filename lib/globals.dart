@@ -20,9 +20,11 @@ const double cardSpacing = 5;
 
 const int fireBonus = 5;
 const int fireMax = 10;
+const int firePenalty = -1;
 
 const int airBonus = 5;
 const int airMax = 8;
+const int airPenalty = 0;
 
 const int waterBonus = 3;
 
