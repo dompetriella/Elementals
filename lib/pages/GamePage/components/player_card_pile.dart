@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../game_components/placeholder_card.dart';
 import '../../../game_logic/logic.dart';
 import '../../../models/element_card_data.dart';
-import '../../../providers/globalProvider.dart';
+import '../../../globals.dart';
 
 class PlayerCardPile extends ConsumerWidget {
   final List<ElementCardData> cardPile;

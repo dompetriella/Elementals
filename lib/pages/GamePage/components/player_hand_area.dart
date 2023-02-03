@@ -6,7 +6,7 @@ import '../../../game_components/placeholder_card.dart';
 import '../../../game_logic/logic.dart';
 import '../../../models/enums.dart';
 import '../../../providers/gameDataProvider.dart';
-import '../../../providers/globalProvider.dart';
+import '../../../globals.dart';
 import '../../../providers/playerDataProvider.dart';
 import 'dynamic_info_channel.dart';
 import 'player_turn_action_button.dart';

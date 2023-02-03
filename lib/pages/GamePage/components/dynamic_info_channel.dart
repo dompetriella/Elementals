@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/globalProvider.dart';
+import '../../../globals.dart';
 
 class DynamicInfoChannel extends ConsumerWidget {
   const DynamicInfoChannel({

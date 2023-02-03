@@ -2,7 +2,7 @@ import 'package:elementals/game_logic/animation_logic.dart';
 import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
-import 'package:elementals/providers/globalProvider.dart';
+import 'package:elementals/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

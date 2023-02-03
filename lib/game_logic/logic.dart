@@ -1,6 +1,6 @@
 import 'package:elementals/game_components/element_card.dart';
 import 'package:elementals/providers/dynamicInfoProvider.dart';
-import 'package:elementals/providers/globalProvider.dart';
+import 'package:elementals/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -121,6 +121,33 @@ int calculatePlayedCardPoints(
               ValueDifference.increase &&
           playedCardValue == highestCardValue) {
         return fireMax;
+      } else if (determineValueDifference(playZoneValue, playedCardValue) ==
+          ValueDifference.increase) {
+        return fireBonus;
+      }
+      return 1;
+    case ElementalType.air:
+      if (determineValueDifference(playZoneValue, playedCardValue) ==
+              ValueDifference.decrease &&
+          playedCardValue == lowestCardValue) {
+        return airMax;
+      } else if (determineValueDifference(playZoneValue, playedCardValue) ==
+          ValueDifference.decrease) {
+        return airBonus;
+      }
+      return 1;
+    case ElementalType.water:
+      if (determineValueDifference(playZoneValue, playedCardValue) ==
+              ValueDifference.decrease ||
+          determineValueDifference(playZoneValue, playedCardValue) ==
+              ValueDifference.increase) {
+        return waterBonus;
+      }
+      return 1;
+    case ElementalType.water:
+      if (determineValueDifference(playZoneValue, playedCardValue) ==
+          ValueDifference.noChange) {
+        return earthBonus;
       }
       return 1;
     default:

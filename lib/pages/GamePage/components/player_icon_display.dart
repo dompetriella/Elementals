@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/globalProvider.dart';
+import '../../../globals.dart';
 
 class PlayerIconDisplay extends ConsumerWidget {
   final IconData icon;

@@ -1,6 +1,6 @@
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
-import 'package:elementals/providers/globalProvider.dart';
+import 'package:elementals/globals.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
