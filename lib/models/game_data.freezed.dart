@@ -25,6 +25,8 @@ mixin _$GameData {
   int get currentTurns => throw _privateConstructorUsedError;
   List<PlayerData> get players => throw _privateConstructorUsedError;
   PlayerData get currentPlayer => throw _privateConstructorUsedError;
+  int get overallScore => throw _privateConstructorUsedError;
+  dynamic get currentWinner => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,9 @@ abstract class $GameDataCopyWith<$Res> {
       int totalTurns,
       int currentTurns,
       List<PlayerData> players,
-      PlayerData currentPlayer});
+      PlayerData currentPlayer,
+      int overallScore,
+      dynamic currentWinner});
 
   $PlayerDataCopyWith<$Res> get currentPlayer;
 }
@@ -65,6 +69,8 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
     Object? currentTurns = null,
     Object? players = null,
     Object? currentPlayer = null,
+    Object? overallScore = null,
+    Object? currentWinner = freezed,
   }) {
     return _then(_value.copyWith(
       playZone: null == playZone
@@ -87,6 +93,14 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
           ? _value.currentPlayer
           : currentPlayer // ignore: cast_nullable_to_non_nullable
               as PlayerData,
+      overallScore: null == overallScore
+          ? _value.overallScore
+          : overallScore // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentWinner: freezed == currentWinner
+          ? _value.currentWinner
+          : currentWinner // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 
@@ -111,7 +125,9 @@ abstract class _$$_GameDataCopyWith<$Res> implements $GameDataCopyWith<$Res> {
       int totalTurns,
       int currentTurns,
       List<PlayerData> players,
-      PlayerData currentPlayer});
+      PlayerData currentPlayer,
+      int overallScore,
+      dynamic currentWinner});
 
   @override
   $PlayerDataCopyWith<$Res> get currentPlayer;
@@ -133,6 +149,8 @@ class __$$_GameDataCopyWithImpl<$Res>
     Object? currentTurns = null,
     Object? players = null,
     Object? currentPlayer = null,
+    Object? overallScore = null,
+    Object? currentWinner = freezed,
   }) {
     return _then(_$_GameData(
       playZone: null == playZone
@@ -155,6 +173,12 @@ class __$$_GameDataCopyWithImpl<$Res>
           ? _value.currentPlayer
           : currentPlayer // ignore: cast_nullable_to_non_nullable
               as PlayerData,
+      overallScore: null == overallScore
+          ? _value.overallScore
+          : overallScore // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentWinner:
+          freezed == currentWinner ? _value.currentWinner! : currentWinner,
     ));
   }
 }
@@ -170,7 +194,9 @@ class _$_GameData implements _GameData {
       this.totalTurns = 0,
       this.currentTurns = 0,
       final List<PlayerData> players = const [],
-      this.currentPlayer = const PlayerData()})
+      this.currentPlayer = const PlayerData(),
+      this.overallScore = 0,
+      this.currentWinner = const PlayerData()})
       : _playZone = playZone,
         _players = players;
 
@@ -204,10 +230,16 @@ class _$_GameData implements _GameData {
   @override
   @JsonKey()
   final PlayerData currentPlayer;
+  @override
+  @JsonKey()
+  final int overallScore;
+  @override
+  @JsonKey()
+  final dynamic currentWinner;
 
   @override
   String toString() {
-    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, currentTurns: $currentTurns, players: $players, currentPlayer: $currentPlayer)';
+    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, currentTurns: $currentTurns, players: $players, currentPlayer: $currentPlayer, overallScore: $overallScore, currentWinner: $currentWinner)';
   }
 
   @override
@@ -222,7 +254,11 @@ class _$_GameData implements _GameData {
                 other.currentTurns == currentTurns) &&
             const DeepCollectionEquality().equals(other._players, _players) &&
             (identical(other.currentPlayer, currentPlayer) ||
-                other.currentPlayer == currentPlayer));
+                other.currentPlayer == currentPlayer) &&
+            (identical(other.overallScore, overallScore) ||
+                other.overallScore == overallScore) &&
+            const DeepCollectionEquality()
+                .equals(other.currentWinner, currentWinner));
   }
 
   @JsonKey(ignore: true)
@@ -233,7 +269,9 @@ class _$_GameData implements _GameData {
       totalTurns,
       currentTurns,
       const DeepCollectionEquality().hash(_players),
-      currentPlayer);
+      currentPlayer,
+      overallScore,
+      const DeepCollectionEquality().hash(currentWinner));
 
   @JsonKey(ignore: true)
   @override
@@ -255,7 +293,9 @@ abstract class _GameData implements GameData {
       final int totalTurns,
       final int currentTurns,
       final List<PlayerData> players,
-      final PlayerData currentPlayer}) = _$_GameData;
+      final PlayerData currentPlayer,
+      final int overallScore,
+      final dynamic currentWinner}) = _$_GameData;
 
   factory _GameData.fromJson(Map<String, dynamic> json) = _$_GameData.fromJson;
 
@@ -269,6 +309,10 @@ abstract class _GameData implements GameData {
   List<PlayerData> get players;
   @override
   PlayerData get currentPlayer;
+  @override
+  int get overallScore;
+  @override
+  dynamic get currentWinner;
   @override
   @JsonKey(ignore: true)
   _$$_GameDataCopyWith<_$_GameData> get copyWith =>

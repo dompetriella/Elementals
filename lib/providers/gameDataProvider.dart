@@ -1,3 +1,4 @@
+import 'package:elementals/models/enums.dart';
 import 'package:elementals/models/player_data.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,5 +49,16 @@ class GameNotifier extends StateNotifier<GameData> {
     } else {
       state = state.copyWith(currentPlayer: state.players[0]);
     }
+  }
+
+  resetPlayZone() {
+    state = state.copyWith(playZone: [
+      ElementCardData(
+        id: '0',
+        ownerId: '0',
+        elementalType: ElementalType.fire,
+        value: 4,
+      )
+    ]);
   }
 }

@@ -1,20 +1,14 @@
 import 'package:elementals/game_components/element_card.dart';
 import 'package:elementals/providers/dynamicInfoProvider.dart';
 import 'package:elementals/globals.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../game_components/placeholder_card.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
-import '../models/player_data.dart';
 import '../providers/gameDataProvider.dart';
 import '../providers/playerDataProvider.dart';
 import 'animation_logic.dart';
-
-int numberOfCopiesInDeck = 4;
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
     {bool hasShadow = false, bool isFaceUp = true, bool isShrunk = false}) {
@@ -31,8 +25,8 @@ List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
 List<ElementCardData> createPlayerDeck(
     String ownerId, ElementalType ownerElementalType) {
   List<ElementCardData> playerDeck = [];
-  for (int n = 0; n < numberOfCopiesInDeck; n++) {
-    for (int i = 1; i < 8; i++) {
+  for (int n = 0; n < cardDuplicates; n++) {
+    for (int i = lowestCardValue; i <= highestCardValue; i++) {
       playerDeck.add(ElementCardData(
           id: Guid.generate().toString(),
           ownerId: ownerId,
@@ -73,7 +67,7 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
           ref.watch(gameDataProvider).playZone.last.value, elementCardData)) {
         ref
             .watch(playerProvider.notifier)
-            .playCard(elementCardData.id, ref, Players.p1);
+            .playCard(elementCardData, ref, Players.p1);
         clearCardTransforms(ref);
       } else {
         clearCardTransforms(ref);
@@ -104,7 +98,7 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
         ref.watch(gameDataProvider).playZone.last.value, elementCardData)) {
       ref
           .watch(playerProvider.notifier)
-          .playCard(elementCardData.id, ref, Players.p1);
+          .playCard(elementCardData, ref, Players.p1);
       clearCardTransforms(ref);
     } else {
       clearCardTransforms(ref);
@@ -124,6 +118,8 @@ int calculatePlayedCardPoints(
       } else if (determineValueDifference(playZoneValue, playedCardValue) ==
           ValueDifference.increase) {
         return fireBonus;
+      } else if (playedCardValue == lowestCardValue) {
+        return firePenalty;
       }
       return 1;
     case ElementalType.air:
@@ -134,6 +130,8 @@ int calculatePlayedCardPoints(
       } else if (determineValueDifference(playZoneValue, playedCardValue) ==
           ValueDifference.decrease) {
         return airBonus;
+      } else if (playZoneValue == highestCardValue) {
+        return airPenalty;
       }
       return 1;
     case ElementalType.water:
@@ -144,7 +142,7 @@ int calculatePlayedCardPoints(
         return waterBonus;
       }
       return 1;
-    case ElementalType.water:
+    case ElementalType.earth:
       if (determineValueDifference(playZoneValue, playedCardValue) ==
           ValueDifference.noChange) {
         return earthBonus;
