@@ -26,6 +26,7 @@ mixin _$PlayerData {
   List<ElementCardData> get deck => throw _privateConstructorUsedError;
   List<ElementCardData> get hand => throw _privateConstructorUsedError;
   List<ElementCardData> get discardPile => throw _privateConstructorUsedError;
+  int get score => throw _privateConstructorUsedError;
   String get selectedCard => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
@@ -48,6 +49,7 @@ abstract class $PlayerDataCopyWith<$Res> {
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
+      int score,
       String selectedCard,
       String name});
 }
@@ -71,6 +73,7 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
+    Object? score = null,
     Object? selectedCard = null,
     Object? name = null,
   }) {
@@ -99,6 +102,10 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
           ? _value.discardPile
           : discardPile // ignore: cast_nullable_to_non_nullable
               as List<ElementCardData>,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedCard: null == selectedCard
           ? _value.selectedCard
           : selectedCard // ignore: cast_nullable_to_non_nullable
@@ -126,6 +133,7 @@ abstract class _$$_PlayerDataCopyWith<$Res>
       List<ElementCardData> deck,
       List<ElementCardData> hand,
       List<ElementCardData> discardPile,
+      int score,
       String selectedCard,
       String name});
 }
@@ -147,6 +155,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
     Object? deck = null,
     Object? hand = null,
     Object? discardPile = null,
+    Object? score = null,
     Object? selectedCard = null,
     Object? name = null,
   }) {
@@ -175,6 +184,10 @@ class __$$_PlayerDataCopyWithImpl<$Res>
           ? _value._discardPile
           : discardPile // ignore: cast_nullable_to_non_nullable
               as List<ElementCardData>,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedCard: null == selectedCard
           ? _value.selectedCard
           : selectedCard // ignore: cast_nullable_to_non_nullable
@@ -197,6 +210,7 @@ class _$_PlayerData implements _PlayerData {
       final List<ElementCardData> deck = const [],
       final List<ElementCardData> hand = const [],
       final List<ElementCardData> discardPile = const [],
+      this.score = 0,
       this.selectedCard = '',
       this.name = ''})
       : _deck = deck,
@@ -244,6 +258,9 @@ class _$_PlayerData implements _PlayerData {
 
   @override
   @JsonKey()
+  final int score;
+  @override
+  @JsonKey()
   final String selectedCard;
   @override
   @JsonKey()
@@ -251,7 +268,7 @@ class _$_PlayerData implements _PlayerData {
 
   @override
   String toString() {
-    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, selectedCard: $selectedCard, name: $name)';
+    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, score: $score, selectedCard: $selectedCard, name: $name)';
   }
 
   @override
@@ -268,6 +285,7 @@ class _$_PlayerData implements _PlayerData {
             const DeepCollectionEquality().equals(other._hand, _hand) &&
             const DeepCollectionEquality()
                 .equals(other._discardPile, _discardPile) &&
+            (identical(other.score, score) || other.score == score) &&
             (identical(other.selectedCard, selectedCard) ||
                 other.selectedCard == selectedCard) &&
             (identical(other.name, name) || other.name == name));
@@ -283,6 +301,7 @@ class _$_PlayerData implements _PlayerData {
       const DeepCollectionEquality().hash(_deck),
       const DeepCollectionEquality().hash(_hand),
       const DeepCollectionEquality().hash(_discardPile),
+      score,
       selectedCard,
       name);
 
@@ -308,6 +327,7 @@ abstract class _PlayerData implements PlayerData {
       final List<ElementCardData> deck,
       final List<ElementCardData> hand,
       final List<ElementCardData> discardPile,
+      final int score,
       final String selectedCard,
       final String name}) = _$_PlayerData;
 
@@ -326,6 +346,8 @@ abstract class _PlayerData implements PlayerData {
   List<ElementCardData> get hand;
   @override
   List<ElementCardData> get discardPile;
+  @override
+  int get score;
   @override
   String get selectedCard;
   @override

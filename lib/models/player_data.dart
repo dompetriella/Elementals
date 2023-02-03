@@ -14,6 +14,7 @@ class PlayerData with _$PlayerData {
     @Default([]) List<ElementCardData> deck,
     @Default([]) List<ElementCardData> hand,
     @Default([]) List<ElementCardData> discardPile,
+    @Default(0) int score,
     @Default('') String selectedCard,
     @Default('') String name,
   }) = _PlayerData;
