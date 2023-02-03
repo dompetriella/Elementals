@@ -43,5 +43,7 @@ setInitalGameProperties(WidgetRef ref) {
   ref.watch(gameDataProvider.notifier).state = ref
       .watch(gameDataProvider)
       .copyWith(currentPlayer: ref.watch(playerProvider));
+
+  ref.watch(gameDataProvider.notifier).resetPlayZone();
   notifyDynamicInfo(ref, "Player One's Turn");
 }
