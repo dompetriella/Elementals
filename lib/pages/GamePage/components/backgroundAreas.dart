@@ -1,10 +1,26 @@
+import 'package:elementals/game_logic/logic.dart';
+import 'package:elementals/globals.dart';
+import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../game_logic/logic.dart';
+import '../../../models/player_data.dart';
 import '../../../providers/playerDataProvider.dart';
-import '../game_page.dart';
+
+double phoneHeight(var context) => MediaQuery.of(context).size.height;
+double phoneWidth(var context) => MediaQuery.of(context).size.width;
+
+double calculateFieldHeight(var context, WidgetRef ref, PlayerData player) {
+  // not sure what that 15 is doing there, need to figure that out
+  double totalGameFieldHeight =
+      phoneHeight(context) * (gameField / (playerField + gameField)) - 15;
+  double heightUnit = totalGameFieldHeight / (winningScore * 2);
+  return calculateOvertakeSize(player, ref) * heightUnit;
+}
+
+int duration = 400;
+Curve curve = Curves.easeInOut;
 
 class OpponentSideBackground extends ConsumerWidget {
   const OpponentSideBackground({
@@ -13,21 +29,18 @@ class OpponentSideBackground extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Flexible(
-      fit: FlexFit.tight,
-      flex: calculateOvertakeSize(ref.watch(playerTwoProvider), ref),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 1000),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              HexColor(ref.watch(playerTwoProvider).elementalType.primaryColor),
-              HexColor(
-                  ref.watch(playerTwoProvider).elementalType.secondaryColor),
-            ])),
-      ),
+    return AnimatedContainer(
+      duration: Duration(milliseconds: duration),
+      curve: curve,
+      height: calculateFieldHeight(context, ref, ref.watch(playerTwoProvider)),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            HexColor(ref.watch(playerTwoProvider).elementalType.primaryColor),
+            HexColor(ref.watch(playerTwoProvider).elementalType.secondaryColor),
+          ])),
     );
   }
 }
@@ -39,20 +52,20 @@ class PlayerBackground extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Flexible(
-      fit: FlexFit.tight,
-      flex: calculateOvertakeSize(ref.watch(playerProvider), ref),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 1000),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              HexColor(ref.watch(playerProvider).elementalType.secondaryColor),
-              HexColor(ref.watch(playerProvider).elementalType.primaryColor),
-            ])),
-      ),
+    return AnimatedContainer(
+      duration: Duration(milliseconds: duration),
+      curve: curve,
+      height: calculateFieldHeight(context, ref, ref.watch(playerProvider)),
+      decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.white, width: 2)),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                HexColor(
+                    ref.watch(playerProvider).elementalType.secondaryColor),
+                HexColor(ref.watch(playerProvider).elementalType.primaryColor),
+              ])),
     );
   }
 }

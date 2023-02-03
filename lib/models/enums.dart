@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-
 enum ElementalType {
   fire('#A31C1C', '#C97221', 'fire_back', 'fire_front'),
   air('#CAC858', '#FEFDBE', 'air_back', 'air_front'),

@@ -12,9 +12,6 @@ import 'components/player_hand_area.dart';
 import 'components/player_side.dart';
 import 'components/settings_button.dart';
 
-double phoneHeight(var context) => MediaQuery.of(context).size.height;
-double phoneWidth(var context) => MediaQuery.of(context).size.width;
-
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
 
@@ -26,7 +23,7 @@ class GamePage extends StatelessWidget {
         body: Column(
           children: [
             Flexible(
-              flex: 5,
+              flex: gameField,
               child: Stack(
                 children: [
                   Stack(
@@ -52,7 +49,7 @@ class GamePage extends StatelessWidget {
                 ],
               ),
             ),
-            Flexible(flex: 3, child: PlayerHandArea())
+            Flexible(flex: playerField, child: PlayerHandArea())
           ],
         ),
       ),

@@ -29,3 +29,7 @@ const int airPenalty = 0;
 const int waterBonus = 3;
 
 const int earthBonus = 7;
+
+// ui
+int gameField = 5;
+int playerField = 3;
