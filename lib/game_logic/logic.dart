@@ -6,9 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
+import '../models/player_data.dart';
 import '../providers/gameDataProvider.dart';
 import '../providers/playerDataProvider.dart';
 import 'animation_logic.dart';
+import 'dart:math';
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
     {bool hasShadow = false, bool isFaceUp = true, bool isShrunk = false}) {
@@ -158,4 +160,34 @@ ValueDifference determineValueDifference(
   if (playedCardValue > playZoneValue) return ValueDifference.increase;
   if (playedCardValue < playZoneValue) return ValueDifference.decrease;
   return ValueDifference.noChange;
+}
+
+updateOverallScore(WidgetRef ref) {
+  PlayerData playerOne = ref.watch(gameDataProvider).players[0];
+  PlayerData playerTwo = ref.watch(gameDataProvider).players[1];
+
+  int scoreDiff = (playerOne.score - playerTwo.score).abs();
+
+  print(scoreDiff);
+
+  PlayerData winningPlayer =
+      playerOne.score > playerTwo.score ? playerOne : playerTwo;
+
+  print(winningPlayer.name);
+
+  ref.watch(gameDataProvider.notifier).state = ref
+      .watch(gameDataProvider)
+      .copyWith(overallScore: scoreDiff, currentWinner: winningPlayer);
+}
+
+int calculateOvertakeSize(PlayerData player, WidgetRef ref) {
+  if (player.id == ref.watch(gameDataProvider).currentWinner.id) {
+    return winningScore + ref.watch(gameDataProvider).overallScore >
+            winningScore * 2
+        ? winningScore * 2
+        : winningScore + ref.watch(gameDataProvider).overallScore;
+  }
+  return winningScore - ref.watch(gameDataProvider).overallScore < 0
+      ? 0
+      : winningScore - ref.watch(gameDataProvider).overallScore;
 }

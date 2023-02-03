@@ -58,7 +58,7 @@ class GameNotifier extends StateNotifier<GameData> {
         ownerId: '0',
         elementalType: ElementalType.fire,
         value: 4,
-      )
-    ]);
+      ),
+    ], currentWinner: PlayerData(), overallScore: 0);
   }
 }

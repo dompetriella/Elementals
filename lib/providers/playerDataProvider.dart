@@ -85,6 +85,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
                 state.elementalType, cardInPlayZone.value, newCard.value));
 
     updatePlayerDataToGameData(ref, playerNumber);
+    updateOverallScore(ref);
   }
 
   discardHand(WidgetRef ref, Players playerNumber) {

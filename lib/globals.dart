@@ -6,7 +6,7 @@ const int lowestCardValue = 1;
 
 const int highestCardValue = 7;
 
-const int winningAmount = 30;
+const int winningScore = 30;
 
 const double cardHeightP1 = 90;
 

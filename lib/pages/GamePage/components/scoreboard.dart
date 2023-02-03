@@ -1,3 +1,4 @@
+import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,45 +21,24 @@ class Scoreboard extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        PlayerIconDisplay(
+          icon: Icons.bakery_dining,
+          bgColor: ref.watch(themeProvider).colorScheme.primary,
+        ),
+        Column(
           children: [
-            PlayerIconDisplay(
-              icon: Icons.bakery_dining,
-              bgColor: ref.watch(themeProvider).colorScheme.primary,
-            ),
-            Container(
-              color: Colors.black,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    ref.watch(playerProvider).score.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            )
+            Text('Current Winner: '),
+            Text(ref.watch(gameDataProvider).overallScore > 0
+                ? ref.watch(gameDataProvider).currentWinner.name
+                : 'Tie Game!'),
+            Text(ref.watch(gameDataProvider).overallScore > 0
+                ? 'Overtake Points: ${ref.watch(gameDataProvider).overallScore.toString()}'
+                : ' ')
           ],
         ),
-        Row(
-          children: [
-            Container(
-              color: Colors.black,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    ref.watch(playerTwoProvider).score.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-            PlayerIconDisplay(
-              icon: Icons.fire_extinguisher,
-              bgColor: HexColor(element.primaryColor),
-            ),
-          ],
+        PlayerIconDisplay(
+          icon: Icons.fire_extinguisher,
+          bgColor: HexColor(element.primaryColor),
         ),
       ],
     );
