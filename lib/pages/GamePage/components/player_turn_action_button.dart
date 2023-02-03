@@ -16,7 +16,7 @@ class PlayerTurnActionButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            constraints: BoxConstraints(maxHeight: 50),
+            constraints: BoxConstraints(maxHeight: 50, maxWidth: 150),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,

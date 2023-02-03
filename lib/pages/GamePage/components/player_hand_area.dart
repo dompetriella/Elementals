@@ -4,12 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../game_components/placeholder_card.dart';
 import '../../../game_logic/logic.dart';
-import '../../../models/enums.dart';
-import '../../../providers/gameDataProvider.dart';
-import '../../../globals.dart';
 import '../../../providers/playerDataProvider.dart';
+import 'action_button_area.dart';
 import 'dynamic_info_channel.dart';
-import 'player_turn_action_button.dart';
 
 class PlayerHandArea extends ConsumerWidget {
   const PlayerHandArea({
@@ -78,33 +75,7 @@ class PlayerHandArea extends ConsumerWidget {
                 DynamicInfoChannel(),
               ],
             ),
-            Expanded(
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    PlayerTurnActionButton(
-                      theme: theme,
-                      text: 'Skill',
-                    ),
-                    PlayerTurnActionButton(
-                      theme: theme,
-                      text: 'Burn',
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        continueGameLoop(ref);
-                      },
-                      child: PlayerTurnActionButton(
-                        theme: theme,
-                        text: 'End Turn',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ActionButtonArea(theme: theme),
           ]),
     );
   }
