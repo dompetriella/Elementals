@@ -52,7 +52,7 @@ class GamePage extends ConsumerWidget {
                 Flexible(flex: playerField, child: PlayerHandArea())
               ],
             ),
-            if (ref.read(gameDataProvider).overallScore >= winningScore)
+            if (ref.watch(gameDataProvider).overallScore >= winningScore)
               WinModal()
           ],
         ),
@@ -85,7 +85,10 @@ class WinModal extends ConsumerWidget {
               children: [
                 Text(
                   '${ref.watch(gameDataProvider).currentWinner.name} Wins!',
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: (() => context.go('/')),
@@ -103,7 +106,8 @@ class WinModal extends ConsumerWidget {
                     child: Center(
                         child: Text(
                       'Return to Main Screen',
-                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     )),
                   ),
                 ),
