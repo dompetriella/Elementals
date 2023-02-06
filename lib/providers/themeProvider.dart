@@ -9,18 +9,18 @@ final themeProvider = StateProvider<ThemeData>((ref) {
 });
 
 updateThemeToElement(WidgetRef ref) {
-  switch (ref.watch(playerProvider).elementalType) {
+  switch (ref.read(playerProvider).elementalType) {
     case ElementalType.fire:
-      ref.watch(themeProvider.notifier).state = fireTheme;
+      ref.read(themeProvider.notifier).state = fireTheme;
       break;
     case ElementalType.air:
-      ref.watch(themeProvider.notifier).state = airTheme;
+      ref.read(themeProvider.notifier).state = airTheme;
       break;
     case ElementalType.water:
-      ref.watch(themeProvider.notifier).state = waterTheme;
+      ref.read(themeProvider.notifier).state = waterTheme;
       break;
     case ElementalType.earth:
-      ref.watch(themeProvider.notifier).state = earthTheme;
+      ref.read(themeProvider.notifier).state = earthTheme;
       break;
     default:
   }

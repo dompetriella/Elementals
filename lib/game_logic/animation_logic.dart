@@ -4,6 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'logic.dart';
 
 clearCardTransforms(WidgetRef ref) {
-  ref.watch(playerProvider.notifier).state =
+  ref.read(playerProvider.notifier).state =
       ref.watch(playerProvider.notifier).state.copyWith(selectedCard: '');
 }

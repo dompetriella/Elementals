@@ -52,7 +52,7 @@ class GamePage extends ConsumerWidget {
                 Flexible(flex: playerField, child: PlayerHandArea())
               ],
             ),
-            if (ref.watch(gameDataProvider).overallScore >= winningScore)
+            if (ref.read(gameDataProvider).overallScore >= winningScore)
               WinModal()
           ],
         ),

@@ -118,7 +118,7 @@ class ElementSelectButton extends ConsumerWidget {
     var chosenElement = ref.watch(playerProvider).elementalType;
     return GestureDetector(
       onTap: () {
-        ref.watch(playerProvider.notifier).changePlayerElement(elementalType);
+        ref.read(playerProvider.notifier).changePlayerElement(elementalType);
         updateThemeToElement(ref);
       },
       child: AnimatedContainer(

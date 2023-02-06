@@ -35,8 +35,8 @@ class GameNotifier extends StateNotifier<GameData> {
       }
     }
 
-    ref.watch(playerProvider.notifier).state = playerOne;
-    ref.watch(playerTwoProvider.notifier).state = playerTwo;
+    ref.read(playerProvider.notifier).state = playerOne;
+    ref.read(playerTwoProvider.notifier).state = playerTwo;
 
     state = state.copyWith(playZone: [lastCardPlayed]);
 

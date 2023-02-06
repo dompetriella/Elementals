@@ -25,7 +25,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   updateCardTotal(WidgetRef ref, Players playerNumber) {
-    state = ref.watch(gameDataProvider).players[playerNumber.index];
+    state = ref.read(gameDataProvider).players[playerNumber.index];
     state = state.copyWith(totalCards: state.deck.length);
     updatePlayerDataToGameData(ref, playerNumber);
   }
@@ -66,13 +66,13 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   playCard(ElementCardData card, WidgetRef ref, Players playerNumber) {
-    state = ref.watch(gameDataProvider).players[playerNumber.index];
+    state = ref.read(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard =
         state.hand.where((element) => element.id == card.id).first;
-    ElementCardData cardInPlayZone = ref.watch(gameDataProvider).playZone.last;
+    ElementCardData cardInPlayZone = ref.read(gameDataProvider).playZone.last;
     newCard = newCard.copyWith(canBeSelected: false);
-    ref.watch(gameDataProvider.notifier).state = ref
-        .watch(gameDataProvider)
+    ref.read(gameDataProvider.notifier).state = ref
+        .read(gameDataProvider)
         .copyWith(playZone: [...ref.watch(gameDataProvider).playZone, newCard]);
     var handCopy = state.hand.toList();
     handCopy.removeWhere((element) => element.id == card.id);
@@ -86,9 +86,9 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
     updatePlayerDataToGameData(ref, playerNumber);
     updateOverallScore(ref);
-    if (ref.watch(gameDataProvider).overallScore >= winningScore) {
-      ref.watch(gameDataProvider.notifier).state =
-          ref.watch(gameDataProvider).copyWith(gameOver: true);
+    if (ref.read(gameDataProvider).overallScore >= winningScore) {
+      ref.read(gameDataProvider.notifier).state =
+          ref.read(gameDataProvider).copyWith(gameOver: true);
     }
   }
 
@@ -108,7 +108,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   updatePlayerDataToGameData(WidgetRef ref, Players playerNumber) {
-    List<PlayerData> players = ref.watch(gameDataProvider).players.toList();
+    List<PlayerData> players = ref.read(gameDataProvider).players.toList();
     switch (playerNumber) {
       case Players.p1:
         players[0] = state;
@@ -118,7 +118,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
         break;
     }
 
-    ref.watch(gameDataProvider.notifier).state =
-        ref.watch(gameDataProvider).copyWith(players: players);
+    ref.read(gameDataProvider.notifier).state =
+        ref.read(gameDataProvider).copyWith(players: players);
   }
 }

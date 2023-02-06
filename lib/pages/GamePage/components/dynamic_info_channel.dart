@@ -20,7 +20,7 @@ class DynamicInfoChannel extends ConsumerWidget {
         child: Text(
           ref.watch(dynamicInfoProvider),
           textAlign: TextAlign.center,
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

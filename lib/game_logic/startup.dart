@@ -15,35 +15,35 @@ setInitalGameProperties(WidgetRef ref) {
   String playerTwoGuid = Guid.generate().toString();
   ElementalType randomElement = ElementalType.values[Random().nextInt(3)];
 
-  ref.watch(playerProvider.notifier).state = PlayerData(
+  ref.read(playerProvider.notifier).state = PlayerData(
       id: playerOneGuid,
       name: 'Player One',
-      elementalType: ref.watch(playerProvider).elementalType,
+      elementalType: ref.read(playerProvider).elementalType,
       deck: createPlayerDeck(
-          playerOneGuid, ref.watch(playerProvider).elementalType));
+          playerOneGuid, ref.read(playerProvider).elementalType));
 
-  ref.watch(playerTwoProvider.notifier).state = PlayerData(
+  ref.read(playerTwoProvider.notifier).state = PlayerData(
       id: playerTwoGuid,
       name: 'Player Two',
       elementalType: randomElement,
       deck: createPlayerDeck(playerTwoGuid, randomElement));
 
-  ref.watch(gameDataProvider.notifier).state = ref
-      .watch(gameDataProvider.notifier)
+  ref.read(gameDataProvider.notifier).state = ref
+      .read(gameDataProvider.notifier)
       .state
       .copyWith(
-          players: [ref.watch(playerProvider), ref.watch(playerTwoProvider)]);
+          players: [ref.read(playerProvider), ref.read(playerTwoProvider)]);
 
-  ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
-  ref.watch(playerProvider.notifier).drawCards(ref, Players.p1);
+  ref.read(playerProvider.notifier).updateCardTotal(ref, Players.p1);
+  ref.read(playerProvider.notifier).drawCards(ref, Players.p1);
 
-  ref.watch(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
-  ref.watch(playerTwoProvider.notifier).drawCards(ref, Players.p2);
+  ref.read(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
+  ref.read(playerTwoProvider.notifier).drawCards(ref, Players.p2);
 
-  ref.watch(gameDataProvider.notifier).state = ref
-      .watch(gameDataProvider)
-      .copyWith(currentPlayer: ref.watch(playerProvider));
+  ref.read(gameDataProvider.notifier).state = ref
+      .read(gameDataProvider)
+      .copyWith(currentPlayer: ref.read(playerProvider));
 
-  ref.watch(gameDataProvider.notifier).resetPlayZone();
+  ref.read(gameDataProvider.notifier).resetPlayZone();
   notifyDynamicInfo(ref, "Player One's Turn");
 }

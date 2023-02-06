@@ -12,16 +12,16 @@ import '../models/enums.dart';
 
 cpuTurn(WidgetRef ref) async {
   await Future.delayed(Duration(milliseconds: 500));
-  if (ref.watch(playerTwoProvider).hand.isEmpty) {
-    ref.watch(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
+  if (ref.read(playerTwoProvider).hand.isEmpty) {
+    ref.read(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
   }
 
   await Future.delayed(Duration(milliseconds: 3000));
-  while (ref.watch(playerTwoProvider).hand.length > 0) {
-    int newPlayValue = ref.watch(gameDataProvider).playZone.last.value;
+  while (ref.read(playerTwoProvider).hand.length > 0) {
+    int newPlayValue = ref.read(gameDataProvider).playZone.last.value;
 
     List<ElementCardData> playableCards = [];
-    for (var card in ref.watch(playerTwoProvider).hand) {
+    for (var card in ref.read(playerTwoProvider).hand) {
       if (isCardPlayable(newPlayValue, card)) {
         playableCards.add(card);
       }
@@ -29,7 +29,7 @@ cpuTurn(WidgetRef ref) async {
     if (playableCards.isNotEmpty) {
       // FIREWATCH - IE the CPU won't throw the game player 1s with fire
       ref
-          .watch(playerTwoProvider.notifier)
+          .read(playerTwoProvider.notifier)
           .playCard(playableCards.first, ref, Players.p2);
     } else {
       break;

@@ -3,14 +3,12 @@ import 'package:elementals/providers/dynamicInfoProvider.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
 import '../models/player_data.dart';
 import '../providers/gameDataProvider.dart';
 import '../providers/playerDataProvider.dart';
 import 'animation_logic.dart';
-import 'dart:math';
 
 List<ElementCard> convertDataToCards(List<ElementCardData> cardData,
     {bool hasShadow = false, bool isFaceUp = true, bool isShrunk = false}) {
@@ -48,27 +46,27 @@ bool isCardPlayable(int playableValue, ElementCardData checkedCard) {
 }
 
 fillPlayersHands(WidgetRef ref) {
-  ref.watch(playerProvider.notifier).updateCardTotal(ref, Players.p1);
-  ref.watch(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
+  ref.read(playerProvider.notifier).updateCardTotal(ref, Players.p1);
+  ref.read(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
 
-  ref.watch(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
-  ref.watch(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
+  ref.read(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
+  ref.read(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
 }
 
 notifyDynamicInfo(WidgetRef ref, String message) {
-  ref.watch(dynamicInfoProvider.notifier).state = message;
+  ref.read(dynamicInfoProvider.notifier).state = message;
 }
 
 selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
   if (elementCardData.canBeSelected &&
-      elementCardData.ownerId == ref.watch(playerProvider).id &&
-      ref.watch(gameDataProvider).currentPlayer.id ==
-          ref.watch(playerProvider).id) {
-    if (ref.watch(playerProvider).selectedCard == elementCardData.id) {
+      elementCardData.ownerId == ref.read(playerProvider).id &&
+      ref.read(gameDataProvider).currentPlayer.id ==
+          ref.read(playerProvider).id) {
+    if (ref.read(playerProvider).selectedCard == elementCardData.id) {
       if (isCardPlayable(
-          ref.watch(gameDataProvider).playZone.last.value, elementCardData)) {
+          ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
         ref
-            .watch(playerProvider.notifier)
+            .read(playerProvider.notifier)
             .playCard(elementCardData, ref, Players.p1);
         clearCardTransforms(ref);
       } else {
@@ -77,13 +75,13 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
       }
       // select the card
     } else {
-      ref.watch(playerProvider.notifier).state = ref
-          .watch(playerProvider.notifier)
+      ref.read(playerProvider.notifier).state = ref
+          .read(playerProvider.notifier)
           .state
           .copyWith(selectedCard: elementCardData.id);
       // updates DIC with whether playable or not
       if (isCardPlayable(
-          ref.watch(gameDataProvider).playZone.last.value, elementCardData)) {
+          ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
         notifyDynamicInfo(ref, 'Playable Card');
       } else {
         notifyDynamicInfo(ref, 'Unplayable Card');
@@ -93,13 +91,13 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
 }
 
 immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
-  if (elementCardData.ownerId == ref.watch(playerProvider).id &&
-      ref.watch(gameDataProvider).currentPlayer.id ==
-          ref.watch(playerProvider).id) {
+  if (elementCardData.ownerId == ref.read(playerProvider).id &&
+      ref.read(gameDataProvider).currentPlayer.id ==
+          ref.read(playerProvider).id) {
     if (isCardPlayable(
-        ref.watch(gameDataProvider).playZone.last.value, elementCardData)) {
+        ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
       ref
-          .watch(playerProvider.notifier)
+          .read(playerProvider.notifier)
           .playCard(elementCardData, ref, Players.p1);
       clearCardTransforms(ref);
     } else {
@@ -163,8 +161,8 @@ ValueDifference determineValueDifference(
 }
 
 updateOverallScore(WidgetRef ref) {
-  PlayerData playerOne = ref.watch(gameDataProvider).players[0];
-  PlayerData playerTwo = ref.watch(gameDataProvider).players[1];
+  PlayerData playerOne = ref.read(gameDataProvider).players[0];
+  PlayerData playerTwo = ref.read(gameDataProvider).players[1];
 
   int scoreDiff = (playerOne.score - playerTwo.score).abs();
 
@@ -175,19 +173,19 @@ updateOverallScore(WidgetRef ref) {
 
   print(winningPlayer.name);
 
-  ref.watch(gameDataProvider.notifier).state = ref
-      .watch(gameDataProvider)
+  ref.read(gameDataProvider.notifier).state = ref
+      .read(gameDataProvider)
       .copyWith(overallScore: scoreDiff, currentWinner: winningPlayer);
 }
 
 int calculateOvertakeSize(PlayerData player, WidgetRef ref) {
-  if (player.id == ref.watch(gameDataProvider).currentWinner.id) {
-    return winningScore + ref.watch(gameDataProvider).overallScore >
+  if (player.id == ref.read(gameDataProvider).currentWinner.id) {
+    return winningScore + ref.read(gameDataProvider).overallScore >
             winningScore * 2
         ? winningScore * 2
         : winningScore + ref.watch(gameDataProvider).overallScore;
   }
-  return winningScore - ref.watch(gameDataProvider).overallScore < 0
+  return winningScore - ref.read(gameDataProvider).overallScore < 0
       ? 0
       : winningScore - ref.watch(gameDataProvider).overallScore;
 }
