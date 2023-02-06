@@ -31,6 +31,7 @@
 
   <title>elementals</title>
   <link rel="manifest" href="manifest.json">
+  <link href="style.css" rel="stylesheet" type="text/css" />
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -40,6 +41,12 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <div class="loading-body">
+    <h1>Loading</h1>
+    <h1 class="p1">.</h1>
+    <h1 class="p2">.</h1>
+    <h1 class="p3">.</h1>
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
