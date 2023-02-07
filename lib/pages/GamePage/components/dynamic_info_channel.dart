@@ -13,7 +13,9 @@ class DynamicInfoChannel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      width: cardHeightP1 * cardWidthProportion * 4.5,
+      width: cardHeightP1 *
+          cardWidthProportion *
+          (cardsInHand + cardsInHand * .10),
       height: 80,
       color: Colors.grey.shade900,
       child: Center(

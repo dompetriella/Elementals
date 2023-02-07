@@ -1,4 +1,5 @@
 import 'package:elementals/game_logic/game_loop.dart';
+import 'package:elementals/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -46,22 +47,13 @@ class PlayerHandArea extends ConsumerWidget {
                           Stack(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  PlaceholderCard(
-                                    isShrunk: false,
-                                  ),
-                                  PlaceholderCard(
-                                    isShrunk: false,
-                                  ),
-                                  PlaceholderCard(
-                                    isShrunk: false,
-                                  ),
-                                  PlaceholderCard(
-                                    isShrunk: false,
-                                  ),
-                                ],
-                              ),
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    for (var i = 0; i < cardsInHand; i++)
+                                      PlaceholderCard(
+                                        isShrunk: false,
+                                      )
+                                  ]),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: convertDataToCards(

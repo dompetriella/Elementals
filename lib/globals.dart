@@ -1,4 +1,4 @@
-const int cardsInHand = 4;
+const int cardsInHand = 5;
 
 const int cardDuplicates = 4;
 
@@ -21,8 +21,8 @@ const int waterBonus = 3;
 const int earthBonus = 7;
 
 // ui
-int gameField = 5;
-int playerField = 3;
+int gameField = 5; // 5/8ths of screen
+int playerField = 3; // 3/8ths of screen
 
 const double cardHeightP1 = 90;
 

@@ -41,8 +41,8 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
-  drawCards(WidgetRef ref, Players playerNumber, {amount = 4}) {
-    for (var i = 0; i < amount; i++) {
+  drawCards(WidgetRef ref, Players playerNumber) {
+    for (var i = 0; i < cardsInHand; i++) {
       drawCard(ref, playerNumber);
     }
   }
