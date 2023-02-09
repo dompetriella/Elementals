@@ -137,4 +137,10 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
     updatePlayerDataToGameData(ref, playerNumber);
   }
+
+  castDiscardPile(WidgetRef ref, Players playerNumber) {
+    if (state.hand.length < cardsInHand) {
+      state = state.copyWith(hand: [...state.hand, state.discardPile.last]);
+    }
+  }
 }
