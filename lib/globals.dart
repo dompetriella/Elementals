@@ -3,10 +3,12 @@ const int cardsInHand = 5;
 const int cardDuplicates = 4;
 
 const int lowestCardValue = 1;
-
+const int halfwayCardValue = 4;
 const int highestCardValue = 7;
 
 const int winningScore = 30;
+
+const int normalPlay = 1;
 
 const int fireBonus = 5;
 const int fireMax = 10;
@@ -16,7 +18,7 @@ const int airBonus = 5;
 const int airMax = 8;
 const int airPenalty = 0;
 
-const int waterBonus = 3;
+const int waterBonus = 4;
 
 const int earthBonus = 7;
 

@@ -113,49 +113,69 @@ ElementCardData pickRandomCardFromList(List<ElementCardData> inputList) {
   return inputList[Random().nextInt(inputList.length - 1)];
 }
 
+int calculateFirePoints(int playZoneValue, int playedCardValue) {
+  if (playedCardValue == lowestCardValue) {
+    return firePenalty;
+  }
+  int points = normalPlay;
+  if (playedCardValue > halfwayCardValue) {
+    points += playedCardValue - halfwayCardValue;
+  }
+  if (determineValueDifference(playZoneValue, playedCardValue) ==
+      ValueDifference.increase) {
+    points += fireBonus;
+  }
+  return points;
+}
+
+int calculateAirPoints(int playZoneValue, int playedCardValue) {
+  if (playedCardValue == highestCardValue) {
+    return airPenalty;
+  }
+  int points = normalPlay;
+  if (playedCardValue < halfwayCardValue) {
+    points += ((playedCardValue - 1) - halfwayCardValue).abs();
+  }
+  if (determineValueDifference(playZoneValue, playedCardValue) ==
+      ValueDifference.decrease) {
+    points += airBonus;
+  }
+  return points;
+}
+
+int calculateWaterPoints(int playZoneValue, int playedCardValue) {
+  int points = normalPlay + 1;
+  if (determineValueDifference(playZoneValue, playedCardValue) ==
+          ValueDifference.decrease ||
+      determineValueDifference(playZoneValue, playedCardValue) ==
+          ValueDifference.increase) {
+    points += waterBonus;
+  }
+  return points;
+}
+
+int calculateEarthPoints(int playZoneValue, int playedCardValue) {
+  int points = normalPlay;
+  if (determineValueDifference(playZoneValue, playedCardValue) ==
+      ValueDifference.noChange) {
+    points += earthBonus;
+  }
+  return points;
+}
+
 int calculatePlayedCardPoints(
     ElementalType elementalType, int playZoneValue, int playedCardValue) {
   switch (elementalType) {
     case ElementalType.fire:
-      if (determineValueDifference(playZoneValue, playedCardValue) ==
-              ValueDifference.increase &&
-          playedCardValue == highestCardValue) {
-        return fireMax;
-      } else if (determineValueDifference(playZoneValue, playedCardValue) ==
-          ValueDifference.increase) {
-        return fireBonus;
-      } else if (playedCardValue == lowestCardValue) {
-        return firePenalty;
-      }
-      return 1;
+      return calculateFirePoints(playZoneValue, playedCardValue);
     case ElementalType.air:
-      if (determineValueDifference(playZoneValue, playedCardValue) ==
-              ValueDifference.decrease &&
-          playedCardValue == lowestCardValue) {
-        return airMax;
-      } else if (determineValueDifference(playZoneValue, playedCardValue) ==
-          ValueDifference.decrease) {
-        return airBonus;
-      } else if (playZoneValue == highestCardValue) {
-        return airPenalty;
-      }
-      return 1;
+      return calculateAirPoints(playZoneValue, playedCardValue);
     case ElementalType.water:
-      if (determineValueDifference(playZoneValue, playedCardValue) ==
-              ValueDifference.decrease ||
-          determineValueDifference(playZoneValue, playedCardValue) ==
-              ValueDifference.increase) {
-        return waterBonus;
-      }
-      return 1;
+      return calculateWaterPoints(playZoneValue, playedCardValue);
     case ElementalType.earth:
-      if (determineValueDifference(playZoneValue, playedCardValue) ==
-          ValueDifference.noChange) {
-        return earthBonus;
-      }
-      return 1;
+      return calculateEarthPoints(playZoneValue, playedCardValue);
     default:
-      return 1;
+      return normalPlay;
   }
 }
 
