@@ -121,4 +121,20 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     ref.read(gameDataProvider.notifier).state =
         ref.read(gameDataProvider).copyWith(players: players);
   }
+
+  // skills
+  burnCard(WidgetRef ref, String cardId, Players playerNumber) {
+    List<ElementCardData> handCopy = state.hand;
+    handCopy.removeWhere((element) => element.id == cardId);
+
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  moldCard(WidgetRef ref, String cardId, Players playerNumber) {
+    ElementCardData selectedCard =
+        state.hand.where((element) => element.id == cardId).first;
+    state = state.copyWith(deck: [...state.deck, selectedCard]);
+
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
 }
