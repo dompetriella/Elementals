@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:elementals/game_components/element_card.dart';
 import 'package:elementals/providers/dynamicInfoProvider.dart';
 import 'package:elementals/globals.dart';
@@ -107,6 +109,10 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
   }
 }
 
+ElementCardData pickRandomCardFromList(List<ElementCardData> inputList) {
+  return inputList[Random().nextInt(inputList.length - 1)];
+}
+
 int calculatePlayedCardPoints(
     ElementalType elementalType, int playZoneValue, int playedCardValue) {
   switch (elementalType) {
@@ -188,4 +194,12 @@ int calculateOvertakeSize(PlayerData player, WidgetRef ref) {
   return winningScore - ref.read(gameDataProvider).overallScore < 0
       ? 0
       : winningScore - ref.watch(gameDataProvider).overallScore;
+}
+
+int useAbilityCharge(int charges) {
+  int newCharge = charges - 1;
+  if (newCharge < 1) {
+    newCharge = 0;
+  }
+  return newCharge;
 }

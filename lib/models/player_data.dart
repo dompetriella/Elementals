@@ -7,17 +7,17 @@ part 'player_data.g.dart';
 
 @freezed
 class PlayerData with _$PlayerData {
-  const factory PlayerData({
-    @Default('0') String id,
-    @Default(ElementalType.fire) ElementalType elementalType,
-    @Default(20) int totalCards,
-    @Default([]) List<ElementCardData> deck,
-    @Default([]) List<ElementCardData> hand,
-    @Default([]) List<ElementCardData> discardPile,
-    @Default(0) int score,
-    @Default('') String selectedCard,
-    @Default('') String name,
-  }) = _PlayerData;
+  const factory PlayerData(
+      {@Default('0') String id,
+      @Default(ElementalType.fire) ElementalType elementalType,
+      @Default(20) int totalCards,
+      @Default([]) List<ElementCardData> deck,
+      @Default([]) List<ElementCardData> hand,
+      @Default([]) List<ElementCardData> discardPile,
+      @Default(0) int score,
+      @Default('') String selectedCard,
+      @Default(1) int abilityCharges,
+      @Default('') String name}) = _PlayerData;
 
   factory PlayerData.fromJson(Map<String, Object?> json) =>
       _$PlayerDataFromJson(json);

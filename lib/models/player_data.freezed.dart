@@ -28,6 +28,7 @@ mixin _$PlayerData {
   List<ElementCardData> get discardPile => throw _privateConstructorUsedError;
   int get score => throw _privateConstructorUsedError;
   String get selectedCard => throw _privateConstructorUsedError;
+  int get abilityCharges => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $PlayerDataCopyWith<$Res> {
       List<ElementCardData> discardPile,
       int score,
       String selectedCard,
+      int abilityCharges,
       String name});
 }
 
@@ -75,6 +77,7 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
     Object? discardPile = null,
     Object? score = null,
     Object? selectedCard = null,
+    Object? abilityCharges = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
@@ -110,6 +113,10 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
           ? _value.selectedCard
           : selectedCard // ignore: cast_nullable_to_non_nullable
               as String,
+      abilityCharges: null == abilityCharges
+          ? _value.abilityCharges
+          : abilityCharges // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -135,6 +142,7 @@ abstract class _$$_PlayerDataCopyWith<$Res>
       List<ElementCardData> discardPile,
       int score,
       String selectedCard,
+      int abilityCharges,
       String name});
 }
 
@@ -157,6 +165,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
     Object? discardPile = null,
     Object? score = null,
     Object? selectedCard = null,
+    Object? abilityCharges = null,
     Object? name = null,
   }) {
     return _then(_$_PlayerData(
@@ -192,6 +201,10 @@ class __$$_PlayerDataCopyWithImpl<$Res>
           ? _value.selectedCard
           : selectedCard // ignore: cast_nullable_to_non_nullable
               as String,
+      abilityCharges: null == abilityCharges
+          ? _value.abilityCharges
+          : abilityCharges // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -212,6 +225,7 @@ class _$_PlayerData implements _PlayerData {
       final List<ElementCardData> discardPile = const [],
       this.score = 0,
       this.selectedCard = '',
+      this.abilityCharges = 1,
       this.name = ''})
       : _deck = deck,
         _hand = hand,
@@ -264,11 +278,14 @@ class _$_PlayerData implements _PlayerData {
   final String selectedCard;
   @override
   @JsonKey()
+  final int abilityCharges;
+  @override
+  @JsonKey()
   final String name;
 
   @override
   String toString() {
-    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, score: $score, selectedCard: $selectedCard, name: $name)';
+    return 'PlayerData(id: $id, elementalType: $elementalType, totalCards: $totalCards, deck: $deck, hand: $hand, discardPile: $discardPile, score: $score, selectedCard: $selectedCard, abilityCharges: $abilityCharges, name: $name)';
   }
 
   @override
@@ -288,6 +305,8 @@ class _$_PlayerData implements _PlayerData {
             (identical(other.score, score) || other.score == score) &&
             (identical(other.selectedCard, selectedCard) ||
                 other.selectedCard == selectedCard) &&
+            (identical(other.abilityCharges, abilityCharges) ||
+                other.abilityCharges == abilityCharges) &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -303,6 +322,7 @@ class _$_PlayerData implements _PlayerData {
       const DeepCollectionEquality().hash(_discardPile),
       score,
       selectedCard,
+      abilityCharges,
       name);
 
   @JsonKey(ignore: true)
@@ -329,6 +349,7 @@ abstract class _PlayerData implements PlayerData {
       final List<ElementCardData> discardPile,
       final int score,
       final String selectedCard,
+      final int abilityCharges,
       final String name}) = _$_PlayerData;
 
   factory _PlayerData.fromJson(Map<String, dynamic> json) =
@@ -350,6 +371,8 @@ abstract class _PlayerData implements PlayerData {
   int get score;
   @override
   String get selectedCard;
+  @override
+  int get abilityCharges;
   @override
   String get name;
   @override

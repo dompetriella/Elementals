@@ -1,6 +1,7 @@
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/globals.dart';
+import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
@@ -66,6 +67,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   playCard(ElementCardData card, WidgetRef ref, Players playerNumber) {
+    print('ability charges: ${state.abilityCharges}');
     state = ref.read(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard =
         state.hand.where((element) => element.id == card.id).first;
@@ -78,18 +80,20 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     handCopy.removeWhere((element) => element.id == card.id);
 
     state = state.copyWith(hand: handCopy);
-
     state = state.copyWith(
         score: state.score +
             calculatePlayedCardPoints(
                 state.elementalType, cardInPlayZone.value, newCard.value));
 
+    print('ability charges: ${state.abilityCharges}');
     updatePlayerDataToGameData(ref, playerNumber);
+    print('ability charges: ${state.abilityCharges}');
     updateOverallScore(ref);
     if (ref.read(gameDataProvider).overallScore >= winningScore) {
       ref.read(gameDataProvider.notifier).state =
           ref.read(gameDataProvider).copyWith(gameOver: true);
     }
+    print('ability charges: ${state.abilityCharges}');
   }
 
   discardHand(WidgetRef ref, Players playerNumber) {
@@ -123,24 +127,87 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   // skills
+
+  //fire
   burnCard(WidgetRef ref, String cardId, Players playerNumber) {
-    List<ElementCardData> handCopy = state.hand;
-    handCopy.removeWhere((element) => element.id == cardId);
+    if (state.hand.isNotEmpty &&
+        state.selectedCard != '' &&
+        state.abilityCharges > 0) {
+      List<ElementCardData> handCopy = state.hand.toList();
+      handCopy.removeWhere((element) => element.id == cardId);
+      state = state.copyWith(
+          hand: handCopy,
+          abilityCharges: useAbilityCharge(state.abilityCharges));
 
-    updatePlayerDataToGameData(ref, playerNumber);
-  }
-
-  moldCard(WidgetRef ref, String cardId, Players playerNumber) {
-    ElementCardData selectedCard =
-        state.hand.where((element) => element.id == cardId).first;
-    state = state.copyWith(deck: [...state.deck, selectedCard]);
-
-    updatePlayerDataToGameData(ref, playerNumber);
-  }
-
-  castDiscardPile(WidgetRef ref, Players playerNumber) {
-    if (state.hand.length < cardsInHand) {
-      state = state.copyWith(hand: [...state.hand, state.discardPile.last]);
+      updatePlayerDataToGameData(ref, playerNumber);
     }
+  }
+
+  //earth
+  moldCard(
+      WidgetRef ref, String cardId, PlayerData player, Players playerNumber) {
+    if (state.hand.isNotEmpty &&
+        state.selectedCard != '' &&
+        state.abilityCharges > 0) {
+      int value =
+          state.hand.where((element) => element.id == cardId).first.value;
+      state = state.copyWith(deck: [
+        ...state.deck,
+        ElementCardData(
+            id: Guid.generate().toString(),
+            ownerId: player.id,
+            elementalType: player.elementalType,
+            value: value)
+      ], abilityCharges: useAbilityCharge(state.abilityCharges));
+      updatePlayerDataToGameData(ref, playerNumber);
+    }
+  }
+
+  //water
+  castCard(WidgetRef ref, Players playerNumber) {
+    if (state.hand.length < cardsInHand &&
+        state.discardPile.isNotEmpty &&
+        state.abilityCharges > 0) {
+      List<ElementCardData> discardCopy = state.discardPile.toList();
+      discardCopy.removeLast();
+      state = state.copyWith(
+          hand: [
+            ...state.hand,
+            state.discardPile.last.copyWith(canBeSelected: true)
+          ],
+          discardPile: discardCopy,
+          abilityCharges: useAbilityCharge(state.abilityCharges));
+
+      updatePlayerDataToGameData(ref, playerNumber);
+    }
+  }
+
+  //air
+  gustCard(WidgetRef ref, Players playerNumber) {
+    if (state.hand.isNotEmpty &&
+        state.deck.isNotEmpty &&
+        state.abilityCharges > 0) {
+      List<ElementCardData> handCopy = state.hand.toList();
+      List<ElementCardData> deckCopy = state.deck.toList();
+      ElementCardData cardFromHand = pickRandomCardFromList(state.hand);
+      ElementCardData cardFromDeck = pickRandomCardFromList(state.deck);
+      handCopy.removeWhere((element) => element.id == cardFromHand.id);
+      deckCopy.removeWhere((element) => element.id == cardFromDeck.id);
+      handCopy.add(cardFromDeck);
+      deckCopy.add(cardFromHand);
+      deckCopy.shuffle();
+
+      state = state.copyWith(
+          hand: handCopy,
+          deck: deckCopy,
+          abilityCharges: useAbilityCharge(state.abilityCharges));
+
+      updatePlayerDataToGameData(ref, playerNumber);
+    }
+  }
+
+  givePlayerTurnAbilityCharge(WidgetRef ref, Players playerNumber) {
+    state = state.copyWith(abilityCharges: 1);
+    updatePlayerDataToGameData(ref, playerNumber);
   }
 }

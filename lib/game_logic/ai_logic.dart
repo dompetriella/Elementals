@@ -27,7 +27,6 @@ cpuTurn(WidgetRef ref) async {
       }
     }
     if (playableCards.isNotEmpty) {
-      // FIREWATCH - IE the CPU won't throw the game player 1s with fire
       ref
           .read(playerTwoProvider.notifier)
           .playCard(playableCards.first, ref, Players.p2);

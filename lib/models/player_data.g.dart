@@ -27,6 +27,7 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
           const [],
       score: json['score'] as int? ?? 0,
       selectedCard: json['selectedCard'] as String? ?? '',
+      abilityCharges: json['abilityCharges'] as int? ?? 1,
       name: json['name'] as String? ?? '',
     );
 
@@ -40,6 +41,7 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
       'discardPile': instance.discardPile,
       'score': instance.score,
       'selectedCard': instance.selectedCard,
+      'abilityCharges': instance.abilityCharges,
       'name': instance.name,
     };
 

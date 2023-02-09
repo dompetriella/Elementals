@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 class PlayerTurnActionButton extends StatelessWidget {
   final String text;
+  final bool isActive;
   const PlayerTurnActionButton(
-      {Key? key, required this.theme, required this.text})
+      {Key? key,
+      required this.theme,
+      required this.text,
+      required this.isActive})
       : super(key: key);
 
   final ColorScheme theme;
@@ -15,13 +19,17 @@ class PlayerTurnActionButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
+          AnimatedContainer(
+            duration: Duration(milliseconds: 400),
             constraints: BoxConstraints(maxHeight: 50, maxWidth: 150),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [theme.primary, Colors.black]),
+                    colors: [
+                      isActive ? theme.primary : Colors.grey,
+                      Colors.black
+                    ]),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.white, width: 2),
                 boxShadow: [

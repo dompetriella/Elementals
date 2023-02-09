@@ -26,4 +26,7 @@ continueGameLoop(WidgetRef ref) async {
   endPlayerTurn(ref, Players.p2);
   notifyDynamicInfo(ref, "Player One's Turn");
   ref.read(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
+  ref
+      .read(playerProvider.notifier)
+      .givePlayerTurnAbilityCharge(ref, Players.p1);
 }
