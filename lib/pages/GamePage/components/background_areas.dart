@@ -66,13 +66,15 @@ class PlayerBackground extends ConsumerWidget {
       curve: curve,
       height: calculateFieldHeight(context, ref, ref.watch(playerProvider)),
       decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.white, width: 5)),
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-            HexColor(ref.watch(playerProvider).elementalType.secondaryColor),
-            HexColor(ref.watch(playerProvider).elementalType.primaryColor),
-          ])),
+                HexColor(
+                    ref.watch(playerProvider).elementalType.secondaryColor),
+                HexColor(ref.watch(playerProvider).elementalType.primaryColor),
+              ])),
     );
   }
 }

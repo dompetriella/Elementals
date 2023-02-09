@@ -6,7 +6,7 @@ const int lowestCardValue = 1;
 const int halfwayCardValue = 4;
 const int highestCardValue = 7;
 
-const int winningScore = 30;
+const int winningScore = 50;
 
 const int normalPlay = 1;
 

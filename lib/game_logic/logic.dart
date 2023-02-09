@@ -110,7 +110,11 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
 }
 
 ElementCardData pickRandomCardFromList(List<ElementCardData> inputList) {
-  return inputList[Random().nextInt(inputList.length - 1)];
+  if (inputList.length > 1) {
+    return inputList[Random().nextInt(inputList.length - 1)];
+  } else {
+    return inputList[0];
+  }
 }
 
 int calculateFirePoints(int playZoneValue, int playedCardValue) {
@@ -118,7 +122,9 @@ int calculateFirePoints(int playZoneValue, int playedCardValue) {
     return firePenalty;
   }
   int points = normalPlay;
-  if (playedCardValue > halfwayCardValue) {
+  if (playedCardValue > halfwayCardValue &&
+      determineValueDifference(playZoneValue, playedCardValue) !=
+          ValueDifference.decrease) {
     points += playedCardValue - halfwayCardValue;
   }
   if (determineValueDifference(playZoneValue, playedCardValue) ==
@@ -133,7 +139,9 @@ int calculateAirPoints(int playZoneValue, int playedCardValue) {
     return airPenalty;
   }
   int points = normalPlay;
-  if (playedCardValue < halfwayCardValue) {
+  if (playedCardValue < halfwayCardValue &&
+      determineValueDifference(playZoneValue, playedCardValue) !=
+          ValueDifference.increase) {
     points += ((playedCardValue - 1) - halfwayCardValue).abs();
   }
   if (determineValueDifference(playZoneValue, playedCardValue) ==
