@@ -98,12 +98,13 @@ class HowToSegment extends HookConsumerWidget {
       child: GestureDetector(
         onTap: () => opened.value = !opened.value,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: animationDuration),
+          width: opened.value ? MediaQuery.of(context).size.width : 100,
+          duration: Duration(milliseconds: animationDuration * 2),
           decoration: BoxDecoration(
               border:
                   Border(bottom: BorderSide(color: Colors.black, width: 2))),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -131,7 +132,7 @@ class HowToBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Text(
         text,
         style: TextStyle(fontSize: 14, color: Colors.black),
