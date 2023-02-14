@@ -47,27 +47,52 @@ class HowToPlay extends HookConsumerWidget {
                       text: 'Basics',
                       body: HowToBody(
                         text: basicsBody,
+                        hasPoints: false,
                       ),
                     ),
                     HowToSegment(
                       text: 'Fire',
                       textColor: firePrimaryColor,
-                      body: HowToBody(text: fireBody),
+                      borderColor: firePrimaryColor,
+                      body: HowToBody(
+                        text: fireBody,
+                        basePoints: normalPlay,
+                        elementalBonus: fireBonus,
+                        increaseCards:
+                            '${highestCardValue - 2}, ${highestCardValue - 1}, ${highestCardValue - 2}',
+                      ),
                     ),
                     HowToSegment(
                       text: 'Air',
                       textColor: airSecondaryColor,
-                      body: HowToBody(text: airBody),
+                      borderColor: airPrimaryColor,
+                      body: HowToBody(
+                        text: airBody,
+                        basePoints: normalPlay,
+                        elementalBonus: airBonus,
+                        increaseCards:
+                            '${lowestCardValue}, ${lowestCardValue + 1}, ${lowestCardValue + 2}',
+                      ),
                     ),
                     HowToSegment(
                       text: 'Water',
                       textColor: waterPrimaryColor,
-                      body: HowToBody(text: waterBody),
+                      borderColor: waterPrimaryColor,
+                      body: HowToBody(
+                        text: waterBody,
+                        basePoints: normalPlay + 1,
+                        elementalBonus: waterBonus,
+                      ),
                     ),
                     HowToSegment(
                       text: 'Earth',
                       textColor: earthPrimaryColor,
-                      body: HowToBody(text: earthBody),
+                      borderColor: earthPrimaryColor,
+                      body: HowToBody(
+                        text: earthBody,
+                        basePoints: normalPlay,
+                        elementalBonus: earthBonus,
+                      ),
                     ),
                   ],
                 )
@@ -82,11 +107,13 @@ class HowToPlay extends HookConsumerWidget {
 class HowToSegment extends HookConsumerWidget {
   final String text;
   final Color textColor;
+  final Color borderColor;
   final HowToBody body;
   const HowToSegment(
       {Key? key,
       required this.text,
       required this.body,
+      this.borderColor = Colors.black,
       this.textColor = Colors.black})
       : super(key: key);
 
@@ -101,8 +128,7 @@ class HowToSegment extends HookConsumerWidget {
           width: opened.value ? MediaQuery.of(context).size.width : 100,
           duration: Duration(milliseconds: animationDuration * 2),
           decoration: BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: Colors.black, width: 2))),
+              border: Border(bottom: BorderSide(color: borderColor, width: 2))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -127,15 +153,81 @@ class HowToSegment extends HookConsumerWidget {
 
 class HowToBody extends StatelessWidget {
   final String text;
-  const HowToBody({Key? key, required this.text}) : super(key: key);
+  final int basePoints;
+  final int elementalBonus;
+  final String increaseCards;
+  final bool hasPoints;
+  const HowToBody(
+      {Key? key,
+      required this.text,
+      this.hasPoints = true,
+      this.basePoints = 0,
+      this.elementalBonus = 0,
+      this.increaseCards = 'N/A'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 14, color: Colors.black),
+      child: Column(
+        children: [
+          Text(
+            text,
+            style: TextStyle(fontSize: 14, color: Colors.black),
+          ),
+          if (hasPoints)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'Base Points',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '+$basePoints',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'Elemental Bonus',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '+$elementalBonus',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'Increase Cards',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      increaseCards,
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                  ],
+                )
+              ],
+            )
+        ],
       ),
     );
   }
