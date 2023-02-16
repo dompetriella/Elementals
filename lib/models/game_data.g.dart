@@ -10,13 +10,7 @@ _$_GameData _$$_GameDataFromJson(Map<String, dynamic> json) => _$_GameData(
       playZone: (json['playZone'] as List<dynamic>?)
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const [
-            ElementCardData(
-                id: '0',
-                ownerId: '0',
-                elementalType: ElementalType.fire,
-                value: 4)
-          ],
+          const [],
       totalTurns: json['totalTurns'] as int? ?? 0,
       currentTurns: json['currentTurns'] as int? ?? 0,
       players: (json['players'] as List<dynamic>?)

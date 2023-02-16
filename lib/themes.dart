@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-const String testfire = '#A31C1C';
-
 const String firePrimaryColor = '#A31C1C';
 const String fireSecondaryColor = '#C97221';
 const String fireTertriaryColor = '#631111';
