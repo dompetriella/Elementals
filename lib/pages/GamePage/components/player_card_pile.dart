@@ -20,7 +20,7 @@ class PlayerCardPile extends ConsumerWidget {
           width: cardHeightP1 * cardWidthProportion,
           child: Center(
             child: Text(
-              '${cardPile.length}',
+              '${cardPile.isEmpty ? '' : cardPile.length}',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -31,18 +31,8 @@ class PlayerCardPile extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           child: Stack(
-            children: [
-              Stack(
-                  children: cardPile.isEmpty
-                      ? [PlaceholderCard()]
-                      : [
-                          PlaceholderCard(),
-                          ...convertDataToCards(cardPile,
-                              isFaceUp: isDiscard ? true : false,
-                              isShrunk: true)
-                        ]),
-            ],
-          ),
+              children: convertDataToCards(cardPile,
+                  isFaceUp: isDiscard ? true : false, isShrunk: true)),
         ),
       ],
     );
