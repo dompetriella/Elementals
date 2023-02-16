@@ -14,8 +14,8 @@ class PlayZone extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            border: Border.all(color: Colors.white, width: 5)),
+          borderRadius: BorderRadius.circular(2),
+        ),
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ref.watch(gameDataProvider).playZone.isEmpty

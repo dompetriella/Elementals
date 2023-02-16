@@ -20,7 +20,6 @@ class SettingsButton extends StatelessWidget {
             width: 40,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
