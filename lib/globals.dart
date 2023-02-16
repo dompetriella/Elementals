@@ -28,7 +28,7 @@ int playerField = 3; // 3/8ths of screen
 
 const double cardHeightP1 = 90;
 
-const double cardWidthProportion = 0.58;
+const double cardWidthProportion = 0.62;
 
 const double cardHeightP2 = cardHeightP1 * 0.70;
 

@@ -1,70 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Color firePrimaryColor = HexColor('#A31C1C');
-Color fireSecondaryColor = HexColor('#C97221');
+const String testfire = '#A31C1C';
 
-Color airPrimaryColor = HexColor('#CAC858');
-Color airSecondaryColor = HexColor('#FEFDBE');
+const String firePrimaryColor = '#A31C1C';
+const String fireSecondaryColor = '#C97221';
+const String fireTertriaryColor = '#631111';
 
-Color waterPrimaryColor = HexColor('#47559C');
-Color waterSecondaryColor = HexColor('#6FC7DA');
+const String airPrimaryColor = '#7451A1';
+const String airSecondaryColor = '#BD9BD2';
+const String airTertriaryColor = '#462E65';
 
-Color earthPrimaryColor = HexColor('#1F4921');
-Color earthSecondaryColor = HexColor('#A2D6A4');
+const String waterPrimaryColor = '#47559C';
+const String waterSecondaryColor = '#6FC7DA';
+const String waterTertriaryColor = '#2A3364';
+
+const String earthPrimaryColor = '#3F8342';
+const String earthSecondaryColor = '#A2D6A4';
+const String earthTertriaryColor = '#132F14';
 
 var fireTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: firePrimaryColor,
+        primary: HexColor(firePrimaryColor),
         onPrimary: Colors.white,
-        secondary: fireSecondaryColor,
+        secondary: HexColor(fireSecondaryColor),
         onSecondary: Colors.black,
+        tertiary: HexColor(fireTertriaryColor),
+        onTertiary: Colors.white,
         error: Colors.red,
         onError: Colors.black,
         background: Colors.black,
         onBackground: Colors.white,
-        surface: firePrimaryColor,
+        surface: HexColor(firePrimaryColor),
         onSurface: Colors.black));
 
 var airTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: airPrimaryColor,
-        onPrimary: Colors.black,
-        secondary: airSecondaryColor,
+        primary: HexColor(airPrimaryColor),
+        onPrimary: Colors.white,
+        secondary: HexColor(airSecondaryColor),
+        tertiary: HexColor(airTertriaryColor),
+        onTertiary: Colors.white,
         onSecondary: Colors.black,
         error: Colors.red,
-        onError: Colors.white,
+        onError: Colors.black,
         background: Colors.black,
         onBackground: Colors.white,
-        surface: airPrimaryColor,
+        surface: HexColor(airPrimaryColor),
         onSurface: Colors.black));
 
 var waterTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: waterPrimaryColor,
+        primary: HexColor(waterPrimaryColor),
         onPrimary: Colors.white,
-        secondary: waterSecondaryColor,
+        secondary: HexColor(waterSecondaryColor),
         onSecondary: Colors.black,
+        tertiary: HexColor(waterTertriaryColor),
+        onTertiary: Colors.white,
         error: Colors.red,
         onError: Colors.white,
         background: Colors.black,
         onBackground: Colors.white,
-        surface: waterPrimaryColor,
+        surface: HexColor(waterPrimaryColor),
         onSurface: Colors.black));
 
 var earthTheme = ThemeData(
     colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: earthPrimaryColor,
+        primary: HexColor(earthPrimaryColor),
         onPrimary: Colors.white,
-        secondary: earthSecondaryColor,
+        secondary: HexColor(earthSecondaryColor),
         onSecondary: Colors.black,
+        tertiary: HexColor(earthTertriaryColor),
+        onTertiary: Colors.white,
         error: Colors.red,
         onError: Colors.white,
         background: Colors.black,
         onBackground: Colors.white,
-        surface: earthPrimaryColor,
+        surface: HexColor(earthPrimaryColor),
         onSurface: Colors.black));

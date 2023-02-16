@@ -16,9 +16,9 @@ class OpponentSide extends ConsumerWidget {
     return Flexible(
       flex: 20,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Scoreboard(element: element),
+          // Scoreboard(element: element),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: convertDataToCards(ref.watch(playerTwoProvider).hand,

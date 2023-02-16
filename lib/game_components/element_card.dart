@@ -1,18 +1,16 @@
-import 'package:elementals/game_logic/animation_logic.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:elementals/models/element_card_data.dart';
-import 'package:elementals/models/enums.dart';
-import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/globals.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../game_logic/logic.dart';
-import '../models/player_data.dart';
 import '../providers/playerDataProvider.dart';
 
-double cardRaiseHeight = -20;
+const double cardRaiseHeight = -20;
+
+const double cardDepthX = cardHeightP1 * .035;
+const double cardDepthY = cardHeightP1 * .042;
+const double cardDepthSpread = cardHeightP1 * .005;
 
 class ElementCard extends HookConsumerWidget {
   final bool isSelectable;
@@ -52,48 +50,53 @@ class ElementCard extends HookConsumerWidget {
             decoration: BoxDecoration(
                 color: elementCardData.id == '0'
                     ? Colors.grey.shade800.withOpacity(.5)
-                    : Colors.transparent,
+                    : Theme.of(context).colorScheme.primary,
                 boxShadow: [
-                  hasShadow
-                      ? BoxShadow(
-                          offset: Offset(-1, 2),
-                          blurRadius: 3,
-                          spreadRadius: 1,
-                          color: Colors.grey.shade800)
-                      : BoxShadow(color: Colors.transparent)
+                  BoxShadow(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      offset: Offset(cardDepthX, cardDepthY),
+                      spreadRadius: cardDepthSpread)
                 ],
-                image: elementCardData.id != '0'
-                    ? DecorationImage(
-                        image: AssetImage(
-                          getCardImage(elementCardData, isFaceUp),
-                        ),
-                      )
-                    : null,
-                borderRadius: BorderRadius.circular(2)),
+                borderRadius: BorderRadius.circular(8)),
             child: Center(
                 child: isFaceUp
-                    ? Text(
-                        elementCardData.value.toString(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: isShrunk ? 24 : 32,
-                            fontWeight: FontWeight.bold),
+                    ? Container(
+                        height: cardHeightP1 * .75,
+                        width: cardHeightP1 * cardWidthProportion * 0.7,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  inset: true,
+                                  offset: Offset(1.5, 2.5),
+                                  spreadRadius: 1)
+                            ],
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black,
+                                  Theme.of(context).colorScheme.primary
+                                ]),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: Stack(
+                            children: [
+                              Text(
+                                elementCardData.value.toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: isShrunk ? 24 : 32,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
                       )
                     : Text('')),
           ),
         ),
       ),
     );
-  }
-}
-
-String getCardImage(ElementCardData elementCardData, bool isFaceUp) {
-  switch (isFaceUp) {
-    case true:
-      return 'assets/game_assets/${elementCardData.elementalType.frontImagePath}.png';
-    case false:
-      return 'assets/game_assets/${elementCardData.elementalType.backImagePath}.png';
-    default:
-      return '';
   }
 }

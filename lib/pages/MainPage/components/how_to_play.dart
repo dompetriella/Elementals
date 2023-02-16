@@ -1,4 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -52,8 +53,8 @@ class HowToPlay extends HookConsumerWidget {
                     ),
                     HowToSegment(
                       text: 'Fire',
-                      textColor: firePrimaryColor,
-                      borderColor: firePrimaryColor,
+                      textColor: HexColor(firePrimaryColor),
+                      borderColor: HexColor(firePrimaryColor),
                       body: HowToBody(
                         text: fireBody,
                         basePoints: normalPlay,
@@ -64,8 +65,8 @@ class HowToPlay extends HookConsumerWidget {
                     ),
                     HowToSegment(
                       text: 'Air',
-                      textColor: airSecondaryColor,
-                      borderColor: airPrimaryColor,
+                      textColor: HexColor(airPrimaryColor),
+                      borderColor: HexColor(airTertriaryColor),
                       body: HowToBody(
                         text: airBody,
                         basePoints: normalPlay,
@@ -76,8 +77,8 @@ class HowToPlay extends HookConsumerWidget {
                     ),
                     HowToSegment(
                       text: 'Water',
-                      textColor: waterPrimaryColor,
-                      borderColor: waterPrimaryColor,
+                      textColor: HexColor(waterPrimaryColor),
+                      borderColor: HexColor(waterPrimaryColor),
                       body: HowToBody(
                         text: waterBody,
                         basePoints: normalPlay + 1,
@@ -86,8 +87,8 @@ class HowToPlay extends HookConsumerWidget {
                     ),
                     HowToSegment(
                       text: 'Earth',
-                      textColor: earthPrimaryColor,
-                      borderColor: earthPrimaryColor,
+                      textColor: HexColor(earthPrimaryColor),
+                      borderColor: HexColor(earthPrimaryColor),
                       body: HowToBody(
                         text: earthBody,
                         basePoints: normalPlay,

@@ -43,25 +43,9 @@ class PlayerHandArea extends ConsumerWidget {
                     child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    for (var i = 0; i < cardsInHand; i++)
-                                      PlaceholderCard(
-                                        isShrunk: false,
-                                      )
-                                  ]),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: convertDataToCards(
-                                    ref.watch(playerProvider).hand,
-                                  ))
-                            ],
-                          ),
-                        ]),
+                        children: convertDataToCards(
+                          ref.watch(playerProvider).hand,
+                        )),
                   ),
                 ),
                 DynamicInfoChannel(),
