@@ -1,12 +1,12 @@
 import '../themes.dart';
 
 enum ElementalType {
-  fire(firePrimaryColor, fireSecondaryColor, fireTertriaryColor, 'fire_front'),
-  air(airPrimaryColor, airSecondaryColor, airTertriaryColor, 'air_front'),
+  fire(firePrimaryColor, fireSecondaryColor, fireTertriaryColor, 'fire-icon'),
+  air(airPrimaryColor, airSecondaryColor, airTertriaryColor, 'air-icon'),
   water(waterPrimaryColor, waterSecondaryColor, waterTertriaryColor,
-      'water_front'),
+      'water-icon'),
   earth(earthPrimaryColor, earthSecondaryColor, earthTertriaryColor,
-      'earth_front'),
+      'earth-icon'),
   ;
 
   final String primaryColor;

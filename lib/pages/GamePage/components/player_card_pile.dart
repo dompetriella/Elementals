@@ -16,23 +16,20 @@ class PlayerCardPile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        SizedBox(
-          width: cardHeightP1 * cardWidthProportion,
-          child: Center(
-            child: Text(
-              '${cardPile.isEmpty ? '' : cardPile.length}',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Theme.of(context).colorScheme.onPrimary),
-            ),
+        Center(
+          child: Text(
+            '${cardPile.isEmpty ? '' : cardPile.length}',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.onPrimary),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           child: Stack(
               children: convertDataToCards(cardPile,
-                  isFaceUp: isDiscard ? true : false, isShrunk: true)),
+                  isFaceUp: isDiscard ? true : false)),
         ),
       ],
     );

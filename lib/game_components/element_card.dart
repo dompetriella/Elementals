@@ -100,8 +100,6 @@ class ElementCard extends HookConsumerWidget {
                       ),
                     )
                   : Container(
-                      height: cardHeightP1 * .75,
-                      width: cardHeightP1 * cardWidthProportion * 0.7,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -113,6 +111,12 @@ class ElementCard extends HookConsumerWidget {
                                     elementCardData.elementalType.primaryColor)
                               ]),
                           borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                        child: Image.asset(
+                            'assets/game_assets/${elementCardData.elementalType.backImagePath}.png',
+                            width: (cardHeightP1 * cardWidthProportion) * .4,
+                            height: (cardHeightP1 * cardWidthProportion) * .4),
+                      ),
                     ),
             ),
           ),

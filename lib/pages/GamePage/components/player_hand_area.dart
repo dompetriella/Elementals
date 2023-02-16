@@ -20,9 +20,9 @@ class PlayerHandArea extends ConsumerWidget {
       decoration: BoxDecoration(color: theme.tertiary, boxShadow: [
         BoxShadow(
             offset: Offset(0, -2),
-            color: Colors.grey.shade900,
+            color: Colors.black.withOpacity(.25),
             blurRadius: 10,
-            spreadRadius: 2)
+            spreadRadius: 6)
       ]),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

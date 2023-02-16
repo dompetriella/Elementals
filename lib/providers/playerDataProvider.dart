@@ -193,8 +193,8 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
       ElementCardData cardFromDeck = pickRandomCardFromList(state.deck);
       handCopy.removeWhere((element) => element.id == cardFromHand.id);
       deckCopy.removeWhere((element) => element.id == cardFromDeck.id);
-      handCopy.add(cardFromDeck);
-      deckCopy.add(cardFromHand);
+      handCopy.add(cardFromDeck.copyWith(canBeSelected: true));
+      deckCopy.add(cardFromHand.copyWith(canBeSelected: false));
       deckCopy.shuffle();
 
       state = state.copyWith(
