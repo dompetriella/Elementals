@@ -31,11 +31,10 @@ class PlayerTurnActionButton extends StatelessWidget {
                       Colors.black
                     ]),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
                 boxShadow: [
                   BoxShadow(
                       blurRadius: 3,
-                      spreadRadius: 1,
+                      spreadRadius: 2,
                       offset: Offset(0, 3),
                       color: Colors.black.withOpacity(0.25))
                 ]),

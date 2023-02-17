@@ -52,12 +52,14 @@ class ElementCard extends HookConsumerWidget {
                 (isShrunk ? cardHeightP2 : cardHeightP1) * cardWidthProportion,
             decoration: BoxDecoration(
                 color: elementCardData.id == '0'
-                    ? Colors.grey.shade800.withOpacity(.5)
+                    ? Colors.grey.shade800
                     : HexColor(elementCardData.elementalType.primaryColor),
                 boxShadow: [
                   BoxShadow(
-                      color:
-                          HexColor(elementCardData.elementalType.tertiaryColor),
+                      color: elementCardData.id != '0'
+                          ? HexColor(
+                              elementCardData.elementalType.tertiaryColor)
+                          : Colors.black,
                       offset: const Offset(cardDepthX, cardDepthY),
                       spreadRadius: cardDepthSpread)
                 ],
@@ -65,24 +67,30 @@ class ElementCard extends HookConsumerWidget {
             child: Center(
               child: isFaceUp
                   ? Container(
-                      height: cardHeightP1 * .75,
-                      width: cardHeightP1 * cardWidthProportion * 0.7,
+                      height:
+                          isShrunk ? cardHeightP2 * .75 : cardHeightP1 * .75,
+                      width: isShrunk
+                          ? cardHeightP2 * cardWidthProportion * 0.7
+                          : cardHeightP1 * cardWidthProportion * 0.7,
                       decoration: BoxDecoration(
                           boxShadow: [
-                            BoxShadow(
-                                color: HexColor(elementCardData
-                                    .elementalType.tertiaryColor),
-                                inset: true,
-                                offset: const Offset(1.5, 2.5),
-                                spreadRadius: 1)
+                            if (elementCardData.id != '0')
+                              BoxShadow(
+                                  color: HexColor(elementCardData
+                                      .elementalType.tertiaryColor),
+                                  inset: true,
+                                  offset: const Offset(1.5, 2.5),
+                                  spreadRadius: 1)
                           ],
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.black,
-                                HexColor(
-                                    elementCardData.elementalType.primaryColor)
+                                elementCardData.id != '0'
+                                    ? HexColor(elementCardData
+                                        .elementalType.primaryColor)
+                                    : Colors.grey
                               ]),
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(

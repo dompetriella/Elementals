@@ -26,10 +26,10 @@ class PlayerCardPile extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          padding: const EdgeInsets.only(top: 8.0),
           child: Stack(
               children: convertDataToCards(cardPile,
-                  isFaceUp: isDiscard ? true : false)),
+                  isFaceUp: isDiscard ? true : false, isShrunk: true)),
         ),
       ],
     );
