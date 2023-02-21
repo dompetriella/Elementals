@@ -23,6 +23,9 @@ String getButtonName(ElementalType elementalType) {
 }
 
 buttonFunctionForElement(ElementalType elementalType, WidgetRef ref) {
+  ref.read(playerProvider.notifier).state = ref
+      .read(playerProvider)
+      .copyWith(abilityActive: !ref.read(playerProvider).abilityActive);
   switch (elementalType) {
     case ElementalType.fire:
     case ElementalType.air:
@@ -54,7 +57,8 @@ class ActionButtonArea extends ConsumerWidget {
             child: PlayerTurnActionButton(
               theme: theme,
               text: getButtonName(ref.watch(playerProvider).elementalType),
-              isActive: ref.watch(playerProvider).abilityCharges > 0,
+              isAvailable: ref.watch(playerProvider).abilityCharges > 0,
+              isActive: ref.watch(playerProvider).abilityActive,
             ),
           ),
           GestureDetector(
@@ -64,7 +68,7 @@ class ActionButtonArea extends ConsumerWidget {
             child: PlayerTurnActionButton(
               theme: theme,
               text: 'End Turn',
-              isActive: true,
+              isAvailable: true,
             ),
           ),
         ],
