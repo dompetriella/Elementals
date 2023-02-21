@@ -14,7 +14,7 @@ String getButtonName(ElementalType elementalType) {
     case ElementalType.air:
       return "Gust";
     case ElementalType.water:
-      return "Cast";
+      return "Tide";
     case ElementalType.earth:
       return "Mold";
     default:
@@ -25,23 +25,9 @@ String getButtonName(ElementalType elementalType) {
 buttonFunctionForElement(ElementalType elementalType, WidgetRef ref) {
   switch (elementalType) {
     case ElementalType.fire:
-      ref
-          .read(playerProvider.notifier)
-          .burnCard(ref, ref.read(playerProvider).selectedCard, Players.p1);
-      break;
     case ElementalType.air:
-      ref.read(playerProvider.notifier).gustCard(ref, Players.p1);
-      break;
     case ElementalType.water:
-      ref.read(playerProvider.notifier).castCard(ref, Players.p1);
-      break;
     case ElementalType.earth:
-      ref.read(playerProvider.notifier).moldCard(
-          ref,
-          ref.read(playerProvider).selectedCard,
-          ref.read(playerProvider),
-          Players.p1);
-      break;
   }
 }
 
