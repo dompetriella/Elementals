@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:elementals/game_logic/logic.dart';
-import 'package:elementals/models/game_data.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -14,7 +12,9 @@ setInitalGameProperties(WidgetRef ref) {
   String playerOneGuid = Guid.generate().toString();
   String playerTwoGuid = Guid.generate().toString();
   ElementalType randomElement = ElementalType.values[Random().nextInt(3)];
-
+  while (randomElement == ref.read(playerProvider).elementalType) {
+    randomElement = ElementalType.values[Random().nextInt(3)];
+  }
   ref.read(playerProvider.notifier).state = PlayerData(
       id: playerOneGuid,
       name: 'Player One',

@@ -19,7 +19,7 @@ final playerTwoProvider =
 
 class PlayerDataNotifier extends StateNotifier<PlayerData> {
   PlayerDataNotifier()
-      : super(PlayerData(id: '-1', elementalType: ElementalType.fire));
+      : super(PlayerData(id: '0', elementalType: ElementalType.fire));
 
   changePlayerElement(ElementalType elementalType) {
     state = state.copyWith(elementalType: elementalType);
@@ -83,11 +83,12 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
         handCopy.indexWhere((element) => element.id == card.id);
 
     handCopy[selectedCardIndex] = ElementCardData(
-        id: '-1',
-        ownerId: '-1',
+        id: Guid.generate().toString(),
+        ownerId: '0',
         elementalType: handCopy[selectedCardIndex].elementalType,
-        value: 0,
-        canBeSelected: false);
+        value: -1,
+        canBeSelected: false,
+        isTangible: false);
 
     state = state.copyWith(hand: handCopy);
     state = state.copyWith(
@@ -105,7 +106,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   discardHand(WidgetRef ref, Players playerNumber) {
     List<ElementCardData> playerHand = state.hand.toList();
-    playerHand.removeWhere((element) => element.id == '-1');
+    playerHand.removeWhere((element) => element.isTangible == false);
     playerHand =
         playerHand.map((e) => e.copyWith(canBeSelected: false)).toList();
     state = state.copyWith(hand: []);

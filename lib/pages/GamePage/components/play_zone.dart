@@ -15,11 +15,11 @@ class PlayZone extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: ref.watch(gameDataProvider).currentWinner.id != '-1'
+            color: ref.watch(gameDataProvider).currentWinner.id != '0'
                 ? HexColor(ref
                     .watch(gameDataProvider)
                     .currentWinner
@@ -27,7 +27,7 @@ class PlayZone extends ConsumerWidget {
                     .secondaryColor)
                 : Colors.transparent,
             boxShadow: [
-              if (ref.watch(gameDataProvider).currentWinner.id != '-1')
+              if (ref.watch(gameDataProvider).currentWinner.id != '0')
                 BoxShadow(
                     color: HexColor(ref
                         .watch(gameDataProvider)
@@ -37,13 +37,13 @@ class PlayZone extends ConsumerWidget {
                     spreadRadius: 2 *
                         (ref.watch(gameDataProvider).overallScore.toDouble() /
                             winningScore),
-                    offset: ref.watch(gameDataProvider).currentWinner.id != '-1'
+                    offset: ref.watch(gameDataProvider).currentWinner.id != '0'
                         ? Offset(2, 4)
                         : Offset(0, 0))
             ]),
         child: AnimatedPadding(
-            duration: Duration(milliseconds: 350),
-            padding: ref.watch(gameDataProvider).currentWinner.id == '-1'
+            duration: Duration(milliseconds: 800),
+            padding: ref.watch(gameDataProvider).currentWinner.id == '0'
                 ? EdgeInsets.all(0)
                 : EdgeInsets.all(
                     8 +

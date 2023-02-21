@@ -13,6 +13,7 @@ _$_ElementCardData _$$_ElementCardDataFromJson(Map<String, dynamic> json) =>
       elementalType: $enumDecode(_$ElementalTypeEnumMap, json['elementalType']),
       value: json['value'] as int,
       canBeSelected: json['canBeSelected'] as bool? ?? false,
+      isTangible: json['isTangible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$_ElementCardDataToJson(_$_ElementCardData instance) =>
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$_ElementCardDataToJson(_$_ElementCardData instance) =>
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
       'value': instance.value,
       'canBeSelected': instance.canBeSelected,
+      'isTangible': instance.isTangible,
     };
 
 const _$ElementalTypeEnumMap = {

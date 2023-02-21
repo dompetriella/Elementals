@@ -25,6 +25,7 @@ mixin _$ElementCardData {
   ElementalType get elementalType => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
   bool get canBeSelected => throw _privateConstructorUsedError;
+  bool get isTangible => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $ElementCardDataCopyWith<$Res> {
       String ownerId,
       ElementalType elementalType,
       int value,
-      bool canBeSelected});
+      bool canBeSelected,
+      bool isTangible});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
     Object? elementalType = null,
     Object? value = null,
     Object? canBeSelected = null,
+    Object? isTangible = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,6 +89,10 @@ class _$ElementCardDataCopyWithImpl<$Res, $Val extends ElementCardData>
           ? _value.canBeSelected
           : canBeSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTangible: null == isTangible
+          ? _value.isTangible
+          : isTangible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$_ElementCardDataCopyWith<$Res>
       String ownerId,
       ElementalType elementalType,
       int value,
-      bool canBeSelected});
+      bool canBeSelected,
+      bool isTangible});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
     Object? elementalType = null,
     Object? value = null,
     Object? canBeSelected = null,
+    Object? isTangible = null,
   }) {
     return _then(_$_ElementCardData(
       id: null == id
@@ -144,6 +153,10 @@ class __$$_ElementCardDataCopyWithImpl<$Res>
           ? _value.canBeSelected
           : canBeSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTangible: null == isTangible
+          ? _value.isTangible
+          : isTangible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -156,7 +169,8 @@ class _$_ElementCardData implements _ElementCardData {
       required this.ownerId,
       required this.elementalType,
       required this.value,
-      this.canBeSelected = false});
+      this.canBeSelected = false,
+      this.isTangible = true});
 
   factory _$_ElementCardData.fromJson(Map<String, dynamic> json) =>
       _$$_ElementCardDataFromJson(json);
@@ -172,10 +186,13 @@ class _$_ElementCardData implements _ElementCardData {
   @override
   @JsonKey()
   final bool canBeSelected;
+  @override
+  @JsonKey()
+  final bool isTangible;
 
   @override
   String toString() {
-    return 'ElementCardData(id: $id, ownerId: $ownerId, elementalType: $elementalType, value: $value, canBeSelected: $canBeSelected)';
+    return 'ElementCardData(id: $id, ownerId: $ownerId, elementalType: $elementalType, value: $value, canBeSelected: $canBeSelected, isTangible: $isTangible)';
   }
 
   @override
@@ -189,13 +206,15 @@ class _$_ElementCardData implements _ElementCardData {
                 other.elementalType == elementalType) &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.canBeSelected, canBeSelected) ||
-                other.canBeSelected == canBeSelected));
+                other.canBeSelected == canBeSelected) &&
+            (identical(other.isTangible, isTangible) ||
+                other.isTangible == isTangible));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, ownerId, elementalType, value, canBeSelected);
+  int get hashCode => Object.hash(runtimeType, id, ownerId, elementalType,
+      value, canBeSelected, isTangible);
 
   @JsonKey(ignore: true)
   @override
@@ -217,7 +236,8 @@ abstract class _ElementCardData implements ElementCardData {
       required final String ownerId,
       required final ElementalType elementalType,
       required final int value,
-      final bool canBeSelected}) = _$_ElementCardData;
+      final bool canBeSelected,
+      final bool isTangible}) = _$_ElementCardData;
 
   factory _ElementCardData.fromJson(Map<String, dynamic> json) =
       _$_ElementCardData.fromJson;
@@ -232,6 +252,8 @@ abstract class _ElementCardData implements ElementCardData {
   int get value;
   @override
   bool get canBeSelected;
+  @override
+  bool get isTangible;
   @override
   @JsonKey(ignore: true)
   _$$_ElementCardDataCopyWith<_$_ElementCardData> get copyWith =>

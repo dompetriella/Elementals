@@ -40,7 +40,7 @@ cpuTurn(WidgetRef ref) async {
 bool checkForContinuedPlayableLoop(WidgetRef ref) {
   bool continueCheck = false;
   ref.read(playerTwoProvider).hand.forEach((element) {
-    if (element.id != '-1') {
+    if (element.isTangible) {
       continueCheck = true;
     }
   });
