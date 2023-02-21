@@ -52,13 +52,10 @@ class GameNotifier extends StateNotifier<GameData> {
   }
 
   resetPlayZone() {
-    state = state.copyWith(playZone: [
-      ElementCardData(
-        id: '0',
-        ownerId: '0',
-        elementalType: ElementalType.fire,
-        value: 4,
-      ),
-    ], currentWinner: PlayerData(), overallScore: 0, gameOver: false);
+    state = state.copyWith(
+        playZone: [],
+        currentWinner: PlayerData(),
+        overallScore: 0,
+        gameOver: false);
   }
 }

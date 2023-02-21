@@ -40,10 +40,15 @@ List<ElementCardData> createPlayerDeck(
   return playerDeck;
 }
 
-bool isCardPlayable(int playableValue, ElementCardData checkedCard) {
-  if (checkedCard.value == playableValue) return true;
-  if (checkedCard.value == playableValue + 1) return true;
-  if (checkedCard.value == playableValue - 1) return true;
+bool isCardPlayable(ElementCardData checkedCard, WidgetRef ref) {
+  if (ref.read(gameDataProvider).playZone.isEmpty) {
+    return true;
+  } else {
+    var playableValue = ref.read(gameDataProvider).playZone.last.value;
+    if (checkedCard.value == playableValue) return true;
+    if (checkedCard.value == playableValue + 1) return true;
+    if (checkedCard.value == playableValue - 1) return true;
+  }
   return false;
 }
 
@@ -65,8 +70,7 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
       ref.read(gameDataProvider).currentPlayer.id ==
           ref.read(playerProvider).id) {
     if (ref.read(playerProvider).selectedCard == elementCardData.id) {
-      if (isCardPlayable(
-          ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
+      if (isCardPlayable(elementCardData, ref)) {
         ref
             .read(playerProvider.notifier)
             .playCard(elementCardData, ref, Players.p1);
@@ -82,8 +86,7 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
           .state
           .copyWith(selectedCard: elementCardData.id);
       // updates DIC with whether playable or not
-      if (isCardPlayable(
-          ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
+      if (isCardPlayable(elementCardData, ref)) {
         notifyDynamicInfo(ref, 'Playable Card');
       } else {
         notifyDynamicInfo(ref, 'Unplayable Card');
@@ -96,8 +99,7 @@ immediatelyPlayCard(ElementCardData elementCardData, WidgetRef ref) {
   if (elementCardData.ownerId == ref.read(playerProvider).id &&
       ref.read(gameDataProvider).currentPlayer.id ==
           ref.read(playerProvider).id) {
-    if (isCardPlayable(
-        ref.read(gameDataProvider).playZone.last.value, elementCardData)) {
+    if (isCardPlayable(elementCardData, ref)) {
       ref
           .read(playerProvider.notifier)
           .playCard(elementCardData, ref, Players.p1);
@@ -173,6 +175,10 @@ int calculateEarthPoints(int playZoneValue, int playedCardValue) {
 
 int calculatePlayedCardPoints(
     ElementalType elementalType, int playZoneValue, int playedCardValue) {
+  // accounts for the first card played
+  if (playZoneValue == -1) {
+    return normalPlay;
+  }
   switch (elementalType) {
     case ElementalType.fire:
       return calculateFirePoints(playZoneValue, playedCardValue);

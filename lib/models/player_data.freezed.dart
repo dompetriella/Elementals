@@ -230,7 +230,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PlayerData implements _PlayerData {
   const _$_PlayerData(
-      {this.id = '0',
+      {this.id = '-1',
       this.elementalType = ElementalType.fire,
       this.totalCards = 20,
       final List<ElementCardData> deck = const [],

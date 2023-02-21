@@ -8,7 +8,7 @@ part 'player_data.g.dart';
 @freezed
 class PlayerData with _$PlayerData {
   const factory PlayerData(
-      {@Default('0') String id,
+      {@Default('-1') String id,
       @Default(ElementalType.fire) ElementalType elementalType,
       @Default(20) int totalCards,
       @Default([]) List<ElementCardData> deck,

@@ -17,12 +17,12 @@ cpuTurn(WidgetRef ref) async {
   }
 
   await Future.delayed(Duration(milliseconds: 3000));
-  while (ref.read(playerTwoProvider).hand.length > 0) {
+  while (checkForContinuedPlayableLoop(ref)) {
     int newPlayValue = ref.read(gameDataProvider).playZone.last.value;
 
     List<ElementCardData> playableCards = [];
     for (var card in ref.read(playerTwoProvider).hand) {
-      if (isCardPlayable(newPlayValue, card)) {
+      if (isCardPlayable(card, ref)) {
         playableCards.add(card);
       }
     }
@@ -35,4 +35,14 @@ cpuTurn(WidgetRef ref) async {
     }
     await Future.delayed(Duration(milliseconds: Random().nextInt(3000) + 1000));
   }
+}
+
+bool checkForContinuedPlayableLoop(WidgetRef ref) {
+  bool continueCheck = false;
+  ref.read(playerTwoProvider).hand.forEach((element) {
+    if (element.id != '-1') {
+      continueCheck = true;
+    }
+  });
+  return continueCheck;
 }

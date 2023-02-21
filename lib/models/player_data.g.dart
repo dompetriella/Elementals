@@ -8,7 +8,7 @@ part of 'player_data.dart';
 
 _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
     _$_PlayerData(
-      id: json['id'] as String? ?? '0',
+      id: json['id'] as String? ?? '-1',
       elementalType:
           $enumDecodeNullable(_$ElementalTypeEnumMap, json['elementalType']) ??
               ElementalType.fire,

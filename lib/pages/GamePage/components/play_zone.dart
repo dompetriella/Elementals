@@ -1,5 +1,6 @@
 import 'package:elementals/globals.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -18,7 +19,7 @@ class PlayZone extends ConsumerWidget {
         curve: Curves.easeInOut,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: ref.watch(gameDataProvider).currentWinner.name != ''
+            color: ref.watch(gameDataProvider).currentWinner.id != '-1'
                 ? HexColor(ref
                     .watch(gameDataProvider)
                     .currentWinner
@@ -26,7 +27,7 @@ class PlayZone extends ConsumerWidget {
                     .secondaryColor)
                 : Colors.transparent,
             boxShadow: [
-              if (ref.watch(gameDataProvider).currentWinner.id != '0')
+              if (ref.watch(gameDataProvider).currentWinner.id != '-1')
                 BoxShadow(
                     color: HexColor(ref
                         .watch(gameDataProvider)
@@ -36,13 +37,13 @@ class PlayZone extends ConsumerWidget {
                     spreadRadius: 2 *
                         (ref.watch(gameDataProvider).overallScore.toDouble() /
                             winningScore),
-                    offset: ref.watch(gameDataProvider).currentWinner.id != '0'
+                    offset: ref.watch(gameDataProvider).currentWinner.id != '-1'
                         ? Offset(2, 4)
                         : Offset(0, 0))
             ]),
         child: AnimatedPadding(
             duration: Duration(milliseconds: 350),
-            padding: ref.watch(gameDataProvider).currentWinner.id == '0'
+            padding: ref.watch(gameDataProvider).currentWinner.id == '-1'
                 ? EdgeInsets.all(0)
                 : EdgeInsets.all(
                     8 +
@@ -57,9 +58,23 @@ class PlayZone extends ConsumerWidget {
                 ? Stack(
                     children: convertDataToCards(
                         ref.watch(gameDataProvider).playZone))
-                : SizedBox(
+                : Container(
                     height: cardHeightP1,
                     width: cardHeightP1 * cardWidthProportion,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black,
+                            inset: true,
+                            offset: const Offset(1.5, 2.5),
+                            spreadRadius: 1)
+                      ],
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.grey.shade900, Colors.grey.shade800]),
+                    ),
                   )));
   }
 }

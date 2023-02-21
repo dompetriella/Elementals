@@ -51,15 +51,15 @@ class ElementCard extends HookConsumerWidget {
             width:
                 (isShrunk ? cardHeightP2 : cardHeightP1) * cardWidthProportion,
             decoration: BoxDecoration(
-                color: elementCardData.id == '0'
-                    ? Colors.grey.shade800
-                    : HexColor(elementCardData.elementalType.primaryColor),
+                color: elementCardData.id != '-1'
+                    ? HexColor(elementCardData.elementalType.primaryColor)
+                    : Colors.transparent,
                 boxShadow: [
                   BoxShadow(
-                      color: elementCardData.id != '0'
+                      color: elementCardData.id != '-1'
                           ? HexColor(
                               elementCardData.elementalType.tertiaryColor)
-                          : Colors.black,
+                          : Colors.transparent,
                       offset: const Offset(cardDepthX, cardDepthY),
                       spreadRadius: cardDepthSpread)
                 ],
@@ -74,7 +74,7 @@ class ElementCard extends HookConsumerWidget {
                           : cardHeightP1 * cardWidthProportion * 0.7,
                       decoration: BoxDecoration(
                           boxShadow: [
-                            if (elementCardData.id != '0')
+                            if (elementCardData.id != '-1')
                               BoxShadow(
                                   color: HexColor(elementCardData
                                       .elementalType.tertiaryColor),
@@ -86,45 +86,54 @@ class ElementCard extends HookConsumerWidget {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Colors.black,
-                                elementCardData.id != '0'
+                                elementCardData.id != '-1'
+                                    ? Colors.black
+                                    : Colors.transparent,
+                                elementCardData.id != '-1'
                                     ? HexColor(elementCardData
                                         .elementalType.primaryColor)
-                                    : Colors.grey
+                                    : Colors.transparent
                               ]),
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Stack(
                           children: [
-                            Text(
-                              elementCardData.value.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: isShrunk ? 24 : 32,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            if (elementCardData.id != '-1')
+                              Text(
+                                elementCardData.value.toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: isShrunk ? 24 : 32,
+                                    fontWeight: FontWeight.bold),
+                              ),
                           ],
                         ),
                       ),
                     )
                   : Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor(elementCardData
-                                    .elementalType.secondaryColor),
-                                HexColor(
-                                    elementCardData.elementalType.primaryColor)
-                              ]),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: Image.asset(
-                            'assets/game_assets/${elementCardData.elementalType.backImagePath}.png',
-                            width: (cardHeightP1 * cardWidthProportion) * .4,
-                            height: (cardHeightP1 * cardWidthProportion) * .4),
-                      ),
+                      decoration: elementCardData.id != '-1'
+                          ? BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    HexColor(elementCardData
+                                        .elementalType.secondaryColor),
+                                    HexColor(elementCardData
+                                        .elementalType.primaryColor)
+                                  ]),
+                              borderRadius: BorderRadius.circular(5))
+                          : null,
+                      child: elementCardData.id != '-1'
+                          ? Center(
+                              child: Image.asset(
+                                  'assets/game_assets/${elementCardData.elementalType.backImagePath}.png',
+                                  width:
+                                      (cardHeightP1 * cardWidthProportion) * .4,
+                                  height: (cardHeightP1 * cardWidthProportion) *
+                                      .4),
+                            )
+                          : null,
                     ),
             ),
           ),

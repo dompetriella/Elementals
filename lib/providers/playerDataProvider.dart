@@ -19,7 +19,7 @@ final playerTwoProvider =
 
 class PlayerDataNotifier extends StateNotifier<PlayerData> {
   PlayerDataNotifier()
-      : super(PlayerData(id: '0', elementalType: ElementalType.fire));
+      : super(PlayerData(id: '-1', elementalType: ElementalType.fire));
 
   changePlayerElement(ElementalType elementalType) {
     state = state.copyWith(elementalType: elementalType);
@@ -70,7 +70,10 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = ref.read(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard =
         state.hand.where((element) => element.id == card.id).first;
-    ElementCardData cardInPlayZone = ref.read(gameDataProvider).playZone.last;
+    // accounts for first card played now
+    int cardInPlayZoneValue = ref.read(gameDataProvider).playZone.isEmpty
+        ? -1
+        : ref.read(gameDataProvider).playZone.last.value;
     newCard = newCard.copyWith(canBeSelected: false);
     ref.read(gameDataProvider.notifier).state = ref
         .read(gameDataProvider)
@@ -90,7 +93,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(
         score: state.score +
             calculatePlayedCardPoints(
-                state.elementalType, cardInPlayZone.value, newCard.value));
+                state.elementalType, cardInPlayZoneValue, newCard.value));
 
     updatePlayerDataToGameData(ref, playerNumber);
     updateOverallScore(ref);
