@@ -67,7 +67,6 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   playCard(ElementCardData card, WidgetRef ref, Players playerNumber) {
-    print('ability charges: ${state.abilityCharges}');
     state = ref.read(gameDataProvider).players[playerNumber.index];
     ElementCardData newCard =
         state.hand.where((element) => element.id == card.id).first;
@@ -77,7 +76,15 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
         .read(gameDataProvider)
         .copyWith(playZone: [...ref.watch(gameDataProvider).playZone, newCard]);
     var handCopy = state.hand.toList();
-    handCopy.removeWhere((element) => element.id == card.id);
+    int selectedCardIndex =
+        handCopy.indexWhere((element) => element.id == card.id);
+
+    handCopy[selectedCardIndex] = ElementCardData(
+        id: '-1',
+        ownerId: '-1',
+        elementalType: handCopy[selectedCardIndex].elementalType,
+        value: 0,
+        canBeSelected: false);
 
     state = state.copyWith(hand: handCopy);
     state = state.copyWith(
@@ -85,19 +92,17 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
             calculatePlayedCardPoints(
                 state.elementalType, cardInPlayZone.value, newCard.value));
 
-    print('ability charges: ${state.abilityCharges}');
     updatePlayerDataToGameData(ref, playerNumber);
-    print('ability charges: ${state.abilityCharges}');
     updateOverallScore(ref);
     if (ref.read(gameDataProvider).overallScore >= winningScore) {
       ref.read(gameDataProvider.notifier).state =
           ref.read(gameDataProvider).copyWith(gameOver: true);
     }
-    print('ability charges: ${state.abilityCharges}');
   }
 
   discardHand(WidgetRef ref, Players playerNumber) {
-    List<ElementCardData> playerHand = state.hand;
+    List<ElementCardData> playerHand = state.hand.toList();
+    playerHand.removeWhere((element) => element.id == '-1');
     playerHand =
         playerHand.map((e) => e.copyWith(canBeSelected: false)).toList();
     state = state.copyWith(hand: []);
@@ -134,6 +139,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
         state.selectedCard != '' &&
         state.abilityCharges > 0) {
       List<ElementCardData> handCopy = state.hand.toList();
+
       handCopy.removeWhere((element) => element.id == cardId);
       state = state.copyWith(
           hand: handCopy,
@@ -165,9 +171,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   //water
   castCard(WidgetRef ref, Players playerNumber) {
-    if (state.hand.length < cardsInHand &&
-        state.discardPile.isNotEmpty &&
-        state.abilityCharges > 0) {
+    if (state.discardPile.isNotEmpty && state.abilityCharges > 0) {
       List<ElementCardData> discardCopy = state.discardPile.toList();
       discardCopy.removeLast();
       state = state.copyWith(
