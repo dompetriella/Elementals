@@ -69,6 +69,18 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
       elementCardData.ownerId == ref.read(playerProvider).id &&
       ref.read(gameDataProvider).currentPlayer.id ==
           ref.read(playerProvider).id) {
+    // use abilities
+    if (ref.read(playerProvider).abilityActive) {
+      switch (elementCardData.elementalType) {
+        case ElementalType.fire:
+          ref
+              .read(playerProvider.notifier)
+              .fireAbility(ref, elementCardData.id, Players.p1);
+          break;
+        default:
+      }
+    }
+
     if (ref.read(playerProvider).selectedCard == elementCardData.id) {
       if (isCardPlayable(elementCardData, ref)) {
         ref
@@ -236,4 +248,15 @@ int useAbilityCharge(int charges) {
     newCharge = 0;
   }
   return newCharge;
+}
+
+ElementCardData createIntangibleCard(ElementalType elementalType) {
+  return ElementCardData(
+      id: Guid.generate().toString(),
+      ownerId: '0',
+      elementalType: elementalType,
+      value: -1,
+      canBeSelected: false,
+      isTangible: false);
+  ;
 }
