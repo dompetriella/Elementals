@@ -22,16 +22,10 @@ String getButtonName(ElementalType elementalType) {
   }
 }
 
-buttonFunctionForElement(ElementalType elementalType, WidgetRef ref) {
+toggleElementalAbility(ElementalType elementalType, WidgetRef ref) {
   ref.read(playerProvider.notifier).state = ref
       .read(playerProvider)
       .copyWith(abilityActive: !ref.read(playerProvider).abilityActive);
-  switch (elementalType) {
-    case ElementalType.fire:
-    case ElementalType.air:
-    case ElementalType.water:
-    case ElementalType.earth:
-  }
 }
 
 class ActionButtonArea extends ConsumerWidget {
@@ -51,7 +45,7 @@ class ActionButtonArea extends ConsumerWidget {
         children: [
           GestureDetector(
             onTap: () {
-              buttonFunctionForElement(
+              toggleElementalAbility(
                   ref.read(playerProvider).elementalType, ref);
             },
             child: PlayerTurnActionButton(

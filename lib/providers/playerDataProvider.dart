@@ -82,13 +82,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     int selectedCardIndex =
         handCopy.indexWhere((element) => element.id == card.id);
 
-    handCopy[selectedCardIndex] = ElementCardData(
-        id: Guid.generate().toString(),
-        ownerId: '0',
-        elementalType: handCopy[selectedCardIndex].elementalType,
-        value: -1,
-        canBeSelected: false,
-        isTangible: false);
+    handCopy[selectedCardIndex] = createIntangibleCard(state.elementalType);
 
     state = state.copyWith(hand: handCopy);
     state = state.copyWith(
@@ -117,6 +111,14 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   selectCard(WidgetRef ref, Players playerNumber, String cardId) {
     state = state.copyWith(selectedCard: cardId);
+    if (state.abilityActive) {
+      switch (state.elementalType) {
+        case ElementalType.fire:
+          fireAbility(ref, cardId, playerNumber);
+          break;
+        default:
+      }
+    }
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
@@ -136,6 +138,19 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   // skills
+
+  fireAbility(WidgetRef ref, String cardId, Players playerNumber) {
+    var handCopy = state.hand.toList();
+    int selectIndex = handCopy.indexWhere((element) => element.id == cardId);
+    handCopy[selectIndex] = createIntangibleCard(state.elementalType);
+    state = state.copyWith(
+        hand: handCopy,
+        abilityCharges: state.abilityCharges - 1,
+        abilityActive: false);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  airAbility(WidgetRef ref, String cardId) {}
 
   givePlayerTurnAbilityCharge(WidgetRef ref, Players playerNumber) {
     state = state.copyWith(abilityCharges: 1);
