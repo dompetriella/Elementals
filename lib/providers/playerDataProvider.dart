@@ -26,12 +26,6 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(elementalType: elementalType);
   }
 
-  updateCardTotal(WidgetRef ref, Players playerNumber) {
-    state = ref.read(gameDataProvider).players[playerNumber.index];
-    state = state.copyWith(totalCards: state.deck.length);
-    updatePlayerDataToGameData(ref, playerNumber);
-  }
-
   drawCard(WidgetRef ref, Players playerNumber) {
     if (state.deck.isEmpty) {
       state = state.copyWith(deck: state.discardPile);
@@ -224,6 +218,25 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     } else {
       notifyDynamicInfo(
           ref, 'Cannot use Ability: Value cannot exceed $highestCardValue');
+      return;
+    }
+    state = state.copyWith(
+        hand: handCopy,
+        abilityCharges: state.abilityCharges - 1,
+        abilityActive: false);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  // crumble
+  earthAbilityTwo(WidgetRef ref, String cardId, Players playerNumber) {
+    var handCopy = state.hand.toList();
+    int selectIndex = handCopy.indexWhere((element) => element.id == cardId);
+    if (handCopy[selectIndex].value > lowestCardValue) {
+      handCopy[selectIndex] = handCopy[selectIndex]
+          .copyWith(value: handCopy[selectIndex].value - 1);
+    } else {
+      notifyDynamicInfo(ref,
+          'Cannot use Ability: Value cannot be lower than $lowestCardValue');
       return;
     }
     state = state.copyWith(

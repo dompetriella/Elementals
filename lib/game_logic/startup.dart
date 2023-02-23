@@ -34,10 +34,7 @@ setInitalGameProperties(WidgetRef ref) {
       .copyWith(
           players: [ref.read(playerProvider), ref.read(playerTwoProvider)]);
 
-  ref.read(playerProvider.notifier).updateCardTotal(ref, Players.p1);
   ref.read(playerProvider.notifier).drawCards(ref, Players.p1);
-
-  ref.read(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
   ref.read(playerTwoProvider.notifier).drawCards(ref, Players.p2);
 
   ref.read(gameDataProvider.notifier).state = ref

@@ -12,7 +12,6 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
       elementalType:
           $enumDecodeNullable(_$ElementalTypeEnumMap, json['elementalType']) ??
               ElementalType.fire,
-      totalCards: json['totalCards'] as int? ?? 20,
       deck: (json['deck'] as List<dynamic>?)
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -29,6 +28,11 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
       selectedCard: json['selectedCard'] as String? ?? '',
       abilityCharges: json['abilityCharges'] as int? ?? 1,
       abilityActive: json['abilityActive'] as bool? ?? false,
+      elementalAbilities: (json['elementalAbilities'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      currentTurnAbility: json['currentTurnAbility'] as String? ?? '',
       name: json['name'] as String? ?? '',
     );
 
@@ -36,7 +40,6 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'elementalType': _$ElementalTypeEnumMap[instance.elementalType]!,
-      'totalCards': instance.totalCards,
       'deck': instance.deck,
       'hand': instance.hand,
       'discardPile': instance.discardPile,
@@ -44,6 +47,8 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
       'selectedCard': instance.selectedCard,
       'abilityCharges': instance.abilityCharges,
       'abilityActive': instance.abilityActive,
+      'elementalAbilities': instance.elementalAbilities,
+      'currentTurnAbility': instance.currentTurnAbility,
       'name': instance.name,
     };
 

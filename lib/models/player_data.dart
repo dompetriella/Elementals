@@ -10,7 +10,6 @@ class PlayerData with _$PlayerData {
   const factory PlayerData(
       {@Default('0') String id,
       @Default(ElementalType.fire) ElementalType elementalType,
-      @Default(20) int totalCards,
       @Default([]) List<ElementCardData> deck,
       @Default([]) List<ElementCardData> hand,
       @Default([]) List<ElementCardData> discardPile,
@@ -18,6 +17,8 @@ class PlayerData with _$PlayerData {
       @Default('') String selectedCard,
       @Default(1) int abilityCharges,
       @Default(false) bool abilityActive,
+      @Default([]) List<String> elementalAbilities,
+      @Default('') String currentTurnAbility,
       @Default('') String name}) = _PlayerData;
 
   factory PlayerData.fromJson(Map<String, Object?> json) =>

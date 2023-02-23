@@ -53,10 +53,7 @@ bool isCardPlayable(ElementCardData checkedCard, WidgetRef ref) {
 }
 
 fillPlayersHands(WidgetRef ref) {
-  ref.read(playerProvider.notifier).updateCardTotal(ref, Players.p1);
   ref.read(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
-
-  ref.read(playerTwoProvider.notifier).updateCardTotal(ref, Players.p2);
   ref.read(playerTwoProvider.notifier).fillPlayerHand(ref, Players.p2);
 }
 
