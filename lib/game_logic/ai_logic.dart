@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:elementals/game_logic/game_loop.dart';
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/models/element_card_data.dart';
 import 'package:elementals/providers/gameDataProvider.dart';

@@ -75,13 +75,16 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
         case ElementalType.fire:
           ref
               .read(playerProvider.notifier)
-              .fireAbility(ref, elementCardData.id, Players.p1);
+              .fireAbilityOne(ref, elementCardData.id, Players.p1);
+          break;
+        case ElementalType.air:
+          ref
+              .read(playerProvider.notifier)
+              .airOneAbility(ref, elementCardData.id, Players.p1);
           break;
         default:
       }
-    }
-
-    if (ref.read(playerProvider).selectedCard == elementCardData.id) {
+    } else if (ref.read(playerProvider).selectedCard == elementCardData.id) {
       if (isCardPlayable(elementCardData, ref)) {
         ref
             .read(playerProvider.notifier)

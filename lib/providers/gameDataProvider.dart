@@ -56,7 +56,9 @@ class GameNotifier extends StateNotifier<GameData> {
         playZone: [],
         currentWinner: PlayerData(),
         overallScore: 0,
-        gameOver: false);
+        gameOver: false,
+        totalTurns: 1,
+        playerTurns: 1);
   }
 
   increaseTurnCount() {

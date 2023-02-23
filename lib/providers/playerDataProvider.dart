@@ -1,4 +1,5 @@
 import 'package:elementals/game_logic/logic.dart';
+import 'package:elementals/game_logic/utility.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -32,6 +33,14 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   drawCard(WidgetRef ref, Players playerNumber) {
+    if (state.deck.isEmpty) {
+      state = state.copyWith(deck: state.discardPile);
+      var deckCopy = state.deck.toList();
+      deckCopy.shuffle();
+      state = state.copyWith(deck: deckCopy);
+      state = state.copyWith(discardPile: []);
+      updatePlayerDataToGameData(ref, playerNumber);
+    }
     ElementCardData newCard = state.deck.first;
     newCard = newCard.copyWith(canBeSelected: true);
     state = state.copyWith(hand: [...state.hand, newCard]);
@@ -53,18 +62,16 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
       if (state.deck.isNotEmpty) {
         drawCard(ref, playerNumber);
       } else {
-        state = state.copyWith(deck: state.discardPile);
-        var deckCopy = state.deck.toList();
-        deckCopy.shuffle();
-        state = state.copyWith(deck: deckCopy);
-        state = state.copyWith(discardPile: []);
-        updatePlayerDataToGameData(ref, playerNumber);
+        shuffleDiscardIntoDeck(ref, playerNumber, state);
         drawCard(ref, playerNumber);
       }
     }
 
     updatePlayerDataToGameData(ref, playerNumber);
   }
+
+  shuffleDiscardIntoDeck(
+      WidgetRef ref, Players playerNumber, PlayerData state) {}
 
   playCard(ElementCardData card, WidgetRef ref, Players playerNumber) {
     state = ref.read(gameDataProvider).players[playerNumber.index];
@@ -109,19 +116,6 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
-  selectCard(WidgetRef ref, Players playerNumber, String cardId) {
-    state = state.copyWith(selectedCard: cardId);
-    if (state.abilityActive) {
-      switch (state.elementalType) {
-        case ElementalType.fire:
-          fireAbility(ref, cardId, playerNumber);
-          break;
-        default:
-      }
-    }
-    updatePlayerDataToGameData(ref, playerNumber);
-  }
-
   updatePlayerDataToGameData(WidgetRef ref, Players playerNumber) {
     List<PlayerData> players = ref.read(gameDataProvider).players.toList();
     switch (playerNumber) {
@@ -139,7 +133,8 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
 
   // skills
 
-  fireAbility(WidgetRef ref, String cardId, Players playerNumber) {
+  //burn
+  fireAbilityOne(WidgetRef ref, String cardId, Players playerNumber) {
     var handCopy = state.hand.toList();
     int selectIndex = handCopy.indexWhere((element) => element.id == cardId);
     handCopy[selectIndex] = createIntangibleCard(state.elementalType);
@@ -150,7 +145,51 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
-  airAbility(WidgetRef ref, String cardId) {}
+  //shift
+  airOneAbility(WidgetRef ref, String cardId, Players playerNumber) {
+    var handCopy = state.hand.toList();
+    var deckCopy = state.deck.toList();
+    List<ElementCardData> cardsFromDeck = [];
+    List<int> tangibleCardIndexes = [];
+    int chosenCardIndex =
+        handCopy.indexWhere((element) => element.id == cardId);
+
+    for (var i = 0; i < chosenCardIndex + 1; i++) {
+      if (handCopy[i].isTangible) {
+        tangibleCardIndexes.add(i);
+      }
+    }
+    if (tangibleCardIndexes.length > state.deck.length) {
+      state = state.copyWith(deck: state.discardPile);
+      var deckCopy = state.deck.toList();
+      deckCopy.shuffle();
+      state = state.copyWith(deck: deckCopy);
+      state = state.copyWith(discardPile: []);
+      updatePlayerDataToGameData(ref, playerNumber);
+    }
+    // pull from deck and remove
+    for (var i = 0; i < tangibleCardIndexes.length; i++) {
+      ElementCardData cardFromDeck = getRandomElementFromList(deckCopy);
+      cardFromDeck = cardFromDeck.copyWith(canBeSelected: true);
+      cardsFromDeck.add(cardFromDeck);
+    }
+    cardsFromDeck.forEach((cardFromDeck) {
+      deckCopy.removeWhere((element) => element.id == cardFromDeck.id);
+    });
+
+    // retreives the missing tangible card indexes and replaces the cards
+    // with the cards randomly got from deck
+    for (var i = 0; i < tangibleCardIndexes.length; i++) {
+      handCopy[tangibleCardIndexes[i]] = cardsFromDeck[i];
+    }
+
+    state = state.copyWith(
+        hand: handCopy,
+        deck: deckCopy,
+        abilityCharges: state.abilityCharges - 1,
+        abilityActive: false);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
 
   givePlayerTurnAbilityCharge(WidgetRef ref, Players playerNumber) {
     state = state.copyWith(abilityCharges: 1);
