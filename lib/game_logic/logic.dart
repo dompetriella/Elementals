@@ -80,7 +80,12 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
         case ElementalType.air:
           ref
               .read(playerProvider.notifier)
-              .airOneAbility(ref, elementCardData.id, Players.p1);
+              .airAbilityOne(ref, elementCardData.id, Players.p1);
+          break;
+        case ElementalType.water:
+          ref
+              .read(playerProvider.notifier)
+              .waterAbilityOne(ref, elementCardData.id, Players.p1);
           break;
         default:
       }

@@ -146,7 +146,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   //shift
-  airOneAbility(WidgetRef ref, String cardId, Players playerNumber) {
+  airAbilityOne(WidgetRef ref, String cardId, Players playerNumber) {
     var handCopy = state.hand.toList();
     var deckCopy = state.deck.toList();
     List<ElementCardData> cardsFromDeck = [];
@@ -186,6 +186,29 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(
         hand: handCopy,
         deck: deckCopy,
+        abilityCharges: state.abilityCharges - 1,
+        abilityActive: false);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  //tide
+  waterAbilityOne(WidgetRef ref, String cardId, Players playerNumber) {
+    if (state.discardPile.isEmpty) {
+      notifyDynamicInfo(
+          ref, 'Cannot use Ability: No Discard Pile Card to Switch With');
+      return;
+    }
+    var handCopy = state.hand.toList();
+    var discardPileCopy = state.discardPile.toList();
+    int selectIndex = handCopy.indexWhere((element) => element.id == cardId);
+    handCopy[selectIndex] = discardPileCopy.last
+        .copyWith(id: Guid.generate().toString(), canBeSelected: true);
+    discardPileCopy.first = handCopy[selectIndex]
+        .copyWith(id: Guid.generate().toString(), canBeSelected: false);
+
+    state = state.copyWith(
+        hand: handCopy,
+        discardPile: discardPileCopy,
         abilityCharges: state.abilityCharges - 1,
         abilityActive: false);
     updatePlayerDataToGameData(ref, playerNumber);

@@ -1,3 +1,4 @@
+import 'package:elementals/game_logic/animation_logic.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,6 +46,7 @@ class ActionButtonArea extends ConsumerWidget {
         children: [
           GestureDetector(
             onTap: () {
+              clearCardTransforms(ref);
               toggleElementalAbility(
                   ref.read(playerProvider).elementalType, ref);
             },
