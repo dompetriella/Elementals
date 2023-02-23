@@ -58,4 +58,13 @@ class GameNotifier extends StateNotifier<GameData> {
         overallScore: 0,
         gameOver: false);
   }
+
+  increaseTurnCount() {
+    if (state.totalTurns % 2 == 0) {
+      state = state.copyWith(
+          totalTurns: state.totalTurns + 1, playerTurns: state.playerTurns + 1);
+    } else {
+      state = state.copyWith(totalTurns: state.totalTurns + 1);
+    }
+  }
 }

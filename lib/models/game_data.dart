@@ -10,8 +10,8 @@ part 'game_data.g.dart';
 class GameData with _$GameData {
   const factory GameData(
       {@Default([]) List<ElementCardData> playZone,
-      @Default(0) int totalTurns,
-      @Default(0) int currentTurns,
+      @Default(1) int totalTurns,
+      @Default(1) int playerTurns,
       @Default([]) List<PlayerData> players,
       @Default(PlayerData()) PlayerData currentPlayer,
       @Default(0) int overallScore,

@@ -136,14 +136,8 @@ int calculateFirePoints(int playZoneValue, int playedCardValue) {
     return firePenalty;
   }
   int points = normalPlay;
-  if (playedCardValue > halfwayCardValue &&
-      determineValueDifference(playZoneValue, playedCardValue) !=
-          ValueDifference.decrease) {
-    points += playedCardValue - halfwayCardValue;
-  }
-  if (determineValueDifference(playZoneValue, playedCardValue) ==
-      ValueDifference.increase) {
-    points += fireBonus;
+  if (playedCardValue > halfwayCardValue) {
+    points += (playedCardValue - halfwayCardValue) * fireBonus;
   }
   return points;
 }
@@ -153,20 +147,14 @@ int calculateAirPoints(int playZoneValue, int playedCardValue) {
     return airPenalty;
   }
   int points = normalPlay;
-  if (playedCardValue < halfwayCardValue &&
-      determineValueDifference(playZoneValue, playedCardValue) !=
-          ValueDifference.increase) {
-    points += ((playedCardValue - 1) - halfwayCardValue).abs();
-  }
-  if (determineValueDifference(playZoneValue, playedCardValue) ==
-      ValueDifference.decrease) {
-    points += airBonus;
+  if (playedCardValue < halfwayCardValue) {
+    points += (((playedCardValue - 1) - halfwayCardValue).abs()) * airBonus;
   }
   return points;
 }
 
 int calculateWaterPoints(int playZoneValue, int playedCardValue) {
-  int points = normalPlay + 1;
+  int points = normalPlay;
   if (determineValueDifference(playZoneValue, playedCardValue) ==
           ValueDifference.decrease ||
       determineValueDifference(playZoneValue, playedCardValue) ==

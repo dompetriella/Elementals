@@ -15,14 +15,22 @@ class OpponentSide extends ConsumerWidget {
     var element = ref.watch(gameDataProvider).players[1].elementalType;
     return Flexible(
       flex: 20,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          // Scoreboard(element: element),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: convertDataToCards(ref.watch(playerTwoProvider).hand,
-                  isShrunk: true, isFaceUp: false)),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Scoreboard(element: element),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: convertDataToCards(
+                      ref.watch(playerTwoProvider).hand,
+                      isShrunk: true,
+                      isFaceUp: false)),
+            ],
+          ),
+          Text(
+              'Turns: ${ref.watch(gameDataProvider).totalTurns} \nPlayerTurns  ${ref.watch(gameDataProvider).playerTurns}')
         ],
       ),
     );

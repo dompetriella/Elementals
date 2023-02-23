@@ -11,8 +11,8 @@ _$_GameData _$$_GameDataFromJson(Map<String, dynamic> json) => _$_GameData(
               ?.map((e) => ElementCardData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      totalTurns: json['totalTurns'] as int? ?? 0,
-      currentTurns: json['currentTurns'] as int? ?? 0,
+      totalTurns: json['totalTurns'] as int? ?? 1,
+      playerTurns: json['playerTurns'] as int? ?? 1,
       players: (json['players'] as List<dynamic>?)
               ?.map((e) => PlayerData.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$_GameDataToJson(_$_GameData instance) =>
     <String, dynamic>{
       'playZone': instance.playZone,
       'totalTurns': instance.totalTurns,
-      'currentTurns': instance.currentTurns,
+      'playerTurns': instance.playerTurns,
       'players': instance.players,
       'currentPlayer': instance.currentPlayer,
       'overallScore': instance.overallScore,

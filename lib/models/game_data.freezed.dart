@@ -22,7 +22,7 @@ GameData _$GameDataFromJson(Map<String, dynamic> json) {
 mixin _$GameData {
   List<ElementCardData> get playZone => throw _privateConstructorUsedError;
   int get totalTurns => throw _privateConstructorUsedError;
-  int get currentTurns => throw _privateConstructorUsedError;
+  int get playerTurns => throw _privateConstructorUsedError;
   List<PlayerData> get players => throw _privateConstructorUsedError;
   PlayerData get currentPlayer => throw _privateConstructorUsedError;
   int get overallScore => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $GameDataCopyWith<$Res> {
   $Res call(
       {List<ElementCardData> playZone,
       int totalTurns,
-      int currentTurns,
+      int playerTurns,
       List<PlayerData> players,
       PlayerData currentPlayer,
       int overallScore,
@@ -68,7 +68,7 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
   $Res call({
     Object? playZone = null,
     Object? totalTurns = null,
-    Object? currentTurns = null,
+    Object? playerTurns = null,
     Object? players = null,
     Object? currentPlayer = null,
     Object? overallScore = null,
@@ -84,9 +84,9 @@ class _$GameDataCopyWithImpl<$Res, $Val extends GameData>
           ? _value.totalTurns
           : totalTurns // ignore: cast_nullable_to_non_nullable
               as int,
-      currentTurns: null == currentTurns
-          ? _value.currentTurns
-          : currentTurns // ignore: cast_nullable_to_non_nullable
+      playerTurns: null == playerTurns
+          ? _value.playerTurns
+          : playerTurns // ignore: cast_nullable_to_non_nullable
               as int,
       players: null == players
           ? _value.players
@@ -130,7 +130,7 @@ abstract class _$$_GameDataCopyWith<$Res> implements $GameDataCopyWith<$Res> {
   $Res call(
       {List<ElementCardData> playZone,
       int totalTurns,
-      int currentTurns,
+      int playerTurns,
       List<PlayerData> players,
       PlayerData currentPlayer,
       int overallScore,
@@ -154,7 +154,7 @@ class __$$_GameDataCopyWithImpl<$Res>
   $Res call({
     Object? playZone = null,
     Object? totalTurns = null,
-    Object? currentTurns = null,
+    Object? playerTurns = null,
     Object? players = null,
     Object? currentPlayer = null,
     Object? overallScore = null,
@@ -170,9 +170,9 @@ class __$$_GameDataCopyWithImpl<$Res>
           ? _value.totalTurns
           : totalTurns // ignore: cast_nullable_to_non_nullable
               as int,
-      currentTurns: null == currentTurns
-          ? _value.currentTurns
-          : currentTurns // ignore: cast_nullable_to_non_nullable
+      playerTurns: null == playerTurns
+          ? _value.playerTurns
+          : playerTurns // ignore: cast_nullable_to_non_nullable
               as int,
       players: null == players
           ? _value._players
@@ -201,8 +201,8 @@ class __$$_GameDataCopyWithImpl<$Res>
 class _$_GameData implements _GameData {
   const _$_GameData(
       {final List<ElementCardData> playZone = const [],
-      this.totalTurns = 0,
-      this.currentTurns = 0,
+      this.totalTurns = 1,
+      this.playerTurns = 1,
       final List<PlayerData> players = const [],
       this.currentPlayer = const PlayerData(),
       this.overallScore = 0,
@@ -228,7 +228,7 @@ class _$_GameData implements _GameData {
   final int totalTurns;
   @override
   @JsonKey()
-  final int currentTurns;
+  final int playerTurns;
   final List<PlayerData> _players;
   @override
   @JsonKey()
@@ -253,7 +253,7 @@ class _$_GameData implements _GameData {
 
   @override
   String toString() {
-    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, currentTurns: $currentTurns, players: $players, currentPlayer: $currentPlayer, overallScore: $overallScore, currentWinner: $currentWinner, gameOver: $gameOver)';
+    return 'GameData(playZone: $playZone, totalTurns: $totalTurns, playerTurns: $playerTurns, players: $players, currentPlayer: $currentPlayer, overallScore: $overallScore, currentWinner: $currentWinner, gameOver: $gameOver)';
   }
 
   @override
@@ -264,8 +264,8 @@ class _$_GameData implements _GameData {
             const DeepCollectionEquality().equals(other._playZone, _playZone) &&
             (identical(other.totalTurns, totalTurns) ||
                 other.totalTurns == totalTurns) &&
-            (identical(other.currentTurns, currentTurns) ||
-                other.currentTurns == currentTurns) &&
+            (identical(other.playerTurns, playerTurns) ||
+                other.playerTurns == playerTurns) &&
             const DeepCollectionEquality().equals(other._players, _players) &&
             (identical(other.currentPlayer, currentPlayer) ||
                 other.currentPlayer == currentPlayer) &&
@@ -283,7 +283,7 @@ class _$_GameData implements _GameData {
       runtimeType,
       const DeepCollectionEquality().hash(_playZone),
       totalTurns,
-      currentTurns,
+      playerTurns,
       const DeepCollectionEquality().hash(_players),
       currentPlayer,
       overallScore,
@@ -308,7 +308,7 @@ abstract class _GameData implements GameData {
   const factory _GameData(
       {final List<ElementCardData> playZone,
       final int totalTurns,
-      final int currentTurns,
+      final int playerTurns,
       final List<PlayerData> players,
       final PlayerData currentPlayer,
       final int overallScore,
@@ -322,7 +322,7 @@ abstract class _GameData implements GameData {
   @override
   int get totalTurns;
   @override
-  int get currentTurns;
+  int get playerTurns;
   @override
   List<PlayerData> get players;
   @override

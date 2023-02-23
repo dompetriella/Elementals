@@ -10,12 +10,10 @@ const int winningScore = 50;
 
 const int normalPlay = 1;
 
-const int fireBonus = 5;
-const int fireMax = 10;
-const int firePenalty = -1;
+const int fireBonus = 3;
+const int firePenalty = 0;
 
-const int airBonus = 5;
-const int airMax = 8;
+const int airBonus = 2;
 const int airPenalty = 0;
 
 const int waterBonus = 4;

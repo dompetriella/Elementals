@@ -16,6 +16,7 @@ endPlayerTurn(WidgetRef ref, Players playerNumber) async {
     ref.read(playerTwoProvider.notifier).discardHand(ref, playerNumber);
     Future.delayed(Duration(seconds: 1));
   }
+  ref.read(gameDataProvider.notifier).increaseTurnCount();
   ref.read(gameDataProvider.notifier).switchActivePlayer(ref);
 }
 
