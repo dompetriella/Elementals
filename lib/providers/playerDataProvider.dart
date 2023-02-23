@@ -214,6 +214,25 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     updatePlayerDataToGameData(ref, playerNumber);
   }
 
+  // forge
+  earthAbilityOne(WidgetRef ref, String cardId, Players playerNumber) {
+    var handCopy = state.hand.toList();
+    int selectIndex = handCopy.indexWhere((element) => element.id == cardId);
+    if (handCopy[selectIndex].value < highestCardValue) {
+      handCopy[selectIndex] = handCopy[selectIndex]
+          .copyWith(value: handCopy[selectIndex].value + 1);
+    } else {
+      notifyDynamicInfo(
+          ref, 'Cannot use Ability: Value cannot exceed $highestCardValue');
+      return;
+    }
+    state = state.copyWith(
+        hand: handCopy,
+        abilityCharges: state.abilityCharges - 1,
+        abilityActive: false);
+    updatePlayerDataToGameData(ref, playerNumber);
+  }
+
   givePlayerTurnAbilityCharge(WidgetRef ref, Players playerNumber) {
     state = state.copyWith(abilityCharges: 1);
     updatePlayerDataToGameData(ref, playerNumber);

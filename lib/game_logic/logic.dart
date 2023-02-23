@@ -87,6 +87,11 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
               .read(playerProvider.notifier)
               .waterAbilityOne(ref, elementCardData.id, Players.p1);
           break;
+        case ElementalType.earth:
+          ref
+              .read(playerProvider.notifier)
+              .earthAbilityOne(ref, elementCardData.id, Players.p1);
+          break;
         default:
       }
     } else if (ref.read(playerProvider).selectedCard == elementCardData.id) {
