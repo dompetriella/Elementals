@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:elementals/game_logic/elementalAbilities.dart';
+import 'package:elementals/game_logic/elemental_abilities.dart';
 import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
@@ -18,17 +18,23 @@ setInitalGameProperties(WidgetRef ref) {
   ref.read(playerProvider.notifier).state = PlayerData(
       id: playerOneGuid,
       name: 'Player One',
+      playerNumber: 1,
       elementalType: ref.read(playerProvider).elementalType,
       elementalAbilities:
           loadElementalAbility(ref.read(playerProvider).elementalType),
+      currentTurnAbility:
+          loadElementalAbility(ref.read(playerProvider).elementalType).first,
       deck: createPlayerDeck(
           playerOneGuid, ref.read(playerProvider).elementalType));
 
   ref.read(playerTwoProvider.notifier).state = PlayerData(
       id: playerTwoGuid,
       name: 'Player Two',
+      playerNumber: 2,
       elementalType: randomElement,
       elementalAbilities: loadElementalAbility(randomElement),
+      currentTurnAbility:
+          loadElementalAbility(ref.read(playerProvider).elementalType).first,
       deck: createPlayerDeck(playerTwoGuid, randomElement));
 
   ref.read(gameDataProvider.notifier).state = ref
@@ -46,18 +52,4 @@ setInitalGameProperties(WidgetRef ref) {
 
   ref.read(gameDataProvider.notifier).resetPlayZone();
   notifyDynamicInfo(ref, "Player One's Turn");
-}
-
-// won't work correctly when new abilities are added, but easy for now
-List<Ability> loadElementalAbility(ElementalType elementalType) {
-  switch (elementalType) {
-    case ElementalType.fire:
-      return [Ability.values[0], Ability.values[3]];
-    case ElementalType.air:
-      return [Ability.values[1], Ability.values[4]];
-    case ElementalType.water:
-      return [Ability.values[2], Ability.values[5]];
-    case ElementalType.earth:
-      return [Ability.values[3], Ability.values[6]];
-  }
 }

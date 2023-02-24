@@ -4,7 +4,7 @@ import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../game_logic/elementalAbilities.dart';
+import '../game_logic/elemental_abilities.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
 import '../models/player_data.dart';

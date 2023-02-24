@@ -8,21 +8,6 @@ import 'package:flutter/material.dart';
 import '../../../game_logic/game_loop.dart';
 import 'player_turn_action_button.dart';
 
-String getButtonName(ElementalType elementalType) {
-  switch (elementalType) {
-    case ElementalType.fire:
-      return "Burn";
-    case ElementalType.air:
-      return "Gust";
-    case ElementalType.water:
-      return "Tide";
-    case ElementalType.earth:
-      return "Mold";
-    default:
-      return "Ability";
-  }
-}
-
 toggleElementalAbility(ElementalType elementalType, WidgetRef ref) {
   ref.read(playerProvider.notifier).state = ref
       .read(playerProvider)
@@ -52,7 +37,11 @@ class ActionButtonArea extends ConsumerWidget {
             },
             child: PlayerTurnActionButton(
               theme: theme,
-              text: getButtonName(ref.watch(playerProvider).elementalType),
+              text: ref
+                  .watch(playerProvider)
+                  .currentTurnAbility
+                  .name
+                  .toUpperCase(),
               isAvailable: ref.watch(playerProvider).abilityCharges > 0,
               isActive: ref.watch(playerProvider).abilityActive,
             ),

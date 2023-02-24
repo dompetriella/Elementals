@@ -21,6 +21,7 @@ PlayerData _$PlayerDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PlayerData {
   String get id => throw _privateConstructorUsedError;
+  int get playerNumber => throw _privateConstructorUsedError;
   ElementalType get elementalType => throw _privateConstructorUsedError;
   List<ElementCardData> get deck => throw _privateConstructorUsedError;
   List<ElementCardData> get hand => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $PlayerDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      int playerNumber,
       ElementalType elementalType,
       List<ElementCardData> deck,
       List<ElementCardData> hand,
@@ -74,6 +76,7 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
   @override
   $Res call({
     Object? id = null,
+    Object? playerNumber = null,
     Object? elementalType = null,
     Object? deck = null,
     Object? hand = null,
@@ -91,6 +94,10 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      playerNumber: null == playerNumber
+          ? _value.playerNumber
+          : playerNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -149,6 +156,7 @@ abstract class _$$_PlayerDataCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      int playerNumber,
       ElementalType elementalType,
       List<ElementCardData> deck,
       List<ElementCardData> hand,
@@ -174,6 +182,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? playerNumber = null,
     Object? elementalType = null,
     Object? deck = null,
     Object? hand = null,
@@ -191,6 +200,10 @@ class __$$_PlayerDataCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      playerNumber: null == playerNumber
+          ? _value.playerNumber
+          : playerNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       elementalType: null == elementalType
           ? _value.elementalType
           : elementalType // ignore: cast_nullable_to_non_nullable
@@ -244,6 +257,7 @@ class __$$_PlayerDataCopyWithImpl<$Res>
 class _$_PlayerData implements _PlayerData {
   const _$_PlayerData(
       {this.id = '0',
+      this.playerNumber = 0,
       this.elementalType = ElementalType.fire,
       final List<ElementCardData> deck = const [],
       final List<ElementCardData> hand = const [],
@@ -266,6 +280,9 @@ class _$_PlayerData implements _PlayerData {
   @override
   @JsonKey()
   final String id;
+  @override
+  @JsonKey()
+  final int playerNumber;
   @override
   @JsonKey()
   final ElementalType elementalType;
@@ -327,7 +344,7 @@ class _$_PlayerData implements _PlayerData {
 
   @override
   String toString() {
-    return 'PlayerData(id: $id, elementalType: $elementalType, deck: $deck, hand: $hand, discardPile: $discardPile, score: $score, selectedCard: $selectedCard, abilityCharges: $abilityCharges, abilityActive: $abilityActive, elementalAbilities: $elementalAbilities, currentTurnAbility: $currentTurnAbility, name: $name)';
+    return 'PlayerData(id: $id, playerNumber: $playerNumber, elementalType: $elementalType, deck: $deck, hand: $hand, discardPile: $discardPile, score: $score, selectedCard: $selectedCard, abilityCharges: $abilityCharges, abilityActive: $abilityActive, elementalAbilities: $elementalAbilities, currentTurnAbility: $currentTurnAbility, name: $name)';
   }
 
   @override
@@ -336,6 +353,8 @@ class _$_PlayerData implements _PlayerData {
         (other.runtimeType == runtimeType &&
             other is _$_PlayerData &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.playerNumber, playerNumber) ||
+                other.playerNumber == playerNumber) &&
             (identical(other.elementalType, elementalType) ||
                 other.elementalType == elementalType) &&
             const DeepCollectionEquality().equals(other._deck, _deck) &&
@@ -361,6 +380,7 @@ class _$_PlayerData implements _PlayerData {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      playerNumber,
       elementalType,
       const DeepCollectionEquality().hash(_deck),
       const DeepCollectionEquality().hash(_hand),
@@ -390,6 +410,7 @@ class _$_PlayerData implements _PlayerData {
 abstract class _PlayerData implements PlayerData {
   const factory _PlayerData(
       {final String id,
+      final int playerNumber,
       final ElementalType elementalType,
       final List<ElementCardData> deck,
       final List<ElementCardData> hand,
@@ -407,6 +428,8 @@ abstract class _PlayerData implements PlayerData {
 
   @override
   String get id;
+  @override
+  int get playerNumber;
   @override
   ElementalType get elementalType;
   @override

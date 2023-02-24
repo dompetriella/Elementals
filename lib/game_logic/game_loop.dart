@@ -35,7 +35,5 @@ continueGameLoop(WidgetRef ref) async {
 
 updateAbilityToTurn(WidgetRef ref) {
   ref.read(playerProvider.notifier).swapAbilityOnPlayerTurnChange(ref);
-  ref.read(playerProvider.notifier).updatePlayerDataToGameData(ref, Players.p1);
   ref.read(playerProvider.notifier).swapAbilityOnPlayerTurnChange(ref);
-  ref.read(playerProvider.notifier).updatePlayerDataToGameData(ref, Players.p2);
 }

@@ -67,7 +67,7 @@ runAbility(Ability ability, PlayerDataNotifier notifier, String cardId,
           ref, '${ability.name} is not ready yet, doing nothing.');
       break;
     case Ability.forge:
-      notifier.fireAbilityOne(ref, cardId, playerNumber);
+      notifier.earthAbilityOne(ref, cardId, playerNumber);
       break;
 
     case Ability.glow:
@@ -85,5 +85,19 @@ runAbility(Ability ability, PlayerDataNotifier notifier, String cardId,
       notifier.earthAbilityTwo(ref, cardId, playerNumber);
       break;
     default:
+  }
+}
+
+// won't work correctly when new abilities are added, but easy for now
+List<Ability> loadElementalAbility(ElementalType elementalType) {
+  switch (elementalType) {
+    case ElementalType.fire:
+      return [Ability.values[0], Ability.values[4]];
+    case ElementalType.air:
+      return [Ability.values[1], Ability.values[5]];
+    case ElementalType.water:
+      return [Ability.values[2], Ability.values[6]];
+    case ElementalType.earth:
+      return [Ability.values[3], Ability.values[7]];
   }
 }

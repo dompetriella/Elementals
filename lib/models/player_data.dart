@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../game_logic/elementalAbilities.dart';
+import '../game_logic/elemental_abilities.dart';
 import 'element_card_data.dart';
 import 'enums.dart';
 
@@ -10,6 +10,7 @@ part 'player_data.g.dart';
 class PlayerData with _$PlayerData {
   const factory PlayerData(
       {@Default('0') String id,
+      @Default(0) int playerNumber,
       @Default(ElementalType.fire) ElementalType elementalType,
       @Default([]) List<ElementCardData> deck,
       @Default([]) List<ElementCardData> hand,

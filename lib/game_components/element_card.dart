@@ -33,7 +33,8 @@ class ElementCard extends HookConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: cardSpacing),
       child: GestureDetector(
         onTap: () {
-          selectCardToPlay(elementCardData, ref);
+          selectCardToPlay(elementCardData, ref, ref.read(playerProvider),
+              ref.read(playerProvider.notifier));
         },
         onDoubleTap: () {
           immediatelyPlayCard(elementCardData, ref);

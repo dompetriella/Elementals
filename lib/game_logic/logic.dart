@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:elementals/game_components/element_card.dart';
+import 'package:elementals/game_logic/elemental_abilities.dart';
 import 'package:elementals/providers/dynamicInfoProvider.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -61,36 +62,16 @@ notifyDynamicInfo(WidgetRef ref, String message) {
   ref.read(dynamicInfoProvider.notifier).state = message;
 }
 
-selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
+selectCardToPlay(ElementCardData elementCardData, WidgetRef ref,
+    PlayerData player, PlayerDataNotifier playerNotifier) {
   if (elementCardData.canBeSelected &&
       elementCardData.ownerId == ref.read(playerProvider).id &&
       ref.read(gameDataProvider).currentPlayer.id ==
           ref.read(playerProvider).id) {
     // use abilities
     if (ref.read(playerProvider).abilityActive) {
-      switch (elementCardData.elementalType) {
-        case ElementalType.fire:
-          ref
-              .read(playerProvider.notifier)
-              .fireAbilityOne(ref, elementCardData.id, Players.p1);
-          break;
-        case ElementalType.air:
-          ref
-              .read(playerProvider.notifier)
-              .airAbilityOne(ref, elementCardData.id, Players.p1);
-          break;
-        case ElementalType.water:
-          ref
-              .read(playerProvider.notifier)
-              .waterAbilityTwo(ref, elementCardData.id, Players.p1);
-          break;
-        case ElementalType.earth:
-          ref
-              .read(playerProvider.notifier)
-              .earthAbilityOne(ref, elementCardData.id, Players.p1);
-          break;
-        default:
-      }
+      runAbility(player.currentTurnAbility, playerNotifier, elementCardData.id,
+          ref, Players.values[player.playerNumber - 1]);
     } else if (ref.read(playerProvider).selectedCard == elementCardData.id) {
       if (isCardPlayable(elementCardData, ref)) {
         ref
@@ -216,12 +197,8 @@ updateOverallScore(WidgetRef ref) {
 
   int scoreDiff = (playerOne.score - playerTwo.score).abs();
 
-  print(scoreDiff);
-
   PlayerData winningPlayer =
       playerOne.score > playerTwo.score ? playerOne : playerTwo;
-
-  print(winningPlayer.name);
 
   ref.read(gameDataProvider.notifier).state = ref
       .read(gameDataProvider)
