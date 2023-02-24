@@ -21,7 +21,9 @@ _$_GameData _$$_GameDataFromJson(Map<String, dynamic> json) => _$_GameData(
           ? const PlayerData()
           : PlayerData.fromJson(json['currentPlayer'] as Map<String, dynamic>),
       overallScore: json['overallScore'] as int? ?? 0,
-      currentWinner: json['currentWinner'] ?? const PlayerData(),
+      currentWinner: json['currentWinner'] == null
+          ? const PlayerData()
+          : PlayerData.fromJson(json['currentWinner'] as Map<String, dynamic>),
       gameOver: json['gameOver'] as bool? ?? false,
     );
 

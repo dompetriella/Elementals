@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:elementals/game_logic/logic.dart';
@@ -42,6 +43,7 @@ class OpponentSideBackground extends ConsumerWidget {
       duration: Duration(milliseconds: duration),
       curve: curve,
       height: calculateFieldHeight(context, ref, ref.watch(playerTwoProvider)),
+      width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -50,6 +52,9 @@ class OpponentSideBackground extends ConsumerWidget {
             HexColor(ref.watch(playerTwoProvider).elementalType.primaryColor),
             HexColor(ref.watch(playerTwoProvider).elementalType.secondaryColor),
           ])),
+      child: Align(
+          alignment: Alignment.bottomRight,
+          child: showScore(ref, ref.watch(playerTwoProvider))),
     );
   }
 }
@@ -65,6 +70,7 @@ class PlayerBackground extends ConsumerWidget {
       duration: Duration(milliseconds: duration),
       curve: curve,
       height: calculateFieldHeight(context, ref, ref.watch(playerProvider)),
+      width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -73,6 +79,27 @@ class PlayerBackground extends ConsumerWidget {
             HexColor(ref.watch(playerProvider).elementalType.secondaryColor),
             HexColor(ref.watch(playerProvider).elementalType.primaryColor),
           ])),
+      child: Align(
+          alignment: Alignment.topRight,
+          child: showScore(ref, ref.watch(playerProvider))),
     );
+  }
+}
+
+Widget showScore(WidgetRef ref, PlayerData player) {
+  // TODO: current winner bugs out, need to fix this
+  if (ref.read(gameDataProvider).currentWinner == player) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        '${ref.watch(gameDataProvider).overallScore}',
+        style: TextStyle(
+            fontSize: 15 +
+                10 * (ref.watch(gameDataProvider).overallScore / winningScore),
+            fontWeight: FontWeight.w600),
+      ),
+    );
+  } else {
+    return SizedBox.shrink();
   }
 }

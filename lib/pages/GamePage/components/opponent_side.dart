@@ -29,13 +29,6 @@ class OpponentSide extends ConsumerWidget {
                       isFaceUp: false)),
             ],
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text(
-              'Turns: ${ref.watch(gameDataProvider).totalTurns} \nPlayerTurns  ${ref.watch(gameDataProvider).playerTurns}',
-              textAlign: TextAlign.center,
-            ),
-          )
         ],
       ),
     );

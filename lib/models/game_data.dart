@@ -15,7 +15,7 @@ class GameData with _$GameData {
       @Default([]) List<PlayerData> players,
       @Default(PlayerData()) PlayerData currentPlayer,
       @Default(0) int overallScore,
-      @Default(PlayerData()) currentWinner,
+      @Default(PlayerData()) PlayerData currentWinner,
       @Default(false) bool gameOver}) = _GameData;
 
   factory GameData.fromJson(Map<String, Object?> json) =>
