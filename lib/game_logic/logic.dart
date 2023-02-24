@@ -82,7 +82,7 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref) {
         case ElementalType.water:
           ref
               .read(playerProvider.notifier)
-              .waterAbilityOne(ref, elementCardData.id, Players.p1);
+              .waterAbilityTwo(ref, elementCardData.id, Players.p1);
           break;
         case ElementalType.earth:
           ref

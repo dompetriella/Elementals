@@ -186,7 +186,7 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   }
 
   //tide
-  waterAbilityOne(WidgetRef ref, String cardId, Players playerNumber) {
+  waterAbilityTwo(WidgetRef ref, String cardId, Players playerNumber) {
     if (state.discardPile.isEmpty) {
       notifyDynamicInfo(
           ref, 'Cannot use Ability: No Discard Pile Card to Switch With');

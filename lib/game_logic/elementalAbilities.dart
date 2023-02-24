@@ -1,3 +1,4 @@
+import 'package:elementals/game_logic/logic.dart';
 import 'package:elementals/models/enums.dart';
 import 'package:elementals/providers/playerDataProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,21 +53,37 @@ enum Ability {
   );
 }
 
-// runAbility(Ability ability, PlayerDataNotifier notifier, String cardId,
-//     WidgetRef ref, Players playerNumber) {
-//   switch (ability) {
-//     case Ability.burn:
-//       notifier.fireAbilityOne(ref, cardId, playerNumber);
-//       break;
-//     case Ability.burn:
-//       notifier.fireAbilityOne(ref, cardId, playerNumber);
-//       break;
-//     case Ability.burn:
-//       notifier.fireAbilityOne(ref, cardId, playerNumber);
-//       break;
-//     case Ability.burn:
-//       notifier.fireAbilityOne(ref, cardId, playerNumber);
-//       break;
-//     default:
-//   }
-// }
+runAbility(Ability ability, PlayerDataNotifier notifier, String cardId,
+    WidgetRef ref, Players playerNumber) {
+  switch (ability) {
+    case Ability.burn:
+      notifier.fireAbilityOne(ref, cardId, playerNumber);
+      break;
+    case Ability.gust:
+      notifier.airAbilityOne(ref, cardId, playerNumber);
+      break;
+    case Ability.float:
+      notifyDynamicInfo(
+          ref, '${ability.name} is not ready yet, doing nothing.');
+      break;
+    case Ability.forge:
+      notifier.fireAbilityOne(ref, cardId, playerNumber);
+      break;
+
+    case Ability.glow:
+      notifyDynamicInfo(
+          ref, '${ability.name} is not ready yet, doing nothing.');
+      break;
+    case Ability.gale:
+      notifyDynamicInfo(
+          ref, '${ability.name} is not ready yet, doing nothing.');
+      break;
+    case Ability.tide:
+      notifier.waterAbilityTwo(ref, cardId, playerNumber);
+      break;
+    case Ability.crumble:
+      notifier.earthAbilityTwo(ref, cardId, playerNumber);
+      break;
+    default:
+  }
+}
