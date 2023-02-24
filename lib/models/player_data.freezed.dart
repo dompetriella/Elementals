@@ -29,8 +29,8 @@ mixin _$PlayerData {
   String get selectedCard => throw _privateConstructorUsedError;
   int get abilityCharges => throw _privateConstructorUsedError;
   bool get abilityActive => throw _privateConstructorUsedError;
-  List<String> get elementalAbilities => throw _privateConstructorUsedError;
-  String get currentTurnAbility => throw _privateConstructorUsedError;
+  List<Ability> get elementalAbilities => throw _privateConstructorUsedError;
+  Ability get currentTurnAbility => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,8 +55,8 @@ abstract class $PlayerDataCopyWith<$Res> {
       String selectedCard,
       int abilityCharges,
       bool abilityActive,
-      List<String> elementalAbilities,
-      String currentTurnAbility,
+      List<Ability> elementalAbilities,
+      Ability currentTurnAbility,
       String name});
 }
 
@@ -126,11 +126,11 @@ class _$PlayerDataCopyWithImpl<$Res, $Val extends PlayerData>
       elementalAbilities: null == elementalAbilities
           ? _value.elementalAbilities
           : elementalAbilities // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Ability>,
       currentTurnAbility: null == currentTurnAbility
           ? _value.currentTurnAbility
           : currentTurnAbility // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Ability,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -157,8 +157,8 @@ abstract class _$$_PlayerDataCopyWith<$Res>
       String selectedCard,
       int abilityCharges,
       bool abilityActive,
-      List<String> elementalAbilities,
-      String currentTurnAbility,
+      List<Ability> elementalAbilities,
+      Ability currentTurnAbility,
       String name});
 }
 
@@ -226,11 +226,11 @@ class __$$_PlayerDataCopyWithImpl<$Res>
       elementalAbilities: null == elementalAbilities
           ? _value._elementalAbilities
           : elementalAbilities // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Ability>,
       currentTurnAbility: null == currentTurnAbility
           ? _value.currentTurnAbility
           : currentTurnAbility // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Ability,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -252,8 +252,8 @@ class _$_PlayerData implements _PlayerData {
       this.selectedCard = '',
       this.abilityCharges = 1,
       this.abilityActive = false,
-      final List<String> elementalAbilities = const [],
-      this.currentTurnAbility = '',
+      final List<Ability> elementalAbilities = const [],
+      this.currentTurnAbility = Ability.burn,
       this.name = ''})
       : _deck = deck,
         _hand = hand,
@@ -308,10 +308,10 @@ class _$_PlayerData implements _PlayerData {
   @override
   @JsonKey()
   final bool abilityActive;
-  final List<String> _elementalAbilities;
+  final List<Ability> _elementalAbilities;
   @override
   @JsonKey()
-  List<String> get elementalAbilities {
+  List<Ability> get elementalAbilities {
     if (_elementalAbilities is EqualUnmodifiableListView)
       return _elementalAbilities;
     // ignore: implicit_dynamic_type
@@ -320,7 +320,7 @@ class _$_PlayerData implements _PlayerData {
 
   @override
   @JsonKey()
-  final String currentTurnAbility;
+  final Ability currentTurnAbility;
   @override
   @JsonKey()
   final String name;
@@ -398,8 +398,8 @@ abstract class _PlayerData implements PlayerData {
       final String selectedCard,
       final int abilityCharges,
       final bool abilityActive,
-      final List<String> elementalAbilities,
-      final String currentTurnAbility,
+      final List<Ability> elementalAbilities,
+      final Ability currentTurnAbility,
       final String name}) = _$_PlayerData;
 
   factory _PlayerData.fromJson(Map<String, dynamic> json) =
@@ -424,9 +424,9 @@ abstract class _PlayerData implements PlayerData {
   @override
   bool get abilityActive;
   @override
-  List<String> get elementalAbilities;
+  List<Ability> get elementalAbilities;
   @override
-  String get currentTurnAbility;
+  Ability get currentTurnAbility;
   @override
   String get name;
   @override

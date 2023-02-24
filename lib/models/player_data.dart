@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../game_logic/elementalAbilities.dart';
 import 'element_card_data.dart';
 import 'enums.dart';
 
@@ -17,8 +18,8 @@ class PlayerData with _$PlayerData {
       @Default('') String selectedCard,
       @Default(1) int abilityCharges,
       @Default(false) bool abilityActive,
-      @Default([]) List<String> elementalAbilities,
-      @Default('') String currentTurnAbility,
+      @Default([]) List<Ability> elementalAbilities,
+      @Default(Ability.burn) Ability currentTurnAbility,
       @Default('') String name}) = _PlayerData;
 
   factory PlayerData.fromJson(Map<String, Object?> json) =>

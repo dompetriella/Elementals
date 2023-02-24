@@ -29,10 +29,12 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
       abilityCharges: json['abilityCharges'] as int? ?? 1,
       abilityActive: json['abilityActive'] as bool? ?? false,
       elementalAbilities: (json['elementalAbilities'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => $enumDecode(_$AbilityEnumMap, e))
               .toList() ??
           const [],
-      currentTurnAbility: json['currentTurnAbility'] as String? ?? '',
+      currentTurnAbility:
+          $enumDecodeNullable(_$AbilityEnumMap, json['currentTurnAbility']) ??
+              Ability.burn,
       name: json['name'] as String? ?? '',
     );
 
@@ -47,8 +49,9 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
       'selectedCard': instance.selectedCard,
       'abilityCharges': instance.abilityCharges,
       'abilityActive': instance.abilityActive,
-      'elementalAbilities': instance.elementalAbilities,
-      'currentTurnAbility': instance.currentTurnAbility,
+      'elementalAbilities':
+          instance.elementalAbilities.map((e) => _$AbilityEnumMap[e]!).toList(),
+      'currentTurnAbility': _$AbilityEnumMap[instance.currentTurnAbility]!,
       'name': instance.name,
     };
 
@@ -57,4 +60,15 @@ const _$ElementalTypeEnumMap = {
   ElementalType.air: 'air',
   ElementalType.water: 'water',
   ElementalType.earth: 'earth',
+};
+
+const _$AbilityEnumMap = {
+  Ability.burn: 'burn',
+  Ability.gust: 'gust',
+  Ability.float: 'float',
+  Ability.forge: 'forge',
+  Ability.glow: 'glow',
+  Ability.gale: 'gale',
+  Ability.tide: 'tide',
+  Ability.crumble: 'crumble',
 };
