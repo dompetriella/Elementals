@@ -4,6 +4,7 @@ import 'package:elementals/providers/gameDataProvider.dart';
 import 'package:elementals/globals.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../game_logic/elementalAbilities.dart';
 import '../models/element_card_data.dart';
 import '../models/enums.dart';
 import '../models/player_data.dart';
@@ -249,5 +250,14 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
   givePlayerTurnAbilityCharge(WidgetRef ref, Players playerNumber) {
     state = state.copyWith(abilityCharges: 1);
     updatePlayerDataToGameData(ref, playerNumber);
+  }
+
+  swapAbilityOnPlayerTurnChange(WidgetRef ref) {
+    Ability abiltyOne = state.elementalAbilities[0];
+    Ability abiltyTwo = state.elementalAbilities[1];
+    state = state.copyWith(
+        currentTurnAbility: ref.read(gameDataProvider).playerTurns % 2 == 0
+            ? abiltyTwo
+            : abiltyOne);
   }
 }
