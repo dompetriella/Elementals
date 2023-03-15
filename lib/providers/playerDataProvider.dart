@@ -251,13 +251,4 @@ class PlayerDataNotifier extends StateNotifier<PlayerData> {
     state = state.copyWith(abilityCharges: 1);
     updatePlayerDataToGameData(ref, playerNumber);
   }
-
-  swapAbilityOnPlayerTurnChange(WidgetRef ref) {
-    Ability abiltyOne = state.elementalAbilities[0];
-    Ability abiltyTwo = state.elementalAbilities[1];
-    state = state.copyWith(
-        currentTurnAbility: ref.read(gameDataProvider).playerTurns % 2 == 0
-            ? abiltyTwo
-            : abiltyOne);
-  }
 }

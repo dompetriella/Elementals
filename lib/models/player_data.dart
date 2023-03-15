@@ -19,8 +19,7 @@ class PlayerData with _$PlayerData {
       @Default('') String selectedCard,
       @Default(1) int abilityCharges,
       @Default(false) bool abilityActive,
-      @Default([]) List<Ability> elementalAbilities,
-      @Default(Ability.burn) Ability currentTurnAbility,
+      @Default(Ability.burn) Ability elementalAbility,
       @Default('') String name}) = _PlayerData;
 
   factory PlayerData.fromJson(Map<String, Object?> json) =>

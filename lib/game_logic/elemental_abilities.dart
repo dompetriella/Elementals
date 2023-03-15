@@ -62,42 +62,26 @@ runAbility(Ability ability, PlayerDataNotifier notifier, String cardId,
     case Ability.gust:
       notifier.airAbilityOne(ref, cardId, playerNumber);
       break;
-    case Ability.float:
-      notifyDynamicInfo(
-          ref, '${ability.name} is not ready yet, doing nothing.');
-      break;
-    case Ability.forge:
-      notifier.earthAbilityOne(ref, cardId, playerNumber);
-      break;
-
-    case Ability.glow:
-      notifyDynamicInfo(
-          ref, '${ability.name} is not ready yet, doing nothing.');
-      break;
-    case Ability.gale:
-      notifyDynamicInfo(
-          ref, '${ability.name} is not ready yet, doing nothing.');
-      break;
     case Ability.tide:
       notifier.waterAbilityTwo(ref, cardId, playerNumber);
       break;
-    case Ability.crumble:
-      notifier.earthAbilityTwo(ref, cardId, playerNumber);
+    case Ability.forge:
+      notifier.earthAbilityOne(ref, cardId, playerNumber);
       break;
     default:
   }
 }
 
 // won't work correctly when new abilities are added, but easy for now
-List<Ability> loadElementalAbility(ElementalType elementalType) {
+Ability loadElementalAbility(ElementalType elementalType) {
   switch (elementalType) {
     case ElementalType.fire:
-      return [Ability.values[0], Ability.values[4]];
+      return Ability.burn;
     case ElementalType.air:
-      return [Ability.values[1], Ability.values[5]];
+      return Ability.gust;
     case ElementalType.water:
-      return [Ability.values[2], Ability.values[6]];
+      return Ability.tide;
     case ElementalType.earth:
-      return [Ability.values[3], Ability.values[7]];
+      return Ability.forge;
   }
 }

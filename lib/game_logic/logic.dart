@@ -70,7 +70,7 @@ selectCardToPlay(ElementCardData elementCardData, WidgetRef ref,
           ref.read(playerProvider).id) {
     // use abilities
     if (ref.read(playerProvider).abilityActive) {
-      runAbility(player.currentTurnAbility, playerNotifier, elementCardData.id,
+      runAbility(player.elementalAbility, playerNotifier, elementCardData.id,
           ref, Players.values[player.playerNumber - 1]);
     } else if (ref.read(playerProvider).selectedCard == elementCardData.id) {
       if (isCardPlayable(elementCardData, ref)) {

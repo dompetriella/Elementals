@@ -25,15 +25,9 @@ continueGameLoop(WidgetRef ref) async {
   notifyDynamicInfo(ref, "The CPU is thinking...");
   await cpuTurn(ref);
   endPlayerTurn(ref, Players.p2);
-  updateAbilityToTurn(ref);
   notifyDynamicInfo(ref, "Player One's Turn");
   ref.read(playerProvider.notifier).fillPlayerHand(ref, Players.p1);
   ref
       .read(playerProvider.notifier)
       .givePlayerTurnAbilityCharge(ref, Players.p1);
-}
-
-updateAbilityToTurn(WidgetRef ref) {
-  ref.read(playerProvider.notifier).swapAbilityOnPlayerTurnChange(ref);
-  ref.read(playerProvider.notifier).swapAbilityOnPlayerTurnChange(ref);
 }

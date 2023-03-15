@@ -24,40 +24,33 @@ class ActionButtonArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          GestureDetector(
-            onTap: () {
-              clearCardTransforms(ref);
-              toggleElementalAbility(
-                  ref.read(playerProvider).elementalType, ref);
-            },
-            child: PlayerTurnActionButton(
-              theme: theme,
-              text: ref
-                  .watch(playerProvider)
-                  .currentTurnAbility
-                  .name
-                  .toUpperCase(),
-              isAvailable: ref.watch(playerProvider).abilityCharges > 0,
-              isActive: ref.watch(playerProvider).abilityActive,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        GestureDetector(
+          onTap: () {
+            clearCardTransforms(ref);
+            toggleElementalAbility(ref.read(playerProvider).elementalType, ref);
+          },
+          child: PlayerTurnActionButton(
+            theme: theme,
+            text: ref.watch(playerProvider).elementalAbility.name.toUpperCase(),
+            isAvailable: ref.watch(playerProvider).abilityCharges > 0,
+            isActive: ref.watch(playerProvider).abilityActive,
           ),
-          GestureDetector(
-            onTap: () {
-              continueGameLoop(ref);
-            },
-            child: PlayerTurnActionButton(
-              theme: theme,
-              text: 'End Turn',
-              isAvailable: true,
-            ),
+        ),
+        GestureDetector(
+          onTap: () {
+            continueGameLoop(ref);
+          },
+          child: PlayerTurnActionButton(
+            theme: theme,
+            text: 'End Turn',
+            isAvailable: true,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

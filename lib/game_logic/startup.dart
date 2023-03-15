@@ -20,10 +20,8 @@ setInitalGameProperties(WidgetRef ref) {
       name: 'Player One',
       playerNumber: 1,
       elementalType: ref.read(playerProvider).elementalType,
-      elementalAbilities:
+      elementalAbility:
           loadElementalAbility(ref.read(playerProvider).elementalType),
-      currentTurnAbility:
-          loadElementalAbility(ref.read(playerProvider).elementalType).first,
       deck: createPlayerDeck(
           playerOneGuid, ref.read(playerProvider).elementalType));
 
@@ -32,9 +30,7 @@ setInitalGameProperties(WidgetRef ref) {
       name: 'Player Two',
       playerNumber: 2,
       elementalType: randomElement,
-      elementalAbilities: loadElementalAbility(randomElement),
-      currentTurnAbility:
-          loadElementalAbility(ref.read(playerProvider).elementalType).first,
+      elementalAbility: loadElementalAbility(randomElement),
       deck: createPlayerDeck(playerTwoGuid, randomElement));
 
   ref.read(gameDataProvider.notifier).state = ref

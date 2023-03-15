@@ -29,12 +29,8 @@ _$_PlayerData _$$_PlayerDataFromJson(Map<String, dynamic> json) =>
       selectedCard: json['selectedCard'] as String? ?? '',
       abilityCharges: json['abilityCharges'] as int? ?? 1,
       abilityActive: json['abilityActive'] as bool? ?? false,
-      elementalAbilities: (json['elementalAbilities'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$AbilityEnumMap, e))
-              .toList() ??
-          const [],
-      currentTurnAbility:
-          $enumDecodeNullable(_$AbilityEnumMap, json['currentTurnAbility']) ??
+      elementalAbility:
+          $enumDecodeNullable(_$AbilityEnumMap, json['elementalAbility']) ??
               Ability.burn,
       name: json['name'] as String? ?? '',
     );
@@ -51,9 +47,7 @@ Map<String, dynamic> _$$_PlayerDataToJson(_$_PlayerData instance) =>
       'selectedCard': instance.selectedCard,
       'abilityCharges': instance.abilityCharges,
       'abilityActive': instance.abilityActive,
-      'elementalAbilities':
-          instance.elementalAbilities.map((e) => _$AbilityEnumMap[e]!).toList(),
-      'currentTurnAbility': _$AbilityEnumMap[instance.currentTurnAbility]!,
+      'elementalAbility': _$AbilityEnumMap[instance.elementalAbility]!,
       'name': instance.name,
     };
 
