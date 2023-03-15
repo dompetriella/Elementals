@@ -24,57 +24,114 @@ class PlayerHandArea extends ConsumerWidget {
             blurRadius: 10,
             spreadRadius: 6)
       ]),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
+      child: Column(children: [
+        PlayerHandBoard(theme: theme),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: theme.secondary.withOpacity(.75),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, -10),
-                            spreadRadius: 5,
-                            inset: true,
-                            color: Colors.black.withOpacity(.45))
-                      ],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 15),
-                    child: Stack(
-                      children: [
-                        Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              for (var i = 0; i < cardsInHand; i++)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: cardSpacing),
-                                  child: SizedBox(
-                                    height: cardHeightP1,
-                                    width: cardHeightP1 * cardWidthProportion,
-                                  ),
-                                )
-                            ]),
-                        Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: convertDataToCards(
-                              ref.watch(playerProvider).hand,
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-                DynamicInfoChannel(),
+                InfusionWell(theme: theme),
+                ActionButtonArea(theme: theme),
               ],
             ),
-            ActionButtonArea(theme: theme),
-          ]),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+class InfusionWell extends StatelessWidget {
+  const InfusionWell({
+    super.key,
+    required this.theme,
+  });
+
+  final ColorScheme theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: theme.tertiary,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Container(
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: theme.tertiary.withOpacity(.85),
+                      inset: true,
+                      offset: const Offset(1.5, 2.5),
+                      spreadRadius: 3)
+                ],
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.black, theme.tertiary]),
+                borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayerHandBoard extends ConsumerWidget {
+  const PlayerHandBoard({
+    super.key,
+    required this.theme,
+  });
+
+  final ColorScheme theme;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: theme.secondary.withOpacity(.75),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, -10),
+                    spreadRadius: 5,
+                    inset: true,
+                    color: Colors.black.withOpacity(.45))
+              ],
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 2, 8, 15),
+            child: Stack(
+              children: [
+                Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (var i = 0; i < cardsInHand; i++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: cardSpacing),
+                          child: SizedBox(
+                            height: cardHeightP1,
+                            width: cardHeightP1 * cardWidthProportion,
+                          ),
+                        )
+                    ]),
+                Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: convertDataToCards(
+                      ref.watch(playerProvider).hand,
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
